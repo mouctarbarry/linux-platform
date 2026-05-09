@@ -1,10 +1,10 @@
-import type { MetadataRoute } from 'next';
-import { getCommands } from '@/lib/commands';
-import { CATEGORIES, type Category } from '@/lib/categories';
+import type { MetadataRoute } from "next";
+import { getCommands } from "@/lib/commands";
+import { CATEGORIES, type Category } from "@/lib/categories";
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
-const BASE_URL = 'https://linux.mouctar.fr';
+const BASE_URL = "https://linux.mouctar.fr";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const commands = getCommands();

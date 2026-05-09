@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 
 interface UseCopyToClipboardReturn {
   copied: boolean;
@@ -8,14 +8,16 @@ interface UseCopyToClipboardReturn {
   reset: () => void;
 }
 
-export function useCopyToClipboard(resetDelay = 2000): UseCopyToClipboardReturn {
+export function useCopyToClipboard(
+  resetDelay = 2000,
+): UseCopyToClipboardReturn {
   const [copied, setCopied] = useState(false);
 
   const copy = useCallback(
     async (text: string) => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- SSR guard
-      if (typeof navigator === 'undefined' || !navigator.clipboard) {
-        console.warn('useCopyToClipboard: Clipboard API non disponible');
+      if (typeof navigator === "undefined" || !navigator.clipboard) {
+        console.warn("useCopyToClipboard: Clipboard API non disponible");
         return;
       }
       try {
@@ -25,7 +27,7 @@ export function useCopyToClipboard(resetDelay = 2000): UseCopyToClipboardReturn 
           setCopied(false);
         }, resetDelay);
       } catch (err) {
-        console.error('useCopyToClipboard: Erreur de copie', err);
+        console.error("useCopyToClipboard: Erreur de copie", err);
         setCopied(false);
       }
     },
