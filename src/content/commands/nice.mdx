@@ -1,0 +1,53 @@
+---
+title: nice
+category: processus
+description: Lancer un processus avec une priorité modifiée
+tags: [priorité, processus, ordonnancement, performance]
+---
+
+## Syntaxe
+
+```bash
+nice [OPTIONS] COMMANDE [ARGUMENTS]
+```
+
+## Options principales
+
+| Option           | Description                                       |
+| ---------------- | ------------------------------------------------- |
+| `-n PRIORITÉ`    | Définir la valeur de priorité (-20 à 19)          |
+| `--adjustment=N` | Ajouter N à la priorité actuelle                  |
+| `--help`         | Afficher l'aide                                   |
+
+## Exemples
+
+### Lancer une compilation avec une priorité basse
+
+```bash
+$ nice -n 10 make -j4
+make[1]: Entering directory '/home/mouctar/projet'
+  CC     src/main.o
+  CC     src/utils.o
+  LINK   build/app
+make[1]: Leaving directory '/home/mouctar/projet'
+```
+
+### Vérifier la priorité d'un processus lancé avec nice
+
+```bash
+$ nice -n 15 sleep 300 &
+[1] 4521
+$ ps -o pid,ni,comm -p 4521
+  PID  NI COMMAND
+ 4521  15 sleep
+```
+
+### Lancer un script avec la priorité maximale (root requis)
+
+```bash
+$ sudo nice -n -20 ./backup.sh
+[sudo] password for mouctar:
+Sauvegarde démarrée avec priorité maximale...
+Compression de /home/mouctar/data... terminée.
+Sauvegarde complète : 2.4 Go traités en 1m 32s.
+```

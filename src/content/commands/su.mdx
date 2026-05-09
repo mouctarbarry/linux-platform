@@ -1,0 +1,49 @@
+---
+title: su
+category: permissions
+description: Changer d'utilisateur dans le terminal
+tags: [utilisateur, session, authentification]
+---
+
+## Syntaxe
+
+```bash
+su [OPTIONS] [UTILISATEUR]
+```
+
+## Options principales
+
+| Option | Description                                         |
+| ------ | --------------------------------------------------- |
+| `-`    | Charger l'environnement complet de l'utilisateur    |
+| `-c`   | Exécuter une commande unique puis revenir            |
+| `-s`   | Spécifier le shell à utiliser pour la session        |
+
+## Exemples
+
+### Basculer vers le compte root
+
+```bash
+$ su -
+Mot de passe :
+root@serveur:~# whoami
+root
+```
+
+### Exécuter une commande en tant qu'un autre utilisateur
+
+```bash
+$ su -c "cat /var/log/auth.log" root
+Mot de passe :
+mai  8 09:12:34 serveur sshd[1423]: Accepted publickey for mouctar
+mai  8 09:15:01 serveur CRON[1587]: pam_unix(cron:session): session opened
+```
+
+### Ouvrir une session avec un shell spécifique
+
+```bash
+$ su -s /bin/zsh devops
+Mot de passe :
+devops@serveur ~ % echo $SHELL
+/bin/zsh
+```

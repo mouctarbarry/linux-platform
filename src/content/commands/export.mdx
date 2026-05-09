@@ -1,0 +1,55 @@
+---
+title: export
+category: editeurs
+description: Definir des variables d'environnement pour les processus enfants
+tags: [variable, environnement, shell, configuration]
+---
+
+## Syntaxe
+
+```bash
+export [OPTIONS] [NOM[=VALEUR]...]
+```
+
+## Options principales
+
+| Option | Description                                           |
+| ------ | ----------------------------------------------------- |
+| `-p`   | Lister toutes les variables exportees                 |
+| `-n`   | Retirer l'attribut d'export d'une variable            |
+| `-f`   | Exporter une fonction shell                           |
+
+## Exemples
+
+### Definir et exporter une variable
+
+```bash
+$ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+$ export PATH="$JAVA_HOME/bin:$PATH"
+$ echo $JAVA_HOME
+/usr/lib/jvm/java-17-openjdk-amd64
+$ java -version
+openjdk version "17.0.11" 2024-04-16
+```
+
+### Lister les variables d'environnement exportees
+
+```bash
+$ export -p | head -5
+declare -x HOME="/home/mouctar"
+declare -x LANG="fr_FR.UTF-8"
+declare -x LOGNAME="mouctar"
+declare -x PATH="/usr/local/bin:/usr/bin:/bin"
+declare -x SHELL="/bin/bash"
+```
+
+### Retirer l'export d'une variable
+
+```bash
+$ export DEBUG=true
+$ bash -c 'echo "DEBUG=$DEBUG"'
+DEBUG=true
+$ export -n DEBUG
+$ bash -c 'echo "DEBUG=$DEBUG"'
+DEBUG=
+```

@@ -1,0 +1,63 @@
+---
+title: zip
+category: archivage
+description: Créer des archives compressées au format ZIP
+tags: [archivage, compression, zip]
+---
+
+## Syntaxe
+
+```bash
+zip [OPTIONS] ARCHIVE.zip [FICHIERS...]
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `-r`   | Inclure les sous-répertoires récursivement         |
+| `-e`   | Chiffrer l'archive avec un mot de passe            |
+| `-9`   | Compression maximale                               |
+| `-x`   | Exclure des fichiers correspondant à un motif      |
+
+## Exemples
+
+### Créer une archive ZIP d'un répertoire complet
+
+```bash
+$ zip -r projet-web.zip ./src/ ./public/ ./package.json
+  adding: src/ (stored 0%)
+  adding: src/index.ts (deflated 62%)
+  adding: src/app.ts (deflated 58%)
+  adding: src/utils/helpers.ts (deflated 55%)
+  adding: public/ (stored 0%)
+  adding: public/index.html (deflated 47%)
+  adding: package.json (deflated 41%)
+$ ls -lh projet-web.zip
+-rw-r--r-- 1 mouctar mouctar 3.8M mai 8 11:05 projet-web.zip
+```
+
+### Archiver en excluant certains fichiers
+
+```bash
+$ zip -r deploy.zip ./app/ -x "*.test.ts" "*.spec.ts" "node_modules/*"
+  adding: app/ (stored 0%)
+  adding: app/server.ts (deflated 64%)
+  adding: app/routes/api.ts (deflated 59%)
+  adding: app/config/database.ts (deflated 52%)
+$ ls -lh deploy.zip
+-rw-r--r-- 1 mouctar mouctar 1.2M mai 8 11:20 deploy.zip
+```
+
+### Créer une archive chiffrée avec compression maximale
+
+```bash
+$ zip -e -9 confidentiel.zip rapport-financier.pdf contrats/*.pdf
+Enter password:
+Verify password:
+  adding: rapport-financier.pdf (deflated 14%)
+  adding: contrats/contrat-2024-001.pdf (deflated 12%)
+  adding: contrats/contrat-2024-002.pdf (deflated 11%)
+$ ls -lh confidentiel.zip
+-rw-r--r-- 1 mouctar mouctar 8.4M mai 8 11:35 confidentiel.zip
+```

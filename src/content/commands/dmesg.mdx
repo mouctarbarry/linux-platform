@@ -1,0 +1,52 @@
+---
+title: dmesg
+category: systeme
+description: Afficher les messages du noyau
+tags: [noyau, journal, demarrage, diagnostic]
+---
+
+## Syntaxe
+
+```bash
+dmesg [OPTIONS]
+```
+
+## Options principales
+
+| Option       | Description                                           |
+| ------------ | ----------------------------------------------------- |
+| `-H`         | Afficher en format lisible avec horodatage relatif     |
+| `-T`         | Afficher les horodatages en format date/heure lisible  |
+| `-l NIVEAU`  | Filtrer par niveau (err, warn, info, etc.)             |
+| `--follow`   | Suivre les nouveaux messages en temps réel             |
+
+## Exemples
+
+### Afficher les messages récents avec horodatage lisible
+
+```bash
+$ dmesg -T | tail -10
+[jeu. mai  8 09:00:01 2025] usb 2-1: new high-speed USB device number 3 using xhci_hcd
+[jeu. mai  8 09:00:01 2025] usb 2-1: New USB device found, idVendor=0781, idProduct=5583
+[jeu. mai  8 09:00:01 2025] usb-storage 2-1:1.0: USB Mass Storage device detected
+[jeu. mai  8 09:00:02 2025] scsi 6:0:0:0: Direct-Access SanDisk Ultra 1.00 PQ: 0 ANSI: 6
+[jeu. mai  8 09:00:02 2025] sd 6:0:0:0: [sdc] 120127488 512-byte logical blocks: (61.5 GB/57.3 GiB)
+```
+
+### Afficher uniquement les erreurs
+
+```bash
+$ dmesg -l err
+[    2.134567] ACPI Error: Namespace lookup failure, AE_NOT_FOUND (20230331)
+[  842.567890] EXT4-fs error (device sda2): ext4_lookup:1855: inode #131074: comm find: deleted inode referenced
+[15234.891234] ata3.00: status: { DRDY ERR }
+```
+
+### Afficher les messages liés au réseau
+
+```bash
+$ dmesg -T | grep -i eth
+[jeu. mai  8 00:00:05 2025] e1000e 0000:00:1f.6: eth0: Intel(R) PRO/1000 Network Connection
+[jeu. mai  8 00:00:06 2025] e1000e 0000:00:1f.6: eth0: MAC: 08:00:27:a1:b2:c3
+[jeu. mai  8 00:00:08 2025] IPv6: ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+```

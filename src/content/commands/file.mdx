@@ -1,0 +1,52 @@
+---
+title: file
+category: fichiers
+description: Déterminer le type d'un fichier
+tags: [fichiers, type, identification]
+---
+
+## Syntaxe
+
+```bash
+file [OPTIONS] FICHIER...
+```
+
+## Options principales
+
+| Option | Description                                         |
+| ------ | --------------------------------------------------- |
+| `-i`   | Afficher le type MIME du fichier                    |
+| `-b`   | Afficher uniquement le type sans le nom du fichier  |
+| `-L`   | Suivre les liens symboliques                        |
+| `-z`   | Examiner le contenu des fichiers compressés         |
+
+## Exemples
+
+### Identifier le type de plusieurs fichiers
+
+```bash
+$ file logo.png script.sh données.csv archive.tar.gz
+logo.png:        PNG image data, 256 x 256, 8-bit/color RGBA, non-interlaced
+script.sh:       Bourne-Again shell script, ASCII text executable
+données.csv:     CSV text
+archive.tar.gz:  gzip compressed data, from Unix, original size modulo 2^32 10240
+```
+
+### Afficher le type MIME des fichiers
+
+```bash
+$ file -i index.html style.css app.js image.webp
+index.html: text/html; charset=utf-8
+style.css:  text/css; charset=utf-8
+app.js:     text/javascript; charset=utf-8
+image.webp: image/webp; charset=binary
+```
+
+### Identifier un fichier sans extension
+
+```bash
+$ file /usr/bin/python3 /etc/shadow document_inconnu
+/usr/bin/python3: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked
+/etc/shadow:      regular file, no read permission
+document_inconnu: PDF document, version 1.7, 12 pages
+```

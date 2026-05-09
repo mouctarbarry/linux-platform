@@ -1,0 +1,59 @@
+---
+title: jobs
+category: processus
+description: Lister les tâches en arrière-plan du shell
+tags: [tâches, arrière-plan, shell, contrôle]
+---
+
+## Syntaxe
+
+```bash
+jobs [OPTIONS]
+```
+
+## Options principales
+
+| Option | Description                                         |
+| ------ | --------------------------------------------------- |
+| `-l`   | Afficher les PID en plus des informations de tâches |
+| `-p`   | Afficher uniquement les PID                         |
+| `-r`   | Afficher uniquement les tâches en cours d'exécution |
+| `-s`   | Afficher uniquement les tâches suspendues           |
+
+## Exemples
+
+### Lister toutes les tâches en arrière-plan
+
+```bash
+$ sleep 300 &
+[1] 3421
+$ vim notes.txt
+^Z
+[2]+  Stopped                 vim notes.txt
+$ jobs
+[1]-  Running                 sleep 300 &
+[2]+  Stopped                 vim notes.txt
+```
+
+### Afficher les tâches avec leurs PID
+
+```bash
+$ jobs -l
+[1]-  3421 Running                 sleep 300 &
+[2]+  3587 Stopped                 vim notes.txt
+```
+
+### Filtrer les tâches en cours d'exécution
+
+```bash
+$ sleep 600 &
+[1] 4102
+$ sleep 900 &
+[2] 4103
+$ find / -name "*.log" > /tmp/logs.txt &
+[3] 4150
+$ jobs -r
+[1]   Running                 sleep 600 &
+[2]-  Running                 sleep 900 &
+[3]+  Running                 find / -name "*.log" > /tmp/logs.txt &
+```

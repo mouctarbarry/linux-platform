@@ -1,0 +1,54 @@
+---
+title: nano
+category: editeurs
+description: Editeur de texte simple en terminal
+tags: [editeur, texte, terminal, debutant]
+---
+
+## Syntaxe
+
+```bash
+nano [OPTIONS] [FICHIER]
+```
+
+## Options principales
+
+| Option | Description                                    |
+| ------ | ---------------------------------------------- |
+| `-l`   | Afficher les numeros de ligne                  |
+| `-B`   | Creer une sauvegarde avant modification        |
+| `-m`   | Activer le support de la souris                |
+| `-i`   | Activer l'indentation automatique              |
+
+## Exemples
+
+### Editer un fichier avec numeros de ligne
+
+```bash
+$ nano -l /etc/hosts
+  GNU nano 7.2          /etc/hosts
+
+  1  127.0.0.1       localhost
+  2  127.0.1.1       serveur-web
+  3  ::1             localhost ip6-localhost ip6-loopback
+```
+
+### Creer une sauvegarde automatique avant modification
+
+```bash
+$ nano -B /etc/ssh/sshd_config
+$ ls /etc/ssh/
+sshd_config  sshd_config~
+```
+
+### Ouvrir un nouveau fichier avec indentation automatique
+
+```bash
+$ nano -i script.sh
+  GNU nano 7.2          script.sh
+
+  #!/bin/bash
+  for i in $(seq 1 5); do
+      echo "Iteration $i"
+  done
+```

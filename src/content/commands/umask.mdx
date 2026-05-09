@@ -1,0 +1,53 @@
+---
+title: umask
+category: permissions
+description: Définir les permissions par défaut des nouveaux fichiers
+tags: [permissions, masque, fichiers]
+---
+
+## Syntaxe
+
+```bash
+umask [OPTIONS] [MASQUE]
+```
+
+## Options principales
+
+| Option | Description                                         |
+| ------ | --------------------------------------------------- |
+| `-S`   | Afficher le masque en notation symbolique            |
+| `-p`   | Afficher dans un format réutilisable en script       |
+| (octal)| Définir le masque en notation octale (ex: 022)       |
+
+## Exemples
+
+### Afficher le masque actuel
+
+```bash
+$ umask
+0022
+$ umask -S
+u=rwx,g=rx,o=rx
+```
+
+### Restreindre les permissions par défaut
+
+```bash
+$ umask 077
+$ touch fichier-confidentiel.txt
+$ mkdir dossier-prive
+$ ls -l
+-rw------- 1 mouctar mouctar    0 mai  8 14:00 fichier-confidentiel.txt
+drwx------ 2 mouctar mouctar 4096 mai  8 14:00 dossier-prive/
+```
+
+### Autoriser la lecture au groupe uniquement
+
+```bash
+$ umask 027
+$ touch rapport.log
+$ mkdir partage
+$ ls -l
+-rw-r----- 1 mouctar mouctar    0 mai  8 15:00 rapport.log
+drwxr-x--- 2 mouctar mouctar 4096 mai  8 15:00 partage/
+```

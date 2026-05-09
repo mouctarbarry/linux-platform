@@ -1,0 +1,54 @@
+---
+title: rm
+category: fichiers
+description: Supprimer des fichiers et des répertoires
+tags: [fichiers, suppression, nettoyage]
+---
+
+## Syntaxe
+
+```bash
+rm [OPTIONS] FICHIER...
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-r`   | Supprimer récursivement les répertoires            |
+| `-f`   | Forcer la suppression sans confirmation            |
+| `-i`   | Demander confirmation avant chaque suppression     |
+| `-v`   | Afficher les fichiers supprimés                    |
+
+## Exemples
+
+### Supprimer des fichiers avec confirmation
+
+```bash
+$ rm -iv *.tmp
+rm : supprimer fichier régulier 'cache.tmp' ? o
+supprimé 'cache.tmp'
+rm : supprimer fichier régulier 'session.tmp' ? o
+supprimé 'session.tmp'
+rm : supprimer fichier régulier 'upload.tmp' ? n
+```
+
+### Supprimer un répertoire et son contenu
+
+```bash
+$ rm -rv /tmp/build-artifacts/
+supprimé '/tmp/build-artifacts/app.js'
+supprimé '/tmp/build-artifacts/app.css'
+supprimé '/tmp/build-artifacts/assets/logo.png'
+supprimé le répertoire '/tmp/build-artifacts/assets'
+supprimé le répertoire '/tmp/build-artifacts/'
+```
+
+### Supprimer les fichiers de log anciens
+
+```bash
+$ rm -v /var/log/app/*.log.gz
+supprimé '/var/log/app/access.log.1.gz'
+supprimé '/var/log/app/access.log.2.gz'
+supprimé '/var/log/app/error.log.1.gz'
+```

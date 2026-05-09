@@ -1,0 +1,44 @@
+---
+title: uname
+category: systeme
+description: Afficher les informations systeme
+tags: [systeme, noyau, architecture, informations]
+---
+
+## Syntaxe
+
+```bash
+uname [OPTIONS]
+```
+
+## Options principales
+
+| Option | Description                              |
+| ------ | ---------------------------------------- |
+| `-a`   | Afficher toutes les informations         |
+| `-r`   | Afficher la version du noyau             |
+| `-m`   | Afficher l'architecture matérielle       |
+| `-s`   | Afficher le nom du système d'exploitation |
+
+## Exemples
+
+### Afficher toutes les informations système
+
+```bash
+$ uname -a
+Linux serveur-web 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64 GNU/Linux
+```
+
+### Vérifier la version du noyau
+
+```bash
+$ uname -r
+6.1.0-18-amd64
+```
+
+### Identifier l'architecture matérielle
+
+```bash
+$ uname -m
+x86_64
+```

@@ -1,0 +1,48 @@
+---
+title: chmod
+category: fichiers
+description: Modifier les permissions d'accès aux fichiers et répertoires
+tags: [fichiers, permissions, securite]
+---
+
+## Syntaxe
+
+```bash
+chmod [OPTIONS] MODE FICHIER...
+```
+
+## Options principales
+
+| Option  | Description                                  |
+| ------- | -------------------------------------------- |
+| `-R`    | Appliquer récursivement aux sous-répertoires |
+| `-v`    | Mode verbeux (afficher chaque modification)  |
+| `u/g/o` | Cible : utilisateur, groupe, autres          |
+| `+/-/=` | Ajouter, retirer ou définir les permissions  |
+
+## Exemples
+
+### Rendre un script exécutable
+
+```bash
+$ chmod +x deploy.sh
+$ ls -l deploy.sh
+-rwxr-xr-x 1 mouctar mouctar 1245 mai 8 10:00 deploy.sh
+```
+
+### Restreindre l'accès à un fichier sensible
+
+```bash
+$ chmod 600 ~/.ssh/id_ed25519
+$ ls -l ~/.ssh/id_ed25519
+-rw------- 1 mouctar mouctar 464 mai 1 09:00 /home/mouctar/.ssh/id_ed25519
+```
+
+### Appliquer des permissions récursivement
+
+```bash
+$ chmod -R 755 /var/www/html/
+$ ls -l /var/www/html/
+drwxr-xr-x 3 www-data www-data 4096 mai 8 08:00 assets/
+-rwxr-xr-x 1 www-data www-data 2048 mai 8 08:00 index.html
+```

@@ -1,0 +1,44 @@
+---
+title: whoami
+category: systeme
+description: Afficher le nom de l'utilisateur courant
+tags: [utilisateur, identite, session, systeme]
+---
+
+## Syntaxe
+
+```bash
+whoami [OPTIONS]
+```
+
+## Options principales
+
+| Option     | Description                           |
+| ---------- | ------------------------------------- |
+| `--help`   | Afficher l'aide de la commande        |
+| `--version`| Afficher la version de la commande    |
+
+## Exemples
+
+### Afficher l'utilisateur courant
+
+```bash
+$ whoami
+mouctar
+```
+
+### Vérifier l'utilisateur après un changement avec sudo
+
+```bash
+$ whoami
+mouctar
+$ sudo whoami
+root
+```
+
+### Utiliser whoami dans un script
+
+```bash
+$ echo "Connecté en tant que : $(whoami) sur $(hostname)"
+Connecté en tant que : mouctar sur serveur-web
+```

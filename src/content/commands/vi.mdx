@@ -1,0 +1,41 @@
+---
+title: vi
+category: editeurs
+description: Editeur de texte modal en ligne de commande
+tags: [editeur, texte, terminal, modal]
+---
+
+## Syntaxe
+
+```bash
+vi [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option   | Description                                      |
+| -------- | ------------------------------------------------ |
+| `+n`     | Ouvrir le fichier a la ligne n                   |
+| `-R`     | Ouvrir en mode lecture seule                     |
+| `-o`     | Ouvrir plusieurs fichiers en fenetres horizontales |
+| `+/motif`| Ouvrir et positionner le curseur sur le motif    |
+
+## Exemples
+
+### Ouvrir un fichier et aller a une ligne specifique
+
+```bash
+$ vi +42 /etc/nginx/nginx.conf
+```
+
+### Ouvrir un fichier en lecture seule
+
+```bash
+$ vi -R /etc/passwd
+```
+
+### Rechercher un motif a l'ouverture du fichier
+
+```bash
+$ vi +/server_name /etc/nginx/sites-available/default
+```

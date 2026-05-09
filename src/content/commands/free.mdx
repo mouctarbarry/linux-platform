@@ -1,0 +1,55 @@
+---
+title: free
+category: systeme
+description: Afficher l'utilisation de la memoire
+tags: [memoire, ram, swap, systeme]
+---
+
+## Syntaxe
+
+```bash
+free [OPTIONS]
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-h`   | Tailles lisibles (Ko, Mo, Go)                     |
+| `-m`   | Afficher les valeurs en mégaoctets                 |
+| `-s N` | Rafraîchir l'affichage toutes les N secondes       |
+| `-t`   | Afficher une ligne de total (RAM + swap)           |
+
+## Exemples
+
+### Afficher la mémoire en format lisible
+
+```bash
+$ free -h
+               total       utilisé    libre      partagé  cache      disponible
+Mem:            16Gi       5.2Gi      3.1Gi       412Mi    7.7Gi       10Gi
+Swap:          4.0Gi          0B      4.0Gi
+```
+
+### Afficher avec total combiné en mégaoctets
+
+```bash
+$ free -mt
+               total       utilisé    libre      partagé  cache      disponible
+Mem:           16384        5324       3174         412     7886       10648
+Swap:           4096           0       4096
+Total:         20480        5324       7270
+```
+
+### Surveiller la mémoire toutes les 2 secondes
+
+```bash
+$ free -h -s 2
+               total       utilisé    libre      partagé  cache      disponible
+Mem:            16Gi       5.2Gi      3.1Gi       412Mi    7.7Gi       10Gi
+Swap:          4.0Gi          0B      4.0Gi
+
+               total       utilisé    libre      partagé  cache      disponible
+Mem:            16Gi       5.3Gi      3.0Gi       412Mi    7.7Gi       10Gi
+Swap:          4.0Gi          0B      4.0Gi
+```

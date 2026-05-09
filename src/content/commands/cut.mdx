@@ -1,0 +1,56 @@
+---
+title: cut
+category: recherche
+description: Extraire des sections de chaque ligne d'un fichier
+tags: [extraction, colonnes, délimiteur, texte]
+---
+
+## Syntaxe
+
+```bash
+cut [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option       | Description                                      |
+| ------------ | ------------------------------------------------ |
+| `-d DELIM`   | Définir le délimiteur de champ (tabulation par défaut) |
+| `-f CHAMPS`  | Sélectionner uniquement ces champs               |
+| `-c LISTE`   | Sélectionner uniquement ces positions de caractères |
+| `--complement` | Inverser la sélection des champs ou caractères  |
+
+## Exemples
+
+### Extraire le nom d'utilisateur et le shell depuis /etc/passwd
+
+```bash
+$ cut -d: -f1,7 /etc/passwd
+root:/bin/bash
+daemon:/usr/sbin/nologin
+www-data:/usr/sbin/nologin
+mouctar:/bin/bash
+postgres:/bin/bash
+```
+
+### Extraire les 10 premiers caractères de chaque ligne
+
+```bash
+$ cut -c1-10 /var/log/syslog
+May 08 10:
+May 08 10:
+May 08 10:
+May 08 11:
+May 08 11:
+```
+
+### Extraire des colonnes d'un fichier CSV
+
+```bash
+$ cut -d',' -f2,4 employes.csv
+nom,salaire
+Dupont,3200
+Martin,2800
+Leroy,4100
+Bernard,3500
+```

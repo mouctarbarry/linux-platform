@@ -1,0 +1,49 @@
+---
+title: printf
+category: editeurs
+description: Formater et afficher du texte
+tags: [affichage, formatage, texte, script]
+---
+
+## Syntaxe
+
+```bash
+printf FORMAT [ARGUMENTS...]
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `%s`   | Formater en chaine de caracteres                   |
+| `%d`   | Formater en nombre entier decimal                  |
+| `%f`   | Formater en nombre a virgule flottante             |
+| `\n`   | Inserer un saut de ligne                           |
+
+## Exemples
+
+### Afficher un tableau formate
+
+```bash
+$ printf "%-15s %5s %10s\n" "SERVICE" "PID" "MEMOIRE"
+$ printf "%-15s %5d %9.1f%%\n" "nginx" 1234 2.3 "postgres" 5678 15.7 "redis" 9012 4.1
+SERVICE           PID    MEMOIRE
+nginx              1234       2.3%
+postgres           5678      15.7%
+redis              9012       4.1%
+```
+
+### Generer une ligne de separation
+
+```bash
+$ printf '%0.s-' {1..40}; printf '\n'
+----------------------------------------
+```
+
+### Formater des variables dans un script
+
+```bash
+$ DISQUE="sda1"; USAGE=78; TOTAL=500
+$ printf "Disque /dev/%s : %d%% utilise (%d Go total)\n" "$DISQUE" "$USAGE" "$TOTAL"
+Disque /dev/sda1 : 78% utilise (500 Go total)
+```

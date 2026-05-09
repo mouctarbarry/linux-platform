@@ -1,0 +1,52 @@
+---
+title: du
+category: systeme
+description: Estimer l'utilisation de l'espace disque
+tags: [disque, espace, taille, systeme]
+---
+
+## Syntaxe
+
+```bash
+du [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `-h`   | Tailles lisibles (Ko, Mo, Go)                      |
+| `-s`   | Afficher uniquement le total pour chaque argument   |
+| `-a`   | Inclure les fichiers en plus des répertoires        |
+| `-d N` | Limiter la profondeur d'affichage à N niveaux       |
+
+## Exemples
+
+### Taille totale d'un répertoire en format lisible
+
+```bash
+$ du -sh /var/log/
+2.4G	/var/log/
+```
+
+### Détail par sous-répertoire sur un niveau
+
+```bash
+$ du -h -d 1 /home/mouctar/
+4.0K	/home/mouctar/.ssh
+120M	/home/mouctar/Documents
+1.8G	/home/mouctar/projets
+45M	/home/mouctar/.cache
+2.0G	/home/mouctar/
+```
+
+### Trouver les 5 plus gros répertoires
+
+```bash
+$ du -h -d 1 / 2>/dev/null | sort -rh | head -5
+15G	/
+6.2G	/usr
+3.8G	/var
+2.1G	/home
+1.4G	/opt
+```

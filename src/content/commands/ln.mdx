@@ -1,0 +1,51 @@
+---
+title: ln
+category: fichiers
+description: Créer des liens physiques et symboliques
+tags: [fichiers, liens, symbolique]
+---
+
+## Syntaxe
+
+```bash
+ln [OPTIONS] CIBLE NOM_DU_LIEN
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-s`   | Créer un lien symbolique au lieu d'un lien physique |
+| `-f`   | Forcer la création en écrasant le lien existant   |
+| `-v`   | Afficher les liens créés                          |
+| `-n`   | Ne pas suivre les liens symboliques existants     |
+
+## Exemples
+
+### Créer un lien symbolique vers un fichier
+
+```bash
+$ ln -sv /etc/nginx/sites-available/monsite /etc/nginx/sites-enabled/monsite
+'/etc/nginx/sites-enabled/monsite' -> '/etc/nginx/sites-available/monsite'
+$ ls -l /etc/nginx/sites-enabled/monsite
+lrwxrwxrwx 1 root root 38 mai  8 10:00 /etc/nginx/sites-enabled/monsite -> /etc/nginx/sites-available/monsite
+```
+
+### Créer un lien symbolique pour versionner un répertoire
+
+```bash
+$ ln -sfnv /opt/app-v2.1.0 /opt/app-current
+'/opt/app-current' -> '/opt/app-v2.1.0'
+$ ls -l /opt/app-current
+lrwxrwxrwx 1 deploy deploy 17 mai  8 10:30 /opt/app-current -> /opt/app-v2.1.0
+```
+
+### Créer un lien physique vers un fichier
+
+```bash
+$ ln -v données.csv données-backup.csv
+'données-backup.csv' => 'données.csv'
+$ ls -li données.csv données-backup.csv
+1048577 -rw-r--r-- 2 mouctar mouctar 24576 mai  8 09:00 données.csv
+1048577 -rw-r--r-- 2 mouctar mouctar 24576 mai  8 09:00 données-backup.csv
+```

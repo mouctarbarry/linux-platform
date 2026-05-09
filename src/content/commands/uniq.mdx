@@ -1,0 +1,52 @@
+---
+title: uniq
+category: recherche
+description: Filtrer les lignes consécutives identiques
+tags: [doublons, filtrage, lignes, texte]
+---
+
+## Syntaxe
+
+```bash
+uniq [OPTIONS] [FICHIER_ENTRÉE [FICHIER_SORTIE]]
+```
+
+## Options principales
+
+| Option | Description                                         |
+| ------ | --------------------------------------------------- |
+| `-c`   | Préfixer chaque ligne par le nombre d'occurrences   |
+| `-d`   | Afficher uniquement les lignes dupliquées           |
+| `-i`   | Ignorer les différences de casse                    |
+| `-u`   | Afficher uniquement les lignes uniques              |
+
+## Exemples
+
+### Compter les codes de statut HTTP
+
+```bash
+$ awk '{print $9}' access.log | sort | uniq -c | sort -rn
+   4523 200
+   1287 304
+    342 404
+    128 301
+     47 500
+```
+
+### Afficher uniquement les lignes dupliquées
+
+```bash
+$ sort utilisateurs.txt | uniq -d
+admin
+dupont
+martin
+```
+
+### Filtrer les lignes uniques d'un journal
+
+```bash
+$ sort erreurs.log | uniq -u
+May 08 03:12:44 srv kernel: NMI watchdog: perf interrupt
+May 08 09:33:17 srv postfix: fatal: open database
+May 08 14:05:02 srv sshd: reverse mapping failed
+```

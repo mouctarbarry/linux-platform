@@ -1,0 +1,61 @@
+---
+title: systemctl
+category: processus
+description: Gérer les services systemd
+tags: [services, systemd, démarrage, gestion]
+---
+
+## Syntaxe
+
+```bash
+systemctl [OPTIONS] COMMANDE [SERVICE]
+```
+
+## Options principales
+
+| Option        | Description                                      |
+| ------------- | ------------------------------------------------ |
+| `start`       | Démarrer un service                              |
+| `stop`        | Arrêter un service                               |
+| `restart`     | Redémarrer un service                            |
+| `status`      | Afficher l'état détaillé d'un service            |
+
+## Exemples
+
+### Vérifier l'état d'un service
+
+```bash
+$ systemctl status nginx
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2026-05-04 08:12:34 CEST; 4 days ago
+       Docs: man:nginx(8)
+   Main PID: 1234 (nginx)
+      Tasks: 5 (limit: 4915)
+     Memory: 12.4M
+        CPU: 3min 21.456s
+     CGroup: /system.slice/nginx.service
+             ├─1234 "nginx: master process /usr/sbin/nginx"
+             └─1235 "nginx: worker process"
+```
+
+### Activer un service au démarrage et le lancer
+
+```bash
+$ sudo systemctl enable --now postgresql
+Created symlink /etc/systemd/system/multi-user.target.wants/postgresql.service → /lib/systemd/system/postgresql.service.
+$ systemctl is-enabled postgresql
+enabled
+```
+
+### Lister les services actifs
+
+```bash
+$ systemctl list-units --type=service --state=running
+UNIT                     LOAD   ACTIVE SUB     DESCRIPTION
+cron.service             loaded active running Regular background program processing
+networkd-dispatcher.serv loaded active running Dispatcher daemon for systemd-networkd
+nginx.service            loaded active running A high performance web server
+postgresql.service       loaded active running PostgreSQL RDBMS
+ssh.service              loaded active running OpenBSD Secure Shell server
+```

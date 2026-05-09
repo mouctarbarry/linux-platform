@@ -1,0 +1,57 @@
+---
+title: crontab
+category: processus
+description: Planifier des tâches automatiques
+tags: [planification, automatisation, cron, tâches]
+---
+
+## Syntaxe
+
+```bash
+crontab [OPTIONS] [FICHIER]
+```
+
+## Options principales
+
+| Option | Description                                     |
+| ------ | ----------------------------------------------- |
+| `-e`   | Éditer la crontab de l'utilisateur courant      |
+| `-l`   | Lister les tâches planifiées                    |
+| `-r`   | Supprimer la crontab de l'utilisateur           |
+| `-u`   | Spécifier l'utilisateur (root requis)           |
+
+## Exemples
+
+### Lister les tâches planifiées
+
+```bash
+$ crontab -l
+# Sauvegarde quotidienne à 2h du matin
+0 2 * * * /home/mouctar/scripts/backup.sh >> /var/log/backup.log 2>&1
+# Nettoyage des fichiers temporaires chaque dimanche
+0 4 * * 0 find /tmp -mtime +7 -delete
+# Vérification de l'espace disque toutes les 6 heures
+0 */6 * * * /home/mouctar/scripts/check-disk.sh
+```
+
+### Ajouter une tâche depuis un fichier
+
+```bash
+$ cat nouvelle-tache.txt
+# Redémarrer le serveur web chaque lundi à 5h
+0 5 * * 1 systemctl restart nginx
+$ crontab nouvelle-tache.txt
+$ crontab -l
+# Redémarrer le serveur web chaque lundi à 5h
+0 5 * * 1 systemctl restart nginx
+```
+
+### Consulter la crontab d'un autre utilisateur
+
+```bash
+$ sudo crontab -u www-data -l
+# Purge du cache applicatif toutes les 30 minutes
+*/30 * * * * /var/www/app/bin/cache-clear.sh
+# Rotation des logs chaque nuit à minuit
+0 0 * * * /usr/local/bin/rotate-logs.sh /var/www/app/logs/
+```

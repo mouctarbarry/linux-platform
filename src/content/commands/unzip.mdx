@@ -1,0 +1,68 @@
+---
+title: unzip
+category: archivage
+description: Extraire des archives au format ZIP
+tags: [extraction, décompression, zip]
+---
+
+## Syntaxe
+
+```bash
+unzip [OPTIONS] ARCHIVE.zip [-d RÉPERTOIRE]
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-l`   | Lister le contenu sans extraire                  |
+| `-d`   | Extraire dans un répertoire de destination       |
+| `-o`   | Écraser les fichiers existants sans confirmation |
+| `-q`   | Mode silencieux, sans affichage détaillé         |
+
+## Exemples
+
+### Lister le contenu d'une archive ZIP
+
+```bash
+$ unzip -l projet-web.zip
+Archive:  projet-web.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2024-05-08 11:05   src/
+     2048  2024-05-08 11:05   src/index.ts
+     1536  2024-05-08 11:05   src/app.ts
+      892  2024-05-08 11:05   src/utils/helpers.ts
+        0  2024-05-08 11:05   public/
+     4096  2024-05-08 11:05   public/index.html
+      512  2024-05-08 11:05   package.json
+---------                     -------
+     9084                     7 files
+```
+
+### Extraire dans un répertoire spécifique
+
+```bash
+$ unzip projet-web.zip -d /opt/deploy/
+Archive:  projet-web.zip
+   creating: /opt/deploy/src/
+  inflating: /opt/deploy/src/index.ts
+  inflating: /opt/deploy/src/app.ts
+  inflating: /opt/deploy/src/utils/helpers.ts
+   creating: /opt/deploy/public/
+  inflating: /opt/deploy/public/index.html
+  inflating: /opt/deploy/package.json
+```
+
+### Extraire en écrasant les fichiers existants silencieusement
+
+```bash
+$ unzip -o -q hotfix-v1.2.3.zip -d /var/www/app/
+$ echo $?
+0
+$ ls -lt /var/www/app/dist/
+total 1024
+-rw-r--r-- 1 www-data www-data 245K mai 8 15:00 main.js
+-rw-r--r-- 1 www-data www-data  82K mai 8 15:00 styles.css
+-rw-r--r-- 1 www-data www-data 4.0K mai 8 15:00 index.html
+```

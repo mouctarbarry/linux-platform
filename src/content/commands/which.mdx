@@ -1,0 +1,46 @@
+---
+title: which
+category: editeurs
+description: Localiser l'emplacement d'une commande
+tags: [localisation, commande, chemin, systeme]
+---
+
+## Syntaxe
+
+```bash
+which [OPTIONS] COMMANDE...
+```
+
+## Options principales
+
+| Option | Description                                     |
+| ------ | ----------------------------------------------- |
+| `-a`   | Afficher toutes les occurrences trouvees        |
+| `-s`   | Mode silencieux, retourne uniquement le code    |
+| `-i`   | Ignorer les alias et fonctions shell            |
+
+## Exemples
+
+### Localiser une commande
+
+```bash
+$ which python3
+/usr/bin/python3
+```
+
+### Afficher toutes les occurrences d'une commande
+
+```bash
+$ which -a python
+/usr/bin/python
+/usr/local/bin/python
+```
+
+### Verifier l'emplacement de plusieurs commandes
+
+```bash
+$ which git node npm
+/usr/bin/git
+/usr/local/bin/node
+/usr/local/bin/npm
+```

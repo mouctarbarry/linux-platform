@@ -1,0 +1,55 @@
+---
+title: strings
+category: recherche
+description: Extraire les chaînes de caractères imprimables d'un fichier binaire
+tags: [binaire, extraction, analyse, chaînes]
+---
+
+## Syntaxe
+
+```bash
+strings [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option   | Description                                           |
+| -------- | ----------------------------------------------------- |
+| `-n N`   | Longueur minimale des chaînes affichées (défaut : 4)  |
+| `-t x`   | Afficher le décalage en hexadécimal                   |
+| `-e S`   | Sélectionner l'encodage des caractères (s, S, b, l)   |
+| `-a`     | Analyser le fichier entier, pas seulement les sections de données |
+
+## Exemples
+
+### Extraire les chaînes d'un binaire compilé
+
+```bash
+$ strings /usr/bin/git
+/lib64/ld-linux-x86-64.so.2
+libpcre2-8.so.0
+usage: git
+GIT_DIR
+GIT_AUTHOR_NAME
+GIT_COMMITTER_EMAIL
+```
+
+### Rechercher des URLs dans un binaire
+
+```bash
+$ strings -n 10 application.bin | grep "http"
+http://api.exemple.fr/v2
+https://cdn.exemple.fr/assets
+http://localhost:8080/health
+```
+
+### Afficher les chaînes avec leur position hexadécimale
+
+```bash
+$ strings -t x /usr/lib/libssl.so | head -5
+   2a8 OPENSSL_1.1.1
+   2b7 TLSv1.3
+   2c0 SSL_connect
+   2cd SSL_accept
+   2d8 SSL_CTX_new
+```

@@ -1,0 +1,65 @@
+---
+title: history
+category: editeurs
+description: Afficher l'historique des commandes
+tags: [historique, commande, shell, terminal]
+---
+
+## Syntaxe
+
+```bash
+history [OPTIONS] [N]
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `-c`   | Effacer tout l'historique en memoire               |
+| `-d N` | Supprimer l'entree numero N de l'historique        |
+| `-w`   | Ecrire l'historique courant dans le fichier        |
+| `N`    | Afficher les N dernieres commandes                 |
+
+## Exemples
+
+### Afficher les 10 dernieres commandes
+
+```bash
+$ history 10
+  491  cd /var/log
+  492  tail -f syslog
+  493  grep "error" syslog | wc -l
+  494  systemctl status nginx
+  495  sudo systemctl restart nginx
+  496  curl -I http://localhost
+  497  df -h
+  498  free -m
+  499  top
+  500  history 10
+```
+
+### Supprimer une entree specifique de l'historique
+
+```bash
+$ history | grep "mot_de_passe"
+  347  mysql -u root -pmot_de_passe_secret
+$ history -d 347
+$ history | grep "mot_de_passe"
+$
+```
+
+### Reexecuter une commande de l'historique
+
+```bash
+$ history 5
+  496  curl -I http://localhost
+  497  df -h
+  498  free -m
+  499  top
+  500  history 5
+$ !497
+df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        50G   12G   36G  25% /
+tmpfs           3.9G     0  3.9G   0% /dev/shm
+```

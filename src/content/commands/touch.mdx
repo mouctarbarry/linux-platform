@@ -1,0 +1,56 @@
+---
+title: touch
+category: fichiers
+description: Créer des fichiers vides ou modifier les horodatages
+tags: [fichiers, creation, horodatage]
+---
+
+## Syntaxe
+
+```bash
+touch [OPTIONS] FICHIER...
+```
+
+## Options principales
+
+| Option | Description                                          |
+| ------ | ---------------------------------------------------- |
+| `-a`   | Modifier uniquement la date d'accès                  |
+| `-m`   | Modifier uniquement la date de modification          |
+| `-t`   | Définir une date spécifique (format MMJJhhmm[[CC]AA]) |
+| `-r`   | Utiliser l'horodatage d'un fichier de référence      |
+
+## Exemples
+
+### Créer plusieurs fichiers vides
+
+```bash
+$ touch index.html style.css app.js
+$ ls -l
+total 0
+-rw-r--r-- 1 mouctar mouctar 0 mai  8 10:00 app.js
+-rw-r--r-- 1 mouctar mouctar 0 mai  8 10:00 index.html
+-rw-r--r-- 1 mouctar mouctar 0 mai  8 10:00 style.css
+```
+
+### Modifier la date de modification d'un fichier
+
+```bash
+$ ls -l rapport.pdf
+-rw-r--r-- 1 mouctar mouctar 45230 jan 15 14:30 rapport.pdf
+$ touch -t 202605081200 rapport.pdf
+$ ls -l rapport.pdf
+-rw-r--r-- 1 mouctar mouctar 45230 mai  8 12:00 rapport.pdf
+```
+
+### Synchroniser l'horodatage avec un fichier de référence
+
+```bash
+$ ls -l source.txt copie.txt
+-rw-r--r-- 1 mouctar mouctar 1024 mai  8 10:00 source.txt
+-rw-r--r-- 1 mouctar mouctar 1024 avr  1 08:30 copie.txt
+$ touch -r source.txt copie.txt
+$ ls -l source.txt copie.txt
+-rw-r--r-- 1 mouctar mouctar 1024 mai  8 10:00 source.txt
+-rw-r--r-- 1 mouctar mouctar 1024 mai  8 10:00 copie.txt
+```

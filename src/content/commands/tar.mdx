@@ -1,0 +1,51 @@
+---
+title: tar
+category: archivage
+description: Créer et extraire des archives compressées
+tags: [archivage, compression, backup]
+---
+
+## Syntaxe
+
+```bash
+tar [OPTIONS] [ARCHIVE] [FICHIERS...]
+```
+
+## Options principales
+
+| Option | Description                         |
+| ------ | ----------------------------------- |
+| `-c`   | Créer une nouvelle archive          |
+| `-x`   | Extraire le contenu d'une archive   |
+| `-z`   | Compresser/décompresser avec gzip   |
+| `-f`   | Spécifier le nom du fichier archive |
+
+## Exemples
+
+### Créer une archive compressée d'un projet
+
+```bash
+$ tar -czf backup-2024-05-08.tar.gz ./src/ ./package.json ./tsconfig.json
+$ ls -lh backup-2024-05-08.tar.gz
+-rw-r--r-- 1 mouctar mouctar 4.2M mai 8 10:30 backup-2024-05-08.tar.gz
+```
+
+### Extraire une archive dans un répertoire cible
+
+```bash
+$ tar -xzf release-v2.1.0.tar.gz -C /opt/app/
+$ ls /opt/app/
+dist/  node_modules/  package.json  ecosystem.config.js
+```
+
+### Lister le contenu sans extraire
+
+```bash
+$ tar -tzf backup-2024-05-08.tar.gz
+./src/
+./src/index.ts
+./src/app.ts
+./src/utils/helpers.ts
+./package.json
+./tsconfig.json
+```

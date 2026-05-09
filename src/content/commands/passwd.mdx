@@ -1,0 +1,53 @@
+---
+title: passwd
+category: permissions
+description: Modifier le mot de passe d'un utilisateur
+tags: [mot-de-passe, utilisateur, securite]
+---
+
+## Syntaxe
+
+```bash
+passwd [OPTIONS] [UTILISATEUR]
+```
+
+## Options principales
+
+| Option | Description                                           |
+| ------ | ----------------------------------------------------- |
+| `-l`   | Verrouiller le compte utilisateur                     |
+| `-u`   | Déverrouiller le compte utilisateur                   |
+| `-e`   | Forcer le changement de mot de passe à la connexion   |
+| `-S`   | Afficher le statut du mot de passe du compte          |
+
+## Exemples
+
+### Changer son propre mot de passe
+
+```bash
+$ passwd
+Changement du mot de passe pour mouctar.
+Mot de passe actuel :
+Nouveau mot de passe :
+Retapez le nouveau mot de passe :
+passwd : le mot de passe a été mis à jour avec succès
+```
+
+### Verrouiller un compte utilisateur
+
+```bash
+$ sudo passwd -l stagiaire
+passwd : informations d'expiration du mot de passe modifiées.
+$ sudo passwd -S stagiaire
+stagiaire L 05/08/2026 0 99999 7 -1
+```
+
+### Forcer le renouvellement du mot de passe à la prochaine connexion
+
+```bash
+$ sudo passwd -e devops
+passwd : expiration du mot de passe modifiée.
+$ sudo chage -l devops
+Dernier changement de mot de passe                : mot de passe doit être changé
+Le mot de passe expire                             : mot de passe doit être changé
+```

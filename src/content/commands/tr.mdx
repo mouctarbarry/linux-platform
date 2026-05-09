@@ -1,0 +1,43 @@
+---
+title: tr
+category: recherche
+description: Traduire ou supprimer des caractères
+tags: [transformation, caractères, remplacement, texte]
+---
+
+## Syntaxe
+
+```bash
+tr [OPTIONS] ENSEMBLE1 [ENSEMBLE2]
+```
+
+## Options principales
+
+| Option | Description                                         |
+| ------ | --------------------------------------------------- |
+| `-d`   | Supprimer les caractères de ENSEMBLE1               |
+| `-s`   | Réduire les caractères répétés en un seul           |
+| `-c`   | Utiliser le complément de ENSEMBLE1                 |
+
+## Exemples
+
+### Convertir un texte en majuscules
+
+```bash
+$ echo "serveur web actif" | tr 'a-z' 'A-Z'
+SERVEUR WEB ACTIF
+```
+
+### Supprimer les chiffres d'une chaîne
+
+```bash
+$ echo "erreur-503-timeout-2026" | tr -d '0-9'
+erreur--timeout-
+```
+
+### Remplacer les espaces multiples par un seul
+
+```bash
+$ echo "nom     prénom     âge" | tr -s ' '
+nom prénom âge
+```

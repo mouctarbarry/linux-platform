@@ -1,0 +1,52 @@
+---
+title: rmdir
+category: fichiers
+description: Supprimer des répertoires vides
+tags: [fichiers, repertoire, suppression]
+---
+
+## Syntaxe
+
+```bash
+rmdir [OPTIONS] RÉPERTOIRE...
+```
+
+## Options principales
+
+| Option         | Description                                          |
+| -------------- | ---------------------------------------------------- |
+| `-p`           | Supprimer les répertoires parents s'ils deviennent vides |
+| `-v`           | Afficher les répertoires supprimés                   |
+| `--ignore-fail-on-non-empty` | Ignorer les erreurs pour les répertoires non vides |
+
+## Exemples
+
+### Supprimer un répertoire vide
+
+```bash
+$ ls -la temp/
+total 8
+drwxr-xr-x 2 mouctar mouctar 4096 mai  8 10:00 .
+drwxr-xr-x 5 mouctar mouctar 4096 mai  8 10:00 ..
+$ rmdir -v temp/
+rmdir: suppression du répertoire 'temp/'
+```
+
+### Supprimer une arborescence de répertoires vides
+
+```bash
+$ rmdir -pv projets/ancien/src/
+rmdir: suppression du répertoire 'projets/ancien/src/'
+rmdir: suppression du répertoire 'projets/ancien'
+rmdir: suppression du répertoire 'projets'
+```
+
+### Tenter de supprimer un répertoire non vide
+
+```bash
+$ rmdir logs/
+rmdir: impossible de supprimer 'logs/': Le dossier n'est pas vide
+$ rmdir --ignore-fail-on-non-empty logs/
+$ rmdir -v backup/
+rmdir: suppression du répertoire 'backup/'
+```

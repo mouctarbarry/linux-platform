@@ -1,0 +1,60 @@
+---
+title: tail
+category: fichiers
+description: Afficher les dernières lignes d'un fichier
+tags: [fichiers, affichage, surveillance]
+---
+
+## Syntaxe
+
+```bash
+tail [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                                           |
+| ------ | ----------------------------------------------------- |
+| `-n`   | Afficher les N dernières lignes                       |
+| `-f`   | Suivre le fichier en temps réel (mode surveillance)   |
+| `-c`   | Afficher les N derniers octets                        |
+| `--pid`| Arrêter le suivi lorsque le processus PID se termine  |
+
+## Exemples
+
+### Afficher les 10 dernières lignes d'un fichier de log
+
+```bash
+$ tail -n 10 /var/log/syslog
+Mai  8 10:25:01 serveur CRON[4521]: (root) CMD (test -x /usr/sbin/anacron)
+Mai  8 10:30:00 serveur systemd[1]: Starting Rotate log files...
+Mai  8 10:30:00 serveur systemd[1]: logrotate.service: Succeeded.
+Mai  8 10:30:01 serveur CRON[4589]: (mouctar) CMD (/opt/backup.sh)
+Mai  8 10:35:22 serveur sshd[4601]: Accepted publickey for mouctar from 192.168.1.5
+```
+
+### Suivre un fichier de log en temps réel
+
+```bash
+$ tail -f /var/log/nginx/access.log
+192.168.1.10 - - [08/Mai/2026:10:40:01] "GET /api/health HTTP/1.1" 200 15
+192.168.1.22 - - [08/Mai/2026:10:40:03] "POST /api/login HTTP/1.1" 200 432
+192.168.1.10 - - [08/Mai/2026:10:40:05] "GET /api/users HTTP/1.1" 200 2841
+10.0.0.3 - - [08/Mai/2026:10:40:07] "GET /static/css/main.css HTTP/1.1" 304 0
+^C
+```
+
+### Afficher les dernières lignes de plusieurs fichiers
+
+```bash
+$ tail -n 3 /var/log/auth.log /var/log/kern.log
+==> /var/log/auth.log <==
+Mai  8 10:35:22 serveur sshd[4601]: Accepted publickey for mouctar
+Mai  8 10:36:00 serveur sudo: mouctar : TTY=pts/0 ; PWD=/home/mouctar ; COMMAND=/bin/systemctl restart nginx
+Mai  8 10:36:01 serveur sudo: pam_unix(sudo:session): session opened
+
+==> /var/log/kern.log <==
+Mai  8 10:00:05 serveur kernel: [42358.123] eth0: link up 1000Mbps
+Mai  8 10:15:30 serveur kernel: [43283.456] TCP: request_sock_TCP: Possible SYN flooding
+Mai  8 10:30:00 serveur kernel: [44158.789] audit: type=1400 msg=apparmor="ALLOWED"
+```

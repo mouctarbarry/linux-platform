@@ -1,0 +1,52 @@
+---
+title: wc
+category: fichiers
+description: Compter les lignes, mots et caractères
+tags: [fichiers, comptage, statistiques]
+---
+
+## Syntaxe
+
+```bash
+wc [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                        |
+| ------ | ---------------------------------- |
+| `-l`   | Compter uniquement les lignes      |
+| `-w`   | Compter uniquement les mots        |
+| `-c`   | Compter uniquement les octets      |
+| `-m`   | Compter uniquement les caractères  |
+
+## Exemples
+
+### Compter les lignes, mots et caractères d'un fichier
+
+```bash
+$ wc /etc/passwd
+  42  78 2245 /etc/passwd
+$ wc README.md
+ 128  542 3872 README.md
+```
+
+### Compter le nombre de lignes dans des fichiers de log
+
+```bash
+$ wc -l /var/log/nginx/*.log
+   15234 /var/log/nginx/access.log
+     487 /var/log/nginx/error.log
+   15721 total
+```
+
+### Compter le nombre de fichiers dans un répertoire
+
+```bash
+$ ls /etc/nginx/sites-available/ | wc -l
+5
+$ find /var/www/html -name "*.html" | wc -l
+23
+$ docker ps -q | wc -l
+7
+```

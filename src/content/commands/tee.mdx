@@ -1,0 +1,48 @@
+---
+title: tee
+category: recherche
+description: Lire l'entrée standard et écrire dans des fichiers et la sortie standard
+tags: [redirection, sortie, fichier, pipeline]
+---
+
+## Syntaxe
+
+```bash
+tee [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                                         |
+| ------ | --------------------------------------------------- |
+| `-a`   | Ajouter au fichier au lieu de l'écraser             |
+| `-i`   | Ignorer les signaux d'interruption                  |
+| `-p`   | Diagnostiquer les erreurs d'écriture                |
+
+## Exemples
+
+### Sauvegarder la sortie tout en l'affichant
+
+```bash
+$ df -h | tee rapport-disques.txt
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1       50G   32G   16G  67% /
+/dev/sdb1      200G  145G   45G  76% /data
+tmpfs           8.0G  1.2G  6.8G  15% /dev/shm
+```
+
+### Ajouter des logs sans écraser le fichier existant
+
+```bash
+$ echo "$(date): déploiement v2.3.1 terminé" | tee -a deploy.log
+Fri May 08 14:30:22 UTC 2026: déploiement v2.3.1 terminé
+```
+
+### Écrire dans plusieurs fichiers simultanément
+
+```bash
+$ cat /proc/meminfo | grep MemTotal | tee mem-srv01.txt mem-srv02.txt
+MemTotal:       16384000 kB
+$ cat mem-srv01.txt
+MemTotal:       16384000 kB
+```

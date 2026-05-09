@@ -1,0 +1,63 @@
+---
+title: top
+category: processus
+description: Afficher les processus en temps réel
+tags: [processus, surveillance, mémoire, cpu]
+---
+
+## Syntaxe
+
+```bash
+top [OPTIONS]
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-d`   | Définir le délai de rafraîchissement en secondes |
+| `-u`   | Filtrer par utilisateur                          |
+| `-p`   | Surveiller uniquement les PID spécifiés          |
+| `-n`   | Nombre d'itérations avant de quitter             |
+
+## Exemples
+
+### Afficher les processus avec rafraîchissement toutes les 2 secondes
+
+```bash
+$ top -d 2
+top - 14:32:05 up 12 days,  3:45,  2 users,  load average: 0.52, 0.38, 0.41
+Tasks: 213 total,   1 running, 212 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  5.2 us,  1.8 sy,  0.0 ni, 92.3 id,  0.5 wa,  0.0 hi,  0.2 si
+MiB Mem :  16384.0 total,   8234.5 free,   4521.3 used,   3628.2 buff/cache
+MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.  11456.7 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+ 1842 mouctar   20   0 2345672 185432  54212 S   8.3   1.1   2:15.43 node
+  987 root      20   0  512340  42568  18764 S   2.1   0.3   5:42.18 Xorg
+ 2103 mouctar   20   0 1876432  98764  32456 S   1.5   0.6   0:45.67 code
+```
+
+### Surveiller les processus d'un utilisateur
+
+```bash
+$ top -u mouctar -n 1
+top - 14:35:12 up 12 days,  3:48,  2 users,  load average: 0.45, 0.36, 0.40
+Tasks:  42 total,   0 running,  42 sleeping,   0 stopped,   0 zombie
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+ 1842 mouctar   20   0 2345672 185432  54212 S   4.2   1.1   2:16.01 node
+ 2103 mouctar   20   0 1876432  98764  32456 S   1.2   0.6   0:46.12 code
+ 2450 mouctar   20   0  654321  34567  12345 S   0.3   0.2   0:12.34 bash
+```
+
+### Surveiller un processus spécifique par PID
+
+```bash
+$ top -p 1842 -n 1
+top - 14:37:00 up 12 days,  3:50,  2 users,  load average: 0.41, 0.35, 0.39
+Tasks:   1 total,   0 running,   1 sleeping,   0 stopped,   0 zombie
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+ 1842 mouctar   20   0 2345672 185432  54212 S   3.8   1.1   2:17.55 node
+```

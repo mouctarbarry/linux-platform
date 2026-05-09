@@ -1,0 +1,56 @@
+---
+title: sort
+category: recherche
+description: Trier les lignes d'un fichier texte
+tags: [tri, lignes, classement, texte]
+---
+
+## Syntaxe
+
+```bash
+sort [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-n`   | Trier numériquement au lieu d'alphabétiquement   |
+| `-r`   | Inverser l'ordre du tri (décroissant)            |
+| `-k N` | Trier selon le champ numéro N                   |
+| `-u`   | Supprimer les doublons après le tri              |
+
+## Exemples
+
+### Trier un fichier par taille décroissante
+
+```bash
+$ du -sh /var/log/* | sort -rh
+1.2G	/var/log/journal
+245M	/var/log/syslog
+128M	/var/log/auth.log
+45M	/var/log/kern.log
+12M	/var/log/dpkg.log
+```
+
+### Trier un fichier CSV par le troisième champ
+
+```bash
+$ sort -t',' -k3 -n notes.csv
+Martin,Physique,8
+Leroy,Maths,12
+Dupont,Chimie,15
+Bernard,Maths,17
+Durand,Physique,19
+```
+
+### Trier et supprimer les doublons
+
+```bash
+$ sort -u domaines.txt
+api.exemple.fr
+cdn.exemple.fr
+docs.exemple.fr
+mail.exemple.fr
+www.exemple.fr
+```

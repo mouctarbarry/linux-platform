@@ -1,0 +1,53 @@
+---
+title: chown
+category: fichiers
+description: Changer le propriétaire et le groupe d'un fichier
+tags: [fichiers, proprietaire, permissions, securite]
+---
+
+## Syntaxe
+
+```bash
+chown [OPTIONS] UTILISATEUR[:GROUPE] FICHIER...
+```
+
+## Options principales
+
+| Option       | Description                                          |
+| ------------ | ---------------------------------------------------- |
+| `-R`         | Appliquer récursivement aux répertoires et contenus  |
+| `-v`         | Afficher les modifications effectuées                |
+| `--reference`| Utiliser le propriétaire d'un fichier de référence   |
+| `-c`         | Afficher uniquement les fichiers réellement modifiés |
+
+## Exemples
+
+### Changer le propriétaire d'un fichier
+
+```bash
+$ ls -l config.yml
+-rw-r--r-- 1 root root 1024 mai  8 10:00 config.yml
+$ sudo chown mouctar config.yml
+$ ls -l config.yml
+-rw-r--r-- 1 mouctar root 1024 mai  8 10:00 config.yml
+```
+
+### Changer le propriétaire et le groupe récursivement
+
+```bash
+$ sudo chown -Rv www-data:www-data /var/www/monsite/
+le propriétaire de '/var/www/monsite/' a été modifié en www-data:www-data
+le propriétaire de '/var/www/monsite/index.html' a été modifié en www-data:www-data
+le propriétaire de '/var/www/monsite/css/style.css' a été modifié en www-data:www-data
+le propriétaire de '/var/www/monsite/js/app.js' a été modifié en www-data:www-data
+```
+
+### Copier le propriétaire d'un fichier de référence
+
+```bash
+$ ls -l app.conf
+-rw-r--r-- 1 root root 512 mai  8 09:00 app.conf
+$ sudo chown --reference=/var/www/index.html app.conf
+$ ls -l app.conf
+-rw-r--r-- 1 www-data www-data 512 mai  8 09:00 app.conf
+```

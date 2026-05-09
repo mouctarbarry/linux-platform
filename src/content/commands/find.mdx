@@ -1,0 +1,50 @@
+---
+title: find
+category: fichiers
+description: Rechercher des fichiers et répertoires selon divers critères
+tags: [fichiers, recherche, recursif]
+---
+
+## Syntaxe
+
+```bash
+find [CHEMIN] [OPTIONS] [EXPRESSION]
+```
+
+## Options principales
+
+| Option   | Description                                     |
+| -------- | ----------------------------------------------- |
+| `-name`  | Filtrer par nom de fichier (supporte les globs) |
+| `-type`  | Filtrer par type (`f` fichier, `d` répertoire)  |
+| `-mtime` | Filtrer par date de modification (en jours)     |
+| `-exec`  | Exécuter une commande sur chaque résultat       |
+
+## Exemples
+
+### Trouver tous les fichiers TypeScript
+
+```bash
+$ find ./src -name "*.ts" -type f
+./src/index.ts
+./src/app.ts
+./src/utils/helpers.ts
+./src/components/Button.tsx
+```
+
+### Fichiers modifiés dans les 7 derniers jours
+
+```bash
+$ find /var/log -mtime -7 -name "*.log"
+/var/log/syslog.log
+/var/log/auth.log
+/var/log/nginx/access.log
+```
+
+### Supprimer les fichiers temporaires
+
+```bash
+$ find /tmp -name "*.tmp" -type f -exec rm -v {} \;
+removed '/tmp/sess_abc123.tmp'
+removed '/tmp/upload_def456.tmp'
+```

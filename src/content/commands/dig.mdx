@@ -1,0 +1,64 @@
+---
+title: dig
+category: reseau
+description: Interroger les serveurs DNS
+tags: [reseau, dns, domaine, resolution]
+---
+
+## Syntaxe
+
+```bash
+dig [OPTIONS] [@serveur] NOM [TYPE]
+```
+
+## Options principales
+
+| Option    | Description                                      |
+| --------- | ------------------------------------------------ |
+| `+short`  | Afficher uniquement la réponse concise           |
+| `+trace`  | Tracer la résolution DNS depuis la racine        |
+| `-x`      | Effectuer une résolution inverse (IP vers nom)   |
+| `+noall +answer` | Afficher uniquement la section réponse   |
+
+## Exemples
+
+### Résoudre un nom de domaine
+
+```bash
+$ dig example.com
+
+; <<>> DiG 9.18.28 <<>> example.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 34521
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; QUESTION SECTION:
+;example.com.                   IN      A
+
+;; ANSWER SECTION:
+example.com.            3600    IN      A       93.184.216.34
+
+;; Query time: 12 msec
+;; SERVER: 1.1.1.1#53(1.1.1.1) (UDP)
+;; WHEN: Thu May 08 09:45:12 CEST 2026
+;; MSG SIZE  rcvd: 56
+```
+
+### Obtenir les enregistrements MX en mode concis
+
+```bash
+$ dig +short MX gmail.com
+5 gmail-smtp-in.l.google.com.
+10 alt1.gmail-smtp-in.l.google.com.
+20 alt2.gmail-smtp-in.l.google.com.
+30 alt3.gmail-smtp-in.l.google.com.
+40 alt4.gmail-smtp-in.l.google.com.
+```
+
+### Effectuer une résolution DNS inverse
+
+```bash
+$ dig -x 8.8.8.8 +noall +answer
+8.8.8.8.in-addr.arpa.  7200    IN      PTR     dns.google.
+```

@@ -1,0 +1,44 @@
+{
+  "name": "linux-platform",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "npx serve out",
+    "lint": "eslint src/ --max-warnings=0",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "gray-matter": "^4.0.3",
+    "lucide-react": "^0.511.0",
+    "next": "^16.2.6",
+    "next-mdx-remote": "^6.0.0",
+    "next-themes": "^0.4.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "rehype-pretty-code": "^0.14.3",
+    "shiki": "^4.0.2",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@next/eslint-plugin-next": "^16.2.6",
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "postcss": "^8.4.0",
+    "prettier": "^3.0.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.0.0"
+  }
+}

@@ -1,0 +1,49 @@
+---
+title: gzip
+category: archivage
+description: Compresser ou décompresser des fichiers au format gzip
+tags: [compression, gzip, décompression]
+---
+
+## Syntaxe
+
+```bash
+gzip [OPTIONS] [FICHIERS...]
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-d`   | Décompresser un fichier .gz                      |
+| `-k`   | Conserver le fichier original après compression  |
+| `-v`   | Afficher le taux de compression                  |
+| `-9`   | Compression maximale (plus lent)                 |
+
+## Exemples
+
+### Compresser un fichier avec affichage du taux
+
+```bash
+$ gzip -v access.log
+access.log:	 78.3% -- replaced with access.log.gz
+$ ls -lh access.log.gz
+-rw-r--r-- 1 mouctar mouctar 12M mai 8 14:22 access.log.gz
+```
+
+### Compresser en conservant le fichier original
+
+```bash
+$ gzip -k -9 database-dump.sql
+$ ls -lh database-dump.sql*
+-rw-r--r-- 1 mouctar mouctar 245M mai 8 09:15 database-dump.sql
+-rw-r--r-- 1 mouctar mouctar  31M mai 8 09:15 database-dump.sql.gz
+```
+
+### Décompresser un fichier gzip
+
+```bash
+$ gzip -d backup-2024-05-08.tar.gz
+$ ls -lh backup-2024-05-08.tar
+-rw-r--r-- 1 mouctar mouctar 52M mai 8 10:30 backup-2024-05-08.tar
+```

@@ -1,0 +1,47 @@
+---
+title: hostname
+category: systeme
+description: Afficher ou modifier le nom d'hote du systeme
+tags: [reseau, hote, nom, systeme]
+---
+
+## Syntaxe
+
+```bash
+hostname [OPTIONS] [NOM]
+```
+
+## Options principales
+
+| Option | Description                                  |
+| ------ | -------------------------------------------- |
+| `-f`   | Afficher le nom d'hôte complet (FQDN)        |
+| `-i`   | Afficher l'adresse IP associée au nom d'hôte  |
+| `-d`   | Afficher le nom de domaine DNS                |
+| `-I`   | Afficher toutes les adresses IP de la machine |
+
+## Exemples
+
+### Afficher le nom d'hôte et le FQDN
+
+```bash
+$ hostname
+serveur-web
+$ hostname -f
+serveur-web.exemple.local
+```
+
+### Afficher toutes les adresses IP de la machine
+
+```bash
+$ hostname -I
+192.168.1.100 10.0.0.5 172.17.0.1
+```
+
+### Modifier temporairement le nom d'hôte
+
+```bash
+$ sudo hostname nouveau-serveur
+$ hostname
+nouveau-serveur
+```

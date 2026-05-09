@@ -1,0 +1,48 @@
+---
+title: grep
+category: recherche
+description: Rechercher des motifs textuels dans des fichiers ou des flux
+tags: [recherche, texte, regex, filtrage]
+---
+
+## Syntaxe
+
+```bash
+grep [OPTIONS] MOTIF [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                              |
+| ------ | ---------------------------------------- |
+| `-i`   | Ignorer la casse (majuscules/minuscules) |
+| `-r`   | Recherche récursive dans les répertoires |
+| `-n`   | Afficher les numéros de ligne            |
+| `-c`   | Compter le nombre de correspondances     |
+
+## Exemples
+
+### Rechercher un mot dans un fichier
+
+```bash
+$ grep -n "error" /var/log/syslog
+42:May 08 10:23:01 srv error: connection timeout
+87:May 08 10:45:12 srv error: disk I/O failure
+```
+
+### Recherche récursive insensible à la casse
+
+```bash
+$ grep -ri "todo" ./src/
+./src/app.ts:12:  // TODO: implémenter la pagination
+./src/utils/auth.ts:5:  // Todo: ajouter la validation MFA
+```
+
+### Compter les occurrences dans plusieurs fichiers
+
+```bash
+$ grep -c "import" src/*.ts
+src/app.ts:4
+src/index.ts:2
+src/utils.ts:7
+```

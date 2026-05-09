@@ -1,0 +1,54 @@
+---
+title: bzip2
+category: archivage
+description: Compresser des fichiers au format bzip2
+tags: [compression, bzip2, archivage]
+---
+
+## Syntaxe
+
+```bash
+bzip2 [OPTIONS] [FICHIERS...]
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-d`   | Décompresser un fichier .bz2                     |
+| `-k`   | Conserver le fichier original après compression  |
+| `-v`   | Afficher le taux de compression                  |
+| `-9`   | Compression maximale (meilleur ratio)            |
+
+## Exemples
+
+### Compresser un fichier volumineux avec affichage détaillé
+
+```bash
+$ bzip2 -v -9 access-2024.log
+  access-2024.log:  8.214:1,  0.974 bits/byte, 87.82% saved, 524288000 in, 63832576 out.
+$ ls -lh access-2024.log.bz2
+-rw-r--r-- 1 mouctar mouctar 61M mai 8 16:10 access-2024.log.bz2
+```
+
+### Compresser en conservant le fichier original
+
+```bash
+$ bzip2 -k dump-postgres.sql
+$ ls -lh dump-postgres.sql*
+-rw-r--r-- 1 mouctar mouctar 380M mai 8 03:00 dump-postgres.sql
+-rw-r--r-- 1 mouctar mouctar  42M mai 8 03:00 dump-postgres.sql.bz2
+```
+
+### Décompresser un fichier bzip2
+
+```bash
+$ bzip2 -d sauvegarde-config.tar.bz2
+$ ls -lh sauvegarde-config.tar
+-rw-r--r-- 1 mouctar mouctar 15M mai 8 09:45 sauvegarde-config.tar
+$ tar -tf sauvegarde-config.tar
+etc/nginx/nginx.conf
+etc/nginx/sites-available/default
+etc/ssh/sshd_config
+etc/fail2ban/jail.local
+```

@@ -1,0 +1,44 @@
+---
+title: date
+category: systeme
+description: Afficher ou modifier la date et l'heure
+tags: [date, heure, horodatage, systeme]
+---
+
+## Syntaxe
+
+```bash
+date [OPTIONS] [+FORMAT]
+```
+
+## Options principales
+
+| Option       | Description                                    |
+| ------------ | ---------------------------------------------- |
+| `+FORMAT`    | Afficher la date selon un format personnalisé  |
+| `-u`         | Afficher la date en UTC                        |
+| `-d STRING`  | Afficher la date décrite par la chaîne donnée  |
+| `-s STRING`  | Définir la date et l'heure du système          |
+
+## Exemples
+
+### Afficher la date et l'heure actuelles
+
+```bash
+$ date
+jeu. 08 mai 2025 14:32:18 CEST
+```
+
+### Formater la date pour un nom de fichier
+
+```bash
+$ date +"%Y-%m-%d_%H-%M-%S"
+2025-05-08_14-32-18
+```
+
+### Calculer une date relative
+
+```bash
+$ date -d "+3 days" +"%A %d %B %Y"
+dimanche 11 mai 2025
+```

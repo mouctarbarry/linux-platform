@@ -1,0 +1,51 @@
+---
+title: chgrp
+category: permissions
+description: Changer le groupe propriétaire d'un fichier
+tags: [groupe, proprietaire, fichiers]
+---
+
+## Syntaxe
+
+```bash
+chgrp [OPTIONS] GROUPE FICHIER...
+```
+
+## Options principales
+
+| Option | Description                                          |
+| ------ | ---------------------------------------------------- |
+| `-R`   | Appliquer récursivement aux sous-répertoires         |
+| `-v`   | Mode verbeux, afficher chaque modification           |
+| `-c`   | Afficher uniquement les fichiers effectivement modifiés |
+| `-h`   | Modifier le lien symbolique et non la cible          |
+
+## Exemples
+
+### Changer le groupe d'un répertoire de projet
+
+```bash
+$ ls -l /var/www/
+drwxr-xr-x 4 mouctar mouctar 4096 mai  8 10:00 mon-site/
+$ sudo chgrp www-data /var/www/mon-site/
+$ ls -l /var/www/
+drwxr-xr-x 4 mouctar www-data 4096 mai  8 10:00 mon-site/
+```
+
+### Appliquer récursivement à une arborescence
+
+```bash
+$ sudo chgrp -Rv devops /opt/deploy/
+le groupe de « /opt/deploy/ » a été modifié en devops
+le groupe de « /opt/deploy/scripts/ » a été modifié en devops
+le groupe de « /opt/deploy/scripts/run.sh » a été modifié en devops
+le groupe de « /opt/deploy/config.yml » a été modifié en devops
+```
+
+### Afficher uniquement les fichiers modifiés
+
+```bash
+$ sudo chgrp -c docker /opt/containers/*.yml
+le groupe de « /opt/containers/docker-compose.yml » a été modifié en docker
+le groupe de « /opt/containers/stack.yml » a été modifié en docker
+```

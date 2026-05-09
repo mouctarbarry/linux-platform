@@ -1,0 +1,46 @@
+---
+title: id
+category: systeme
+description: Afficher les identifiants utilisateur et groupe
+tags: [utilisateur, groupe, identifiant, permissions]
+---
+
+## Syntaxe
+
+```bash
+id [OPTIONS] [UTILISATEUR]
+```
+
+## Options principales
+
+| Option | Description                                   |
+| ------ | --------------------------------------------- |
+| `-u`   | Afficher uniquement l'identifiant utilisateur  |
+| `-g`   | Afficher uniquement l'identifiant du groupe    |
+| `-G`   | Afficher tous les groupes supplémentaires      |
+| `-n`   | Afficher le nom au lieu du numéro (avec -u/-g) |
+
+## Exemples
+
+### Afficher tous les identifiants de l'utilisateur courant
+
+```bash
+$ id
+uid=1000(mouctar) gid=1000(mouctar) groupes=1000(mouctar),4(adm),24(cdrom),27(sudo),33(www-data),999(docker)
+```
+
+### Afficher les groupes d'un utilisateur spécifique
+
+```bash
+$ id -Gn www-data
+www-data
+```
+
+### Vérifier si l'utilisateur est root
+
+```bash
+$ id -u
+1000
+$ sudo id -u
+0
+```

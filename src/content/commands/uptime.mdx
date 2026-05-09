@@ -1,0 +1,43 @@
+---
+title: uptime
+category: systeme
+description: Afficher le temps de fonctionnement du systeme
+tags: [systeme, disponibilite, charge, uptime]
+---
+
+## Syntaxe
+
+```bash
+uptime [OPTIONS]
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `-p`   | Afficher le temps de fonctionnement en format lisible |
+| `-s`   | Afficher la date et l'heure de démarrage du système |
+| `-V`   | Afficher la version de la commande                  |
+
+## Exemples
+
+### Afficher les informations complètes
+
+```bash
+$ uptime
+ 14:32:18 up 42 days,  3:17,  2 users,  load average: 0.15, 0.22, 0.18
+```
+
+### Afficher le temps de fonctionnement en format lisible
+
+```bash
+$ uptime -p
+up 6 weeks, 0 days, 3 hours, 17 minutes
+```
+
+### Afficher la date de dernier démarrage
+
+```bash
+$ uptime -s
+2025-03-27 11:15:02
+```

@@ -1,0 +1,46 @@
+---
+title: scp
+category: reseau
+description: Copier des fichiers entre machines via SSH
+tags: [reseau, transfert, fichiers, ssh]
+---
+
+## Syntaxe
+
+```bash
+scp [OPTIONS] SOURCE DESTINATION
+```
+
+## Options principales
+
+| Option | Description                                    |
+| ------ | ---------------------------------------------- |
+| `-r`   | Copier récursivement les répertoires           |
+| `-P`   | Spécifier le port SSH                          |
+| `-i`   | Utiliser une clé privée spécifique             |
+| `-C`   | Activer la compression pendant le transfert    |
+
+## Exemples
+
+### Copier un fichier vers un serveur distant
+
+```bash
+$ scp ./rapport.pdf admin@srv-backup:/home/admin/documents/
+rapport.pdf                                100%  2.4MB  12.8MB/s   00:00
+```
+
+### Copier un répertoire entier depuis un serveur
+
+```bash
+$ scp -r deploy@prod.example.com:/var/log/nginx/ ./logs-prod/
+access.log                                 100%  45MB  28.3MB/s   00:01
+error.log                                  100%  1.2MB  15.6MB/s   00:00
+access.log.1                               100%  38MB  27.1MB/s   00:01
+```
+
+### Transférer avec un port personnalisé et compression
+
+```bash
+$ scp -P 2222 -C backup.tar.gz ops@staging.example.com:/opt/backups/
+backup.tar.gz                              100%  156MB  18.4MB/s   00:08
+```

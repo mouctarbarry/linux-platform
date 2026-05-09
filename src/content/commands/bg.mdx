@@ -1,0 +1,61 @@
+---
+title: bg
+category: processus
+description: Reprendre une tâche suspendue en arrière-plan
+tags: [arrière-plan, tâche, reprise, shell]
+---
+
+## Syntaxe
+
+```bash
+bg [NUMÉRO_TÂCHE]
+```
+
+## Options principales
+
+| Option | Description                                              |
+| ------ | -------------------------------------------------------- |
+| `%n`   | Reprendre la tâche numéro n                              |
+| `%+`   | Reprendre la tâche courante (la plus récente)            |
+| `%-`   | Reprendre la tâche précédente                            |
+| `%%`   | Synonyme de %+ (tâche courante)                          |
+
+## Exemples
+
+### Suspendre puis reprendre un processus en arrière-plan
+
+```bash
+$ find / -name "*.conf" 2>/dev/null
+^Z
+[1]+  Stopped                 find / -name "*.conf" 2>/dev/null
+$ bg %1
+[1]+ find / -name "*.conf" 2>/dev/null &
+```
+
+### Reprendre la tâche la plus récente
+
+```bash
+$ tar czf backup.tar.gz /home/mouctar/projets
+^Z
+[1]+  Stopped                 tar czf backup.tar.gz /home/mouctar/projets
+$ bg
+[1]+ tar czf backup.tar.gz /home/mouctar/projets &
+$ jobs
+[1]+  Running                 tar czf backup.tar.gz /home/mouctar/projets &
+```
+
+### Reprendre une tâche spécifique parmi plusieurs
+
+```bash
+$ sleep 500
+^Z
+[1]+  Stopped                 sleep 500
+$ cp -r /data/archives /backup/
+^Z
+[2]+  Stopped                 cp -r /data/archives /backup/
+$ bg %2
+[2]+ cp -r /data/archives /backup/ &
+$ jobs
+[1]+  Stopped                 sleep 500
+[2]-  Running                 cp -r /data/archives /backup/ &
+```

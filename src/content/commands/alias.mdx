@@ -1,0 +1,55 @@
+---
+title: alias
+category: editeurs
+description: Creer des raccourcis de commandes
+tags: [raccourci, commande, personnalisation, shell]
+---
+
+## Syntaxe
+
+```bash
+alias [NOM='COMMANDE']
+```
+
+## Options principales
+
+| Option    | Description                                     |
+| --------- | ----------------------------------------------- |
+| (aucune)  | Lister tous les alias definis                   |
+| `NOM=CMD` | Creer un alias NOM pour la commande CMD         |
+| `-p`      | Afficher les alias au format reutilisable       |
+| `unalias` | Supprimer un alias existant                     |
+
+## Exemples
+
+### Lister tous les alias definis
+
+```bash
+$ alias
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias grep='grep --color=auto'
+```
+
+### Creer un alias pour une commande frequente
+
+```bash
+$ alias maj='sudo apt update && sudo apt upgrade -y'
+$ maj
+Hit:1 http://archive.ubuntu.com/ubuntu noble InRelease
+Reading package lists... Done
+Building dependency tree... Done
+All packages are up to date.
+```
+
+### Supprimer un alias existant
+
+```bash
+$ alias tmp='cd /tmp && ls'
+$ tmp
+systemd-private-abc123  snap-private-tmp
+$ unalias tmp
+$ tmp
+bash: tmp: command not found
+```

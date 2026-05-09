@@ -1,0 +1,49 @@
+---
+title: df
+category: systeme
+description: Afficher l'espace disque utilisé et disponible sur les systèmes de fichiers
+tags: [systeme, disque, espace, monitoring]
+---
+
+## Syntaxe
+
+```bash
+df [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option    | Description                                 |
+| --------- | ------------------------------------------- |
+| `-h`      | Tailles lisibles par un humain (Ko, Mo, Go) |
+| `-T`      | Afficher le type de système de fichiers     |
+| `-i`      | Afficher l'utilisation des inodes           |
+| `--total` | Ajouter une ligne de total global           |
+
+## Exemples
+
+### Vue d'ensemble de l'espace disque
+
+```bash
+$ df -hT
+Sys. de fichiers Type  Taille Utilisé Dispo Uti% Monté sur
+/dev/sda1        ext4    50G     32G   16G  67% /
+/dev/sdb1        ext4   200G    142G   48G  75% /var
+tmpfs            tmpfs   8.0G   124M  7.9G   2% /tmp
+```
+
+### Vérifier l'espace d'un répertoire spécifique
+
+```bash
+$ df -h /var/log
+Sys. de fichiers Taille Utilisé Dispo Uti% Monté sur
+/dev/sdb1         200G    142G   48G  75% /var
+```
+
+### Surveiller les inodes disponibles
+
+```bash
+$ df -ih /
+Sys. de fichiers Inodes IUtilisés ILibres IUti% Monté sur
+/dev/sda1          3.2M      245K    2.9M    8% /
+```

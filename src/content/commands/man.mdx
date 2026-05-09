@@ -1,0 +1,56 @@
+---
+title: man
+category: editeurs
+description: Consulter les pages de manuel
+tags: [aide, documentation, manuel, reference]
+---
+
+## Syntaxe
+
+```bash
+man [OPTIONS] [SECTION] COMMANDE
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-k`   | Rechercher un mot-cle dans les descriptions      |
+| `-f`   | Afficher une description courte de la commande   |
+| `-a`   | Afficher toutes les pages correspondantes        |
+| `-w`   | Afficher le chemin du fichier de manuel           |
+
+## Exemples
+
+### Consulter le manuel d'une commande
+
+```bash
+$ man ls
+LS(1)                    User Commands                    LS(1)
+
+NAME
+       ls - list directory contents
+
+SYNOPSIS
+       ls [OPTION]... [FILE]...
+
+DESCRIPTION
+       List information about the FILEs (the current directory by default).
+```
+
+### Rechercher un mot-cle dans les manuels
+
+```bash
+$ man -k password
+chpasswd (8)         - update passwords in batch mode
+passwd (1)           - change user password
+passwd (5)           - the password file
+openssl-passwd (1)   - compute password hashes
+```
+
+### Afficher le chemin du fichier de manuel
+
+```bash
+$ man -w grep
+/usr/share/man/man1/grep.1.gz
+```

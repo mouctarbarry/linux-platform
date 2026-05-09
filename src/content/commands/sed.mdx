@@ -1,0 +1,48 @@
+---
+title: sed
+category: recherche
+description: Éditer des flux de texte avec des substitutions et transformations
+tags: [texte, remplacement, stream, regex]
+---
+
+## Syntaxe
+
+```bash
+sed [OPTIONS] 'COMMANDE' [FICHIER...]
+```
+
+## Options principales
+
+| Option               | Description                                         |
+| -------------------- | --------------------------------------------------- |
+| `-i`                 | Modifier le fichier en place                        |
+| `-n`                 | Supprimer la sortie automatique (utiliser avec `p`) |
+| `-e`                 | Enchaîner plusieurs commandes                       |
+| `s/ancien/nouveau/g` | Substitution globale sur chaque ligne               |
+
+## Exemples
+
+### Remplacer un texte dans un fichier
+
+```bash
+$ sed -i 's/localhost/192.168.1.50/g' config.yaml
+$ grep "host" config.yaml
+  host: 192.168.1.50
+  db_host: 192.168.1.50
+```
+
+### Afficher uniquement certaines lignes
+
+```bash
+$ sed -n '5,10p' /var/log/auth.log
+May 08 09:01:22 srv sshd[1234]: Accepted publickey for deploy
+May 08 09:01:22 srv sshd[1234]: pam_unix(sshd:session): session opened
+May 08 09:05:45 srv sudo: mouctar : TTY=pts/0 ; COMMAND=/bin/systemctl restart nginx
+```
+
+### Supprimer les lignes vides
+
+```bash
+$ sed '/^$/d' script.sh | wc -l
+47
+```

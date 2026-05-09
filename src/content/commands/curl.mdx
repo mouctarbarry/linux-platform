@@ -1,0 +1,50 @@
+---
+title: curl
+category: reseau
+description: Transférer des données depuis ou vers un serveur via HTTP/HTTPS
+tags: [reseau, http, api, telechargement]
+---
+
+## Syntaxe
+
+```bash
+curl [OPTIONS] URL
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `-o`   | Enregistrer la sortie dans un fichier              |
+| `-H`   | Ajouter un en-tête HTTP personnalisé               |
+| `-X`   | Spécifier la méthode HTTP (GET, POST, PUT, DELETE) |
+| `-d`   | Envoyer des données dans le corps de la requête    |
+
+## Exemples
+
+### Appeler une API REST avec authentification
+
+```bash
+$ curl -H "Authorization: Bearer $TOKEN" https://api.example.com/users
+[
+  {"id": 1, "name": "Alice", "role": "admin"},
+  {"id": 2, "name": "Bob", "role": "user"}
+]
+```
+
+### Envoyer des données JSON en POST
+
+```bash
+$ curl -X POST https://api.example.com/deploy \
+  -H "Content-Type: application/json" \
+  -d '{"branch": "main", "env": "production"}'
+{"status": "success", "deploy_id": "d-2024-0508"}
+```
+
+### Télécharger un fichier avec barre de progression
+
+```bash
+$ curl -o terraform.zip -L https://releases.hashicorp.com/terraform/1.8.0/terraform_1.8.0_linux_amd64.zip
+  % Total    % Received % Xferd  Speed   Time
+ 100 25.3M  100 25.3M    0     0  12.5M      0  0:00:02
+```

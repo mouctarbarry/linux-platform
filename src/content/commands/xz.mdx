@@ -1,0 +1,52 @@
+---
+title: xz
+category: archivage
+description: Compresser des fichiers au format xz (haute compression)
+tags: [compression, xz, haute-compression]
+---
+
+## Syntaxe
+
+```bash
+xz [OPTIONS] [FICHIERS...]
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-d`   | Décompresser un fichier .xz                       |
+| `-k`   | Conserver le fichier original après compression   |
+| `-v`   | Afficher la progression et le taux de compression |
+| `-9`   | Compression maximale (très lent, meilleur ratio)  |
+
+## Exemples
+
+### Compresser un fichier avec le meilleur taux
+
+```bash
+$ xz -v -9 kernel-logs-2024.log
+kernel-logs-2024.log (1/1)
+  100 %     18.4 MiB / 256.0 MiB = 0.072   4.8 MiB/s     0:53
+$ ls -lh kernel-logs-2024.log.xz
+-rw-r--r-- 1 mouctar mouctar 19M mai 8 17:30 kernel-logs-2024.log.xz
+```
+
+### Compresser en conservant le fichier original
+
+```bash
+$ xz -k image-disque.raw
+$ ls -lh image-disque.raw*
+-rw-r--r-- 1 mouctar mouctar 2.0G mai 8 02:00 image-disque.raw
+-rw-r--r-- 1 mouctar mouctar 145M mai 8 02:12 image-disque.raw.xz
+```
+
+### Décompresser un fichier xz
+
+```bash
+$ xz -d -v firmware-v3.2.1.tar.xz
+firmware-v3.2.1.tar.xz (1/1)
+  100 %    84.0 MiB / 320.0 MiB = 0.263    62.5 MiB/s     0:01
+$ ls -lh firmware-v3.2.1.tar
+-rw-r--r-- 1 mouctar mouctar 320M mai 8 14:00 firmware-v3.2.1.tar
+```

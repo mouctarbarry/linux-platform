@@ -1,0 +1,47 @@
+---
+title: echo
+category: editeurs
+description: Afficher du texte sur la sortie standard
+tags: [affichage, texte, shell, script]
+---
+
+## Syntaxe
+
+```bash
+echo [OPTIONS] [TEXTE...]
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `-n`   | Ne pas ajouter de saut de ligne a la fin           |
+| `-e`   | Interpreter les sequences d'echappement            |
+| `-E`   | Desactiver l'interpretation des echappements       |
+
+## Exemples
+
+### Afficher une variable d'environnement
+
+```bash
+$ echo "L'utilisateur actuel est : $USER"
+L'utilisateur actuel est : mouctar
+```
+
+### Utiliser les sequences d'echappement
+
+```bash
+$ echo -e "Nom:\tMouctar\nRole:\tDevOps\nOS:\tLinux"
+Nom:    Mouctar
+Role:   DevOps
+OS:     Linux
+```
+
+### Ecrire du texte dans un fichier
+
+```bash
+$ echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+nameserver 8.8.8.8
+$ cat /etc/resolv.conf
+nameserver 8.8.8.8
+```

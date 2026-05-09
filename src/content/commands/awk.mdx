@@ -1,0 +1,49 @@
+---
+title: awk
+category: recherche
+description: Traiter et extraire des données structurées en colonnes
+tags: [texte, colonnes, traitement, script]
+---
+
+## Syntaxe
+
+```bash
+awk [OPTIONS] 'PROGRAMME' [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                                 |
+| ------ | ------------------------------------------- |
+| `-F`   | Définir le séparateur de champs             |
+| `-v`   | Définir une variable avant l'exécution      |
+| `NR`   | Variable intégrée : numéro de ligne courant |
+| `$N`   | Référence au N-ième champ (colonne)         |
+
+## Exemples
+
+### Extraire des colonnes d'un fichier CSV
+
+```bash
+$ awk -F',' '{print $1, $3}' utilisateurs.csv
+nom age
+Alice 29
+Bob 34
+Charlie 25
+```
+
+### Filtrer les lignes selon une condition
+
+```bash
+$ awk -F':' '$3 >= 1000 {print $1}' /etc/passwd
+mouctar
+deploy
+jenkins
+```
+
+### Calculer la somme d'une colonne
+
+```bash
+$ df -h | awk 'NR>1 {sum += $3} END {print "Total utilisé:", sum "G"}'
+Total utilisé: 142G
+```

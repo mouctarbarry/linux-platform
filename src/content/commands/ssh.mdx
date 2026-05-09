@@ -1,0 +1,52 @@
+---
+title: ssh
+category: reseau
+description: Se connecter à un serveur distant de manière sécurisée
+tags: [reseau, connexion, securite, distant]
+---
+
+## Syntaxe
+
+```bash
+ssh [OPTIONS] [utilisateur@]hôte [commande]
+```
+
+## Options principales
+
+| Option         | Description                                    |
+| -------------- | ---------------------------------------------- |
+| `-p`           | Spécifier le port de connexion                 |
+| `-i`           | Utiliser une clé privée spécifique             |
+| `-L`           | Créer un tunnel local (redirection de port)    |
+| `-v`           | Mode verbeux pour le débogage                  |
+
+## Exemples
+
+### Se connecter à un serveur distant
+
+```bash
+$ ssh admin@192.168.1.50
+The authenticity of host '192.168.1.50' has been established.
+Last login: Thu May  8 09:12:33 2026 from 192.168.1.10
+admin@srv-web:~$
+```
+
+### Se connecter sur un port personnalisé avec une clé
+
+```bash
+$ ssh -i ~/.ssh/id_ed25519 -p 2222 deploy@prod.example.com
+Welcome to Ubuntu 24.04 LTS (GNU/Linux 6.8.0-45-generic x86_64)
+Last login: Wed May  7 14:05:11 2026 from 10.0.0.5
+deploy@prod:~$
+```
+
+### Créer un tunnel SSH vers une base de données distante
+
+```bash
+$ ssh -L 5433:localhost:5432 admin@db.example.com -N &
+[1] 48291
+$ psql -h localhost -p 5433 -U app_user -d production
+psql (16.3)
+Connexion SSL (protocole : TLSv1.3)
+production=>
+```

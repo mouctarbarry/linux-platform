@@ -1,0 +1,49 @@
+---
+title: mv
+category: fichiers
+description: Déplacer ou renommer des fichiers et répertoires
+tags: [fichiers, deplacement, renommage]
+---
+
+## Syntaxe
+
+```bash
+mv [OPTIONS] SOURCE... DESTINATION
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `-i`   | Demander confirmation avant d'écraser              |
+| `-v`   | Afficher les fichiers déplacés                     |
+| `-n`   | Ne pas écraser un fichier existant                 |
+| `-u`   | Déplacer uniquement si la source est plus récente  |
+
+## Exemples
+
+### Renommer un fichier
+
+```bash
+$ mv -v rapport-brouillon.pdf rapport-final.pdf
+renommé 'rapport-brouillon.pdf' -> 'rapport-final.pdf'
+```
+
+### Déplacer plusieurs fichiers dans un répertoire
+
+```bash
+$ mv -v *.log /var/log/archive/
+'access.log' -> '/var/log/archive/access.log'
+'error.log' -> '/var/log/archive/error.log'
+'debug.log' -> '/var/log/archive/debug.log'
+```
+
+### Déplacer sans écraser les fichiers existants
+
+```bash
+$ mv -vn photos/*.jpg /home/mouctar/images/
+'photos/vacances-01.jpg' -> '/home/mouctar/images/vacances-01.jpg'
+'photos/vacances-02.jpg' -> '/home/mouctar/images/vacances-02.jpg'
+$ ls photos/
+vacances-03.jpg
+```

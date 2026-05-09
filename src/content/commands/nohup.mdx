@@ -1,0 +1,56 @@
+---
+title: nohup
+category: processus
+description: Exécuter une commande immunisée contre les déconnexions
+tags: [persistance, déconnexion, arrière-plan, session]
+---
+
+## Syntaxe
+
+```bash
+nohup COMMANDE [ARGUMENTS] &
+```
+
+## Options principales
+
+| Option     | Description                                            |
+| ---------- | ------------------------------------------------------ |
+| `&`        | Lancer en arrière-plan (combiné avec nohup)            |
+| `> FILE`   | Rediriger la sortie standard vers un fichier           |
+| `2>&1`     | Rediriger les erreurs vers la même sortie              |
+| `--help`   | Afficher l'aide                                        |
+
+## Exemples
+
+### Lancer un script qui survit à la déconnexion
+
+```bash
+$ nohup ./migration.sh &
+[1] 8432
+nohup: ignoring input and appending output to 'nohup.out'
+$ cat nohup.out
+Migration de la base de données en cours...
+Table users : 15 000 lignes migrées.
+Table orders : 42 300 lignes migrées.
+```
+
+### Rediriger la sortie vers un fichier personnalisé
+
+```bash
+$ nohup python3 train_model.py > /var/log/training.log 2>&1 &
+[1] 9102
+$ tail -f /var/log/training.log
+Epoch 1/50 - loss: 0.6821 - accuracy: 0.7234
+Epoch 2/50 - loss: 0.4512 - accuracy: 0.8102
+Epoch 3/50 - loss: 0.3187 - accuracy: 0.8645
+```
+
+### Vérifier qu'un processus nohup est toujours actif
+
+```bash
+$ nohup rsync -avz /home/mouctar/ backup@192.168.1.50:/backups/ &
+[1] 7654
+nohup: ignoring input and appending output to 'nohup.out'
+$ ps aux | grep rsync
+mouctar  7654  2.3  0.4  125432  8764 ?  S    15:20   0:05 rsync -avz /home/mouctar/ backup@192.168.1.50:/backups/
+```

@@ -1,0 +1,54 @@
+---
+title: nc
+category: reseau
+description: Outil réseau polyvalent pour les connexions TCP/UDP
+tags: [reseau, tcp, udp, diagnostic]
+---
+
+## Syntaxe
+
+```bash
+nc [OPTIONS] HÔTE PORT
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `-l`   | Mode écoute (serveur)                              |
+| `-v`   | Mode verbeux                                       |
+| `-z`   | Scanner les ports sans envoyer de données          |
+| `-w`   | Délai d'attente en secondes                        |
+
+## Exemples
+
+### Scanner les ports ouverts d'un serveur
+
+```bash
+$ nc -zv 192.168.1.50 20-25
+nc: connect to 192.168.1.50 port 20 (tcp) failed: Connection refused
+nc: connect to 192.168.1.50 port 21 (tcp) failed: Connection refused
+Connection to 192.168.1.50 22 port [tcp/ssh] succeeded!
+nc: connect to 192.168.1.50 port 23 (tcp) failed: Connection refused
+nc: connect to 192.168.1.50 port 24 (tcp) failed: Connection refused
+Connection to 192.168.1.50 25 port [tcp/smtp] succeeded!
+```
+
+### Tester la connectivité vers un service web
+
+```bash
+$ nc -zv -w 3 example.com 443
+Connection to example.com (93.184.216.34) 443 port [tcp/https] succeeded!
+```
+
+### Créer un serveur d'écoute simple
+
+```bash
+$ nc -lv 8080
+Listening on 0.0.0.0 8080
+Connection received on 10.0.0.5 49312
+GET / HTTP/1.1
+Host: 192.168.1.42:8080
+User-Agent: curl/8.7.1
+Accept: */*
+```

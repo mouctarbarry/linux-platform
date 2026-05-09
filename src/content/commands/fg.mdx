@@ -1,0 +1,55 @@
+---
+title: fg
+category: processus
+description: Ramener une tâche en avant-plan
+tags: [avant-plan, tâche, reprise, shell]
+---
+
+## Syntaxe
+
+```bash
+fg [NUMÉRO_TÂCHE]
+```
+
+## Options principales
+
+| Option | Description                                         |
+| ------ | --------------------------------------------------- |
+| `%n`   | Ramener la tâche numéro n en avant-plan             |
+| `%+`   | Ramener la tâche courante (la plus récente)         |
+| `%-`   | Ramener la tâche précédente                         |
+| `%%`   | Synonyme de %+ (tâche courante)                     |
+
+## Exemples
+
+### Ramener une tâche en arrière-plan vers l'avant-plan
+
+```bash
+$ sleep 600 &
+[1] 2345
+$ fg %1
+sleep 600
+```
+
+### Ramener la tâche la plus récente
+
+```bash
+$ vim config.yaml &
+[1] 3456
+$ nano script.sh &
+[2] 3478
+$ fg
+nano script.sh
+```
+
+### Reprendre une tâche suspendue en avant-plan
+
+```bash
+$ top
+^Z
+[1]+  Stopped                 top
+$ echo "Vérification terminée"
+Vérification terminée
+$ fg %1
+top
+```

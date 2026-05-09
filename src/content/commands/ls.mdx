@@ -1,0 +1,51 @@
+---
+title: ls
+category: fichiers
+description: Lister le contenu des répertoires avec détails optionnels
+tags: [fichiers, liste, repertoire]
+---
+
+## Syntaxe
+
+```bash
+ls [OPTIONS] [CHEMIN...]
+```
+
+## Options principales
+
+| Option | Description                                             |
+| ------ | ------------------------------------------------------- |
+| `-l`   | Format long (permissions, taille, date)                 |
+| `-a`   | Afficher les fichiers cachés (commençant par `.`)       |
+| `-h`   | Tailles lisibles (Ko, Mo, Go)                           |
+| `-t`   | Trier par date de modification (plus récent en premier) |
+
+## Exemples
+
+### Lister avec détails et tailles lisibles
+
+```bash
+$ ls -lh /var/log/
+total 2.4G
+-rw-r--r-- 1 root root  12M mai  8 10:00 syslog
+-rw-r----- 1 root adm  340K mai  8 09:55 auth.log
+drwxr-xr-x 2 root root 4.0K mai  7 00:00 nginx/
+-rw-r--r-- 1 root root 1.2G mai  8 10:01 journal.log
+```
+
+### Fichiers cachés triés par date
+
+```bash
+$ ls -lat ~/
+drwxr-xr-x 15 mouctar mouctar 4096 mai  8 10:30 .
+-rw-------  1 mouctar mouctar 8234 mai  8 10:28 .bash_history
+drwxr-xr-x  4 mouctar mouctar 4096 mai  8 09:00 .config
+-rw-r--r--  1 mouctar mouctar  220 mai  1 12:00 .bashrc
+```
+
+### Lister uniquement les répertoires
+
+```bash
+$ ls -d */
+apps/  infra/  node_modules/  packages/  supabase/
+```

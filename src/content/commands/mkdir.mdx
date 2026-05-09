@@ -1,0 +1,55 @@
+---
+title: mkdir
+category: fichiers
+description: Créer des répertoires
+tags: [fichiers, repertoire, creation]
+---
+
+## Syntaxe
+
+```bash
+mkdir [OPTIONS] RÉPERTOIRE...
+```
+
+## Options principales
+
+| Option | Description                                          |
+| ------ | ---------------------------------------------------- |
+| `-p`   | Créer les répertoires parents manquants              |
+| `-v`   | Afficher les répertoires créés                       |
+| `-m`   | Définir les permissions lors de la création          |
+
+## Exemples
+
+### Créer une arborescence complète
+
+```bash
+$ mkdir -pv /var/www/monsite/{css,js,images}
+mkdir: création du répertoire '/var/www/monsite'
+mkdir: création du répertoire '/var/www/monsite/css'
+mkdir: création du répertoire '/var/www/monsite/js'
+mkdir: création du répertoire '/var/www/monsite/images'
+```
+
+### Créer un répertoire avec des permissions spécifiques
+
+```bash
+$ mkdir -m 750 -v /opt/app-secrets
+mkdir: création du répertoire '/opt/app-secrets'
+$ ls -ld /opt/app-secrets
+drwxr-x--- 2 mouctar mouctar 4096 mai  8 10:00 /opt/app-secrets
+```
+
+### Créer plusieurs répertoires en une seule commande
+
+```bash
+$ mkdir -v logs tmp config
+mkdir: création du répertoire 'logs'
+mkdir: création du répertoire 'tmp'
+mkdir: création du répertoire 'config'
+$ ls -l
+total 12
+drwxr-xr-x 2 mouctar mouctar 4096 mai  8 10:05 config
+drwxr-xr-x 2 mouctar mouctar 4096 mai  8 10:05 logs
+drwxr-xr-x 2 mouctar mouctar 4096 mai  8 10:05 tmp
+```

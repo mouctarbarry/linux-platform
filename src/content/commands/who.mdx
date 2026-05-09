@@ -1,0 +1,48 @@
+---
+title: who
+category: systeme
+description: Afficher les utilisateurs connectes
+tags: [utilisateurs, connexion, session, systeme]
+---
+
+## Syntaxe
+
+```bash
+who [OPTIONS] [FICHIER]
+```
+
+## Options principales
+
+| Option | Description                                            |
+| ------ | ------------------------------------------------------ |
+| `-a`   | Afficher toutes les informations disponibles            |
+| `-b`   | Afficher la date du dernier démarrage du système        |
+| `-q`   | Afficher uniquement les noms et le nombre d'utilisateurs |
+| `-H`   | Afficher les en-têtes de colonnes                       |
+
+## Exemples
+
+### Lister les utilisateurs connectés avec en-têtes
+
+```bash
+$ who -H
+NOM          LIGNE        DATE             COMMENTAIRE
+mouctar      tty1         2025-05-08 09:00
+admin        pts/0        2025-05-08 10:15 (192.168.1.50)
+dev          pts/1        2025-05-08 13:42 (10.0.0.25)
+```
+
+### Compter les utilisateurs connectés
+
+```bash
+$ who -q
+mouctar admin dev
+# utilisateurs=3
+```
+
+### Afficher la date du dernier démarrage
+
+```bash
+$ who -b
+         démarrage système 2025-03-27 11:15
+```

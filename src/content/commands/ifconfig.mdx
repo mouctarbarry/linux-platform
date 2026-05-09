@@ -1,0 +1,74 @@
+---
+title: ifconfig
+category: reseau
+description: Configurer les interfaces réseau (legacy)
+tags: [reseau, interface, configuration, legacy]
+---
+
+## Syntaxe
+
+```bash
+ifconfig [INTERFACE] [OPTIONS]
+```
+
+## Options principales
+
+| Option      | Description                                    |
+| ----------- | ---------------------------------------------- |
+| `up`        | Activer une interface réseau                   |
+| `down`      | Désactiver une interface réseau                |
+| `netmask`   | Définir le masque de sous-réseau               |
+| `-a`        | Afficher toutes les interfaces, même inactives |
+
+## Exemples
+
+### Afficher la configuration de toutes les interfaces
+
+```bash
+$ ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.42  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::5054:ff:fea1:b2c3  prefixlen 64  scopeid 0x20<link>
+        ether 52:54:00:a1:b2:c3  txqueuelen 1000  (Ethernet)
+        RX packets 245678  bytes 312456789 (312.4 MB)
+        RX errors 0  dropped 12  overruns 0  frame 0
+        TX packets 198432  bytes 28456123 (28.4 MB)
+        TX errors 0  dropped 0  overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 15234  bytes 1245678 (1.2 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 15234  bytes 1245678 (1.2 MB)
+        TX errors 0  dropped 0  overruns 0  carrier 0  collisions 0
+```
+
+### Afficher la configuration d'une interface spécifique
+
+```bash
+$ ifconfig eth0
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.42  netmask 255.255.255.0  broadcast 192.168.1.255
+        inet6 fe80::5054:ff:fea1:b2c3  prefixlen 64  scopeid 0x20<link>
+        ether 52:54:00:a1:b2:c3  txqueuelen 1000  (Ethernet)
+        RX packets 245678  bytes 312456789 (312.4 MB)
+        RX errors 0  dropped 12  overruns 0  frame 0
+        TX packets 198432  bytes 28456123 (28.4 MB)
+        TX errors 0  dropped 0  overruns 0  carrier 0  collisions 0
+```
+
+### Attribuer une adresse IP à une interface
+
+```bash
+$ sudo ifconfig eth1 10.0.0.100 netmask 255.255.255.0 up
+$ ifconfig eth1
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.0.0.100  netmask 255.255.255.0  broadcast 10.0.0.255
+        ether 52:54:00:d4:e5:f6  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0  overruns 0  carrier 0  collisions 0
+```

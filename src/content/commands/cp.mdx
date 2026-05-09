@@ -1,0 +1,49 @@
+---
+title: cp
+category: fichiers
+description: Copier des fichiers et des répertoires
+tags: [fichiers, copie, sauvegarde]
+---
+
+## Syntaxe
+
+```bash
+cp [OPTIONS] SOURCE... DESTINATION
+```
+
+## Options principales
+
+| Option | Description                                            |
+| ------ | ------------------------------------------------------ |
+| `-r`   | Copier récursivement les répertoires                   |
+| `-i`   | Demander confirmation avant d'écraser un fichier       |
+| `-p`   | Préserver les permissions, horodatages et propriétaire |
+| `-v`   | Afficher les fichiers copiés                           |
+
+## Exemples
+
+### Copier un fichier avec confirmation
+
+```bash
+$ cp -i rapport.pdf /home/mouctar/documents/
+cp : voulez-vous écraser '/home/mouctar/documents/rapport.pdf' ? o
+```
+
+### Copier un répertoire entier en préservant les attributs
+
+```bash
+$ cp -rpv /etc/nginx/ /backup/nginx-2026-05-08/
+'/etc/nginx/nginx.conf' -> '/backup/nginx-2026-05-08/nginx.conf'
+'/etc/nginx/sites-available/default' -> '/backup/nginx-2026-05-08/sites-available/default'
+'/etc/nginx/sites-enabled/monsite' -> '/backup/nginx-2026-05-08/sites-enabled/monsite'
+'/etc/nginx/mime.types' -> '/backup/nginx-2026-05-08/mime.types'
+```
+
+### Copier plusieurs fichiers dans un répertoire
+
+```bash
+$ cp -v index.html style.css app.js /var/www/html/
+'index.html' -> '/var/www/html/index.html'
+'style.css' -> '/var/www/html/style.css'
+'app.js' -> '/var/www/html/app.js'
+```

@@ -1,0 +1,51 @@
+---
+title: ps
+category: processus
+description: Afficher les processus en cours d'exécution sur le système
+tags: [processus, monitoring, pid]
+---
+
+## Syntaxe
+
+```bash
+ps [OPTIONS]
+```
+
+## Options principales
+
+| Option   | Description                                                 |
+| -------- | ----------------------------------------------------------- |
+| `aux`    | Tous les processus avec détails (utilisateur, CPU, mémoire) |
+| `-ef`    | Tous les processus en format complet                        |
+| `--sort` | Trier par colonne (ex: `-%mem`, `-%cpu`)                    |
+| `-p`     | Afficher un processus par son PID                           |
+
+## Exemples
+
+### Lister les processus les plus gourmands en mémoire
+
+```bash
+$ ps aux --sort=-%mem | head -5
+USER       PID %CPU %MEM    VSZ   RSS TTY   STAT COMMAND
+postgres  1842  2.1 12.3 265432 128456 ?    Ss   /usr/lib/postgresql/15/bin/postgres
+node      2105  4.5  8.7 198234  90123 ?    Sl   node /app/dist/server.js
+nginx     1023  0.3  1.2  45678  12345 ?    S    nginx: worker process
+```
+
+### Trouver un processus par nom
+
+```bash
+$ ps aux | grep nginx
+root      1020  0.0  0.1  4532  1024 ?  Ss  nginx: master process
+www-data  1023  0.3  1.2 45678 12345 ?  S   nginx: worker process
+www-data  1024  0.2  1.1 45678 12200 ?  S   nginx: worker process
+```
+
+### Afficher l'arborescence des processus
+
+```bash
+$ ps -ef --forest | grep sshd
+root       890     1  0 09:00 ?  00:00:00 sshd: /usr/sbin/sshd
+root      2301   890  0 10:15 ?  00:00:00  \_ sshd: mouctar [priv]
+mouctar   2345  2301  0 10:15 ?  00:00:00      \_ sshd: mouctar@pts/0
+```

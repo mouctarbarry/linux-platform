@@ -1,0 +1,50 @@
+---
+title: kill
+category: processus
+description: Envoyer un signal à un processus
+tags: [signal, processus, arrêt, terminaison]
+---
+
+## Syntaxe
+
+```bash
+kill [OPTIONS] PID...
+```
+
+## Options principales
+
+| Option | Description                                |
+| ------ | ------------------------------------------ |
+| `-9`   | Envoyer le signal SIGKILL (arrêt forcé)    |
+| `-15`  | Envoyer le signal SIGTERM (arrêt propre)   |
+| `-l`   | Lister tous les signaux disponibles        |
+| `-s`   | Spécifier le signal par son nom            |
+
+## Exemples
+
+### Terminer proprement un processus
+
+```bash
+$ kill 1234
+$ echo $?
+0
+```
+
+### Forcer l'arrêt d'un processus bloqué
+
+```bash
+$ kill -9 5678
+$ ps aux | grep 5678
+mouctar  6012  0.0  0.0   6480  2136 pts/0  S+   14:32   0:00 grep 5678
+```
+
+### Lister les signaux disponibles
+
+```bash
+$ kill -l
+ 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL
+ 5) SIGTRAP      6) SIGABRT      7) SIGBUS       8) SIGFPE
+ 9) SIGKILL     10) SIGUSR1     11) SIGSEGV     12) SIGUSR2
+13) SIGPIPE     14) SIGALRM     15) SIGTERM     16) SIGSTKFLT
+17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
+```

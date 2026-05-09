@@ -1,0 +1,56 @@
+---
+title: useradd
+category: permissions
+description: Créer un nouveau compte utilisateur
+tags: [utilisateur, compte, administration]
+---
+
+## Syntaxe
+
+```bash
+useradd [OPTIONS] NOM_UTILISATEUR
+```
+
+## Options principales
+
+| Option | Description                                          |
+| ------ | ---------------------------------------------------- |
+| `-m`   | Créer le répertoire personnel de l'utilisateur        |
+| `-s`   | Définir le shell par défaut                           |
+| `-g`   | Spécifier le groupe principal                         |
+| `-G`   | Ajouter à des groupes supplémentaires                 |
+
+## Exemples
+
+### Créer un utilisateur avec son répertoire personnel
+
+```bash
+$ sudo useradd -m -s /bin/bash developpeur
+$ sudo passwd developpeur
+Nouveau mot de passe :
+Retapez le nouveau mot de passe :
+passwd : le mot de passe a été mis à jour avec succès
+$ ls -la /home/developpeur/
+drwxr-x--- 2 developpeur developpeur 4096 mai  8 10:00 .
+drwxr-xr-x 5 root        root        4096 mai  8 10:00 ..
+-rw-r--r-- 1 developpeur developpeur  220 mai  8 10:00 .bash_logout
+-rw-r--r-- 1 developpeur developpeur 3771 mai  8 10:00 .bashrc
+```
+
+### Créer un utilisateur dans plusieurs groupes
+
+```bash
+$ sudo useradd -m -s /bin/bash -g devops -G docker,sudo ops-admin
+$ id ops-admin
+uid=1002(ops-admin) gid=1001(devops) groupes=1001(devops),27(sudo),998(docker)
+```
+
+### Créer un compte système sans shell interactif
+
+```bash
+$ sudo useradd -r -s /usr/sbin/nologin -g www-data app-service
+$ grep app-service /etc/passwd
+app-service:x:997:33::/home/app-service:/usr/sbin/nologin
+$ sudo -u app-service bash
+Ce compte n'est pas disponible.
+```

@@ -1,0 +1,63 @@
+---
+title: less
+category: fichiers
+description: Naviguer dans un fichier page par page
+tags: [fichiers, navigation, lecture]
+---
+
+## Syntaxe
+
+```bash
+less [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                                        |
+| ------ | -------------------------------------------------- |
+| `-N`   | Afficher les numéros de ligne                      |
+| `-S`   | Couper les lignes longues au lieu de les enrouler   |
+| `-i`   | Recherche insensible à la casse                    |
+| `-F`   | Quitter automatiquement si le fichier tient en un écran |
+
+## Exemples
+
+### Naviguer dans un fichier avec numéros de ligne
+
+```bash
+$ less -N /etc/nginx/nginx.conf
+      1 user www-data;
+      2 worker_processes auto;
+      3 pid /run/nginx.pid;
+      4 include /etc/nginx/modules-enabled/*.conf;
+      5
+      6 events {
+      7     worker_connections 768;
+      8 }
+      9
+     10 http {
+     11     sendfile on;
+     12     tcp_nopush on;
+:
+```
+
+### Lire la sortie d'une commande avec pagination
+
+```bash
+$ journalctl -u nginx --no-pager | less -S
+Mai 08 10:00:01 serveur systemd[1]: Starting A high performance web server...
+Mai 08 10:00:01 serveur systemd[1]: Started A high performance web server.
+Mai 08 10:30:00 serveur systemd[1]: Reloading A high performance web server.
+Mai 08 10:30:00 serveur systemd[1]: Reloaded A high performance web server.
+:
+```
+
+### Rechercher du texte dans un fichier volumineux
+
+```bash
+$ less -i /var/log/syslog
+/erreur
+Mai  8 10:05:30 serveur app[2341]: erreur de connexion à la base de données
+Mai  8 10:12:45 serveur app[2341]: erreur timeout après 30s
+(END)
+```

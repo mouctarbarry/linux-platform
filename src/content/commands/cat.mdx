@@ -1,0 +1,54 @@
+---
+title: cat
+category: fichiers
+description: Afficher et concaténer le contenu de fichiers
+tags: [fichiers, affichage, concatenation]
+---
+
+## Syntaxe
+
+```bash
+cat [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-n`   | Numéroter toutes les lignes                      |
+| `-b`   | Numéroter uniquement les lignes non vides        |
+| `-s`   | Réduire les lignes vides consécutives en une seule |
+| `-E`   | Afficher `$` à la fin de chaque ligne            |
+
+## Exemples
+
+### Afficher le contenu d'un fichier avec numéros de ligne
+
+```bash
+$ cat -n /etc/hostname
+     1	serveur-web-01
+```
+
+### Concaténer plusieurs fichiers en un seul
+
+```bash
+$ cat header.html body.html footer.html > page.html
+$ cat -n page.html
+     1	<!DOCTYPE html>
+     2	<html lang="fr">
+     3	<body>
+     4	  <h1>Bienvenue</h1>
+     5	</body>
+     6	</html>
+```
+
+### Afficher un fichier en réduisant les lignes vides
+
+```bash
+$ cat -s /var/log/app.log
+[2026-05-08 10:00:01] INFO  Démarrage du service
+[2026-05-08 10:00:02] INFO  Connexion à la base de données établie
+
+[2026-05-08 10:05:30] WARN  Temps de réponse élevé : 2.3s
+[2026-05-08 10:05:31] INFO  Requête traitée avec succès
+```

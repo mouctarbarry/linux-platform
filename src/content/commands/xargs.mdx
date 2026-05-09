@@ -1,0 +1,49 @@
+---
+title: xargs
+category: recherche
+description: Construire et exécuter des commandes à partir de l'entrée standard
+tags: [exécution, pipeline, arguments, automatisation]
+---
+
+## Syntaxe
+
+```bash
+xargs [OPTIONS] [COMMANDE [ARGS_INITIAUX]]
+```
+
+## Options principales
+
+| Option   | Description                                         |
+| -------- | --------------------------------------------------- |
+| `-I {}`  | Remplacer {} par chaque ligne de l'entrée           |
+| `-n N`   | Utiliser au maximum N arguments par commande        |
+| `-P N`   | Exécuter jusqu'à N processus en parallèle           |
+| `-0`     | Utiliser le caractère nul comme séparateur           |
+
+## Exemples
+
+### Supprimer tous les fichiers temporaires
+
+```bash
+$ find /tmp -name "*.tmp" -mtime +7 | xargs rm -v
+removed '/tmp/session_a3f2.tmp'
+removed '/tmp/cache_upload.tmp'
+removed '/tmp/rapport_2026.tmp'
+```
+
+### Compresser des fichiers en parallèle
+
+```bash
+$ find ./logs -name "*.log" | xargs -P 4 -I {} gzip {}
+$ ls ./logs/
+access.log.gz  error.log.gz  auth.log.gz  app.log.gz
+```
+
+### Rechercher un motif dans une liste de fichiers
+
+```bash
+$ find src/ -name "*.ts" -print0 | xargs -0 grep -l "TODO"
+src/api/routes.ts
+src/services/auth.ts
+src/utils/validation.ts
+```

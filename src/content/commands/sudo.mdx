@@ -1,0 +1,56 @@
+---
+title: sudo
+category: permissions
+description: Exécuter une commande avec les privilèges superutilisateur
+tags: [privileges, administration, securite]
+---
+
+## Syntaxe
+
+```bash
+sudo [OPTIONS] COMMANDE [ARGUMENTS]
+```
+
+## Options principales
+
+| Option | Description                                              |
+| ------ | -------------------------------------------------------- |
+| `-u`   | Exécuter la commande en tant qu'un utilisateur spécifique |
+| `-i`   | Ouvrir un shell interactif root                           |
+| `-l`   | Lister les commandes autorisées pour l'utilisateur        |
+| `-k`   | Invalider le cache d'authentification                     |
+
+## Exemples
+
+### Mettre à jour les paquets du système
+
+```bash
+$ sudo apt update
+[sudo] Mot de passe de mouctar :
+Réception de :1 http://archive.ubuntu.com/ubuntu jammy InRelease [270 kB]
+Réception de :2 http://security.ubuntu.com/ubuntu jammy-security InRelease [110 kB]
+Lecture des listes de paquets... Fait
+12 paquets peuvent être mis à jour.
+```
+
+### Exécuter une commande en tant qu'un autre utilisateur
+
+```bash
+$ sudo -u postgres psql -l
+                                  Liste des bases de données
+   Nom     | Propriétaire | Encodage |   Collationnement   |    Type ctype       |
+-----------+--------------+----------+---------------------+---------------------+
+ postgres  | postgres     | UTF8     | fr_FR.UTF-8         | fr_FR.UTF-8         |
+ template0 | postgres     | UTF8     | fr_FR.UTF-8         | fr_FR.UTF-8         |
+ template1 | postgres     | UTF8     | fr_FR.UTF-8         | fr_FR.UTF-8         |
+```
+
+### Lister les permissions sudo de l'utilisateur courant
+
+```bash
+$ sudo -l
+L'utilisateur mouctar peut utiliser les commandes suivantes sur serveur :
+    (ALL : ALL) ALL
+    (postgres) /usr/bin/psql
+    (www-data) /usr/sbin/service nginx *
+```
