@@ -2,6 +2,9 @@ import { getCommands } from '@/lib/commands';
 import { CATEGORIES, type Category } from '@/lib/categories';
 import { SearchBar } from '@/components/search-bar';
 import { CategoryNav } from '@/components/category-nav';
+import { getTutorials } from '@/lib/tutorials';
+import { getGuides } from '@/lib/guides';
+import type { SearchableItem } from '@/lib/search';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -12,10 +15,40 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   const commands = getCommands();
+  const tutorials = getTutorials();
+  const guides = getGuides();
+
   const categoryCounts = commands.reduce<Partial<Record<Category, number>>>((acc, cmd) => {
     acc[cmd.category] = (acc[cmd.category] ?? 0) + 1;
     return acc;
   }, {});
+
+  const allItems: SearchableItem[] = [
+    ...commands.map((cmd) => ({
+      type: 'commande' as const,
+      slug: cmd.slug,
+      title: cmd.title,
+      description: cmd.description,
+      tags: cmd.tags,
+      href: `/commands/${cmd.slug}`,
+    })),
+    ...tutorials.map((t) => ({
+      type: 'tutoriel' as const,
+      slug: t.slug,
+      title: t.title,
+      description: t.description,
+      tags: t.tags,
+      href: `/tutorials/${t.slug}`,
+    })),
+    ...guides.map((g) => ({
+      type: 'guide' as const,
+      slug: g.slug,
+      title: g.title,
+      description: g.description,
+      tags: g.tags,
+      href: `/guides/${g.slug}`,
+    })),
+  ];
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
@@ -44,7 +77,7 @@ export default function HomePage() {
       </section>
 
       <section>
-        <SearchBar commands={commands} />
+        <SearchBar commands={commands} allItems={allItems} />
       </section>
     </div>
   );
