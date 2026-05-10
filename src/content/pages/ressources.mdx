@@ -1,0 +1,154 @@
+---
+title: "Ressources Linux"
+description: "Liens et references essentiels pour approfondir vos connaissances Linux."
+---
+
+## Documentation officielle
+
+### Pages de manuel
+
+Les pages `man` restent la reference la plus fiable pour toute commande Linux. Depuis un terminal :
+
+```bash
+man ls
+man 5 fstab
+man -k network
+```
+
+En ligne, plusieurs sites proposent les man pages dans un format lisible :
+
+- [man7.org](https://man7.org/linux/man-pages/) — pages de manuel Linux officielles
+- [manpages.ubuntu.com](https://manpages.ubuntu.com/) — pages de manuel Ubuntu
+- [die.net](https://linux.die.net/man/) — interface de recherche rapide
+
+### Standards et specifications
+
+- [The Open Group — POSIX](https://pubs.opengroup.org/onlinepubs/9699919799/) — specification complete du standard POSIX
+- [Filesystem Hierarchy Standard](https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html) — organisation standard des repertoires Linux
+- [Linux Standard Base](https://refspecs.linuxfoundation.org/lsb.shtml) — specification de compatibilite entre distributions
+
+---
+
+## Wikis et guides communautaires
+
+### Arch Wiki
+
+Le [Arch Wiki](https://wiki.archlinux.org/) est considere comme la meilleure source de documentation Linux, utilisable quelle que soit votre distribution. Articles recommandes :
+
+- [Installation guide](https://wiki.archlinux.org/title/Installation_guide)
+- [General recommendations](https://wiki.archlinux.org/title/General_recommendations)
+- [Network configuration](https://wiki.archlinux.org/title/Network_configuration)
+- [Systemd](https://wiki.archlinux.org/title/Systemd)
+
+### Autres wikis
+
+- [Debian Handbook](https://www.debian.org/doc/manuals/debian-handbook/) — guide complet de l'administrateur Debian
+- [Gentoo Wiki](https://wiki.gentoo.org/) — documentation technique approfondie
+- [Fedora Documentation](https://docs.fedoraproject.org/) — guides Fedora officiels
+- [Ubuntu Documentation](https://help.ubuntu.com/) — documentation Ubuntu communautaire
+
+---
+
+## Apprentissage en ligne
+
+### Cours et tutoriels gratuits
+
+- [Linux Journey](https://linuxjourney.com/) — cours interactif pour debutants (anglais)
+- [The Linux Command Line](https://linuxcommand.org/tlcl.php) — livre gratuit par William Shotts
+- [Linux From Scratch](https://www.linuxfromscratch.org/) — construire son propre systeme Linux
+- [OverTheWire: Bandit](https://overthewire.org/wargames/bandit/) — apprendre la ligne de commande par le jeu
+
+### Livres de reference
+
+- *How Linux Works* par Brian Ward — comprendre le fonctionnement interne
+- *The Linux Command Line* par William Shotts — maitriser le terminal
+- *UNIX and Linux System Administration Handbook* par Evi Nemeth et al. — reference pour les administrateurs
+- *Linux Pocket Guide* par Daniel J. Barrett — aide-memoire compact
+
+---
+
+## Outils indispensables
+
+### Editeurs de texte
+
+| Editeur | Type | Utilisation |
+|---------|------|-------------|
+| **Vim** | Terminal | Edition rapide, scripts, configuration serveur |
+| **Nano** | Terminal | Edition simple, ideal pour les debutants |
+| **VS Code** | Graphique | Developpement, extensions SSH Remote |
+| **Emacs** | Les deux | Edition avancee, extensible en Lisp |
+
+### Outils de diagnostic
+
+| Outil | Usage |
+|-------|-------|
+| `htop` | Surveillance interactive des processus |
+| `iotop` | Surveillance des entrees/sorties disque |
+| `iftop` | Surveillance du trafic reseau en temps reel |
+| `ncdu` | Analyse de l'utilisation disque |
+| `strace` | Tracer les appels systeme d'un processus |
+| `tcpdump` | Capture et analyse de paquets reseau |
+| `lsof` | Lister les fichiers ouverts par les processus |
+
+### Gestionnaires de paquets
+
+| Distribution | Gestionnaire | Commande d'installation |
+|-------------|-------------|------------------------|
+| Debian/Ubuntu | APT | `sudo apt install paquet` |
+| Fedora/RHEL | DNF | `sudo dnf install paquet` |
+| Arch Linux | Pacman | `sudo pacman -S paquet` |
+| openSUSE | Zypper | `sudo zypper install paquet` |
+| Alpine | APK | `sudo apk add paquet` |
+
+---
+
+## Distributions Linux
+
+### Pour debuter
+
+- [Ubuntu](https://ubuntu.com/) — la plus populaire, large communaute
+- [Linux Mint](https://linuxmint.com/) — basee sur Ubuntu, interface familiere
+- [Fedora](https://fedoraproject.org/) — technologies recentes, soutenue par Red Hat
+- [Pop!_OS](https://pop.system76.com/) — optimisee pour le developpement et le gaming
+
+### Pour serveurs
+
+- [Debian](https://www.debian.org/) — stabilite et fiabilite, base de nombreuses distributions
+- [Ubuntu Server](https://ubuntu.com/server) — large ecosysteme, bonne documentation
+- [Rocky Linux](https://rockylinux.org/) — compatible RHEL, remplacant de CentOS
+- [AlmaLinux](https://almalinux.org/) — alternative a CentOS, compatible RHEL
+
+### Pour utilisateurs avances
+
+- [Arch Linux](https://archlinux.org/) — rolling release, installation manuelle, personnalisation totale
+- [Gentoo](https://www.gentoo.org/) — compilation depuis les sources, controle maximal
+- [NixOS](https://nixos.org/) — configuration declarative, reproductible
+- [Void Linux](https://voidlinux.org/) — independante, init runit, minimaliste
+
+---
+
+## RFC et standards reseau
+
+Les RFC (Request For Comments) definissent les protocoles Internet :
+
+| RFC | Protocole | Description |
+|-----|-----------|-------------|
+| RFC 791 | IP | Internet Protocol |
+| RFC 793 | TCP | Transmission Control Protocol |
+| RFC 768 | UDP | User Datagram Protocol |
+| RFC 2616 | HTTP/1.1 | Hypertext Transfer Protocol |
+| RFC 4251 | SSH | Secure Shell Protocol |
+| RFC 5321 | SMTP | Simple Mail Transfer Protocol |
+| RFC 1035 | DNS | Domain Name System |
+
+Consulter les RFC : [rfc-editor.org](https://www.rfc-editor.org/)
+
+---
+
+## Communautes et forums
+
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/linux) — questions techniques
+- [Unix & Linux Stack Exchange](https://unix.stackexchange.com/) — Q&A dedie Unix/Linux
+- [Reddit r/linux](https://www.reddit.com/r/linux/) — actualites et discussions
+- [Reddit r/linuxquestions](https://www.reddit.com/r/linuxquestions/) — aide aux debutants
+- [LinuxFr.org](https://linuxfr.org/) — communaute francophone

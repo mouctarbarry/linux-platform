@@ -1,0 +1,444 @@
+---
+title: "Mini-Projets pratiques"
+description: "Projets concrets pour mettre en pratique vos connaissances Linux et Bash."
+---
+
+Ces mini-projets sont concus pour consolider vos competences Linux de maniere progressive. Chaque projet combine plusieurs commandes et concepts vus dans les tutoriels et le cheatsheet.
+
+---
+
+## Projet 1 : Systeme de sauvegarde incremental
+
+### Objectif
+
+Creer un systeme de sauvegarde automatique qui utilise `rsync` pour effectuer des sauvegardes incrementales avec rotation.
+
+### Competences visees
+
+- Utilisation de `rsync` et ses options
+- Planification avec `cron`
+- Gestion des repertoires et permissions
+- Ecriture de scripts Bash robustes
+
+### Mise en oeuvre
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+CONFIG_DIR="/etc/sauvegarde"
+SOURCE="/home"
+DEST="/mnt/backup"
+ROTATION=7
+LOG="/var/log/sauvegarde-incr.log"
+
+DATE=$(date +%Y-%m-%d)
+LATEST="${DEST}/latest"
+CIBLE="${DEST}/${DATE}"
+
+log() {
+    echo "$(date '+%H:%M:%S') - $1" | tee -a "$LOG"
+}
+
+log "Debut de la sauvegarde incremental"
+
+# Creer la sauvegarde avec lien dur vers la precedente
+if [ -d "$LATEST" ]; then
+    rsync -a --delete --link-dest="$LATEST" "$SOURCE/" "$CIBLE/"
+else
+    rsync -a --delete "$SOURCE/" "$CIBLE/"
+fi
+
+# Mettre a jour le lien symbolique
+rm -f "$LATEST"
+ln -s "$CIBLE" "$LATEST"
+
+log "Sauvegarde terminee : $CIBLE"
+
+# Rotation : supprimer les sauvegardes au-dela de la retention
+find "$DEST" -maxdepth 1 -type d -name "20*" -mtime +$ROTATION -exec rm -rf {} \;
+log "Rotation effectuee (retention : $ROTATION jours)"
+```
+
+### Pour aller plus loin
+
+- Ajouter une verification d'integrite avec `sha256sum`
+- Envoyer un rapport par email apres chaque sauvegarde
+- Gerer les exclusions via un fichier de configuration
+
+---
+
+## Projet 2 : Moniteur systeme en temps reel
+
+### Objectif
+
+Creer un tableau de bord terminal qui affiche en temps reel les metriques systeme essentielles.
+
+### Competences visees
+
+- Lecture de `/proc` et `/sys`
+- Formatage de sortie avec `printf`
+- Boucles et rafraichissement d'affichage
+- Calcul avec `awk` et `bc`
+
+### Mise en oeuvre
+
+```bash
+#!/bin/bash
+
+# Couleurs
+VERT='\033[0;32m'
+JAUNE='\033[0;33m'
+ROUGE='\033[0;31m'
+RESET='\033[0m'
+
+barre_progression() {
+    local pourcentage=$1
+    local largeur=30
+    local rempli=$((pourcentage * largeur / 100))
+    local vide=$((largeur - rempli))
+    local couleur="$VERT"
+
+    [ "$pourcentage" -ge 70 ] && couleur="$JAUNE"
+    [ "$pourcentage" -ge 90 ] && couleur="$ROUGE"
+
+    printf "${couleur}["
+    printf '%*s' "$rempli" '' | tr ' ' '#'
+    printf '%*s' "$vide" '' | tr ' ' '-'
+    printf "] %3d%%${RESET}" "$pourcentage"
+}
+
+while true; do
+    clear
+    echo "======================================"
+    echo "  MONITEUR SYSTEME - $(hostname)"
+    echo "  $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "======================================"
+    echo ""
+
+    # CPU
+    cpu_idle=$(top -bn1 | grep '%Cpu' | awk '{print $8}' | cut -d. -f1)
+    cpu_usage=$((100 - cpu_idle))
+    printf "CPU    : "
+    barre_progression "$cpu_usage"
+    echo ""
+
+    # Memoire
+    mem_info=$(free | grep Mem)
+    mem_total=$(echo "$mem_info" | awk '{print $2}')
+    mem_used=$(echo "$mem_info" | awk '{print $3}')
+    mem_pct=$((mem_used * 100 / mem_total))
+    printf "RAM    : "
+    barre_progression "$mem_pct"
+    printf "  (%s / %s)\n" "$(free -h | grep Mem | awk '{print $3}')" "$(free -h | grep Mem | awk '{print $2}')"
+
+    # Swap
+    swap_info=$(free | grep Swap)
+    swap_total=$(echo "$swap_info" | awk '{print $2}')
+    if [ "$swap_total" -gt 0 ]; then
+        swap_used=$(echo "$swap_info" | awk '{print $3}')
+        swap_pct=$((swap_used * 100 / swap_total))
+        printf "Swap   : "
+        barre_progression "$swap_pct"
+        echo ""
+    fi
+
+    # Disque
+    echo ""
+    echo "Disques :"
+    df -h | grep '^/dev/' | while read -r ligne; do
+        partition=$(echo "$ligne" | awk '{print $6}')
+        usage=$(echo "$ligne" | awk '{print $5}' | tr -d '%')
+        taille=$(echo "$ligne" | awk '{print $2}')
+        utilise=$(echo "$ligne" | awk '{print $3}')
+        printf "  %-15s " "$partition"
+        barre_progression "$usage"
+        printf "  (%s / %s)\n" "$utilise" "$taille"
+    done
+
+    # Processus
+    echo ""
+    echo "Top 5 processus (CPU) :"
+    ps aux --sort=-%cpu | head -6 | tail -5 | awk '{printf "  %-10s %5s%% CPU  %5s%% MEM  %s\n", $1, $3, $4, $11}'
+
+    # Reseau
+    echo ""
+    echo "Connexions actives : $(ss -tun | tail -n +2 | wc -l)"
+    echo "Uptime : $(uptime -p 2>/dev/null || uptime | awk -F'up ' '{print $2}' | awk -F',' '{print $1}')"
+
+    sleep 5
+done
+```
+
+---
+
+## Projet 3 : Analyseur de logs
+
+### Objectif
+
+Creer un outil qui analyse les logs d'un serveur web (Apache/Nginx) et produit des statistiques.
+
+### Competences visees
+
+- Manipulation de texte avec `awk`, `sed`, `sort`, `uniq`
+- Expressions regulieres
+- Redirection et pipes
+- Generation de rapports
+
+### Mise en oeuvre
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+if [ $# -ne 1 ]; then
+    echo "Usage : $0 <fichier_access.log>"
+    exit 1
+fi
+
+LOG="$1"
+
+if [ ! -f "$LOG" ]; then
+    echo "Fichier introuvable : $LOG"
+    exit 1
+fi
+
+TOTAL=$(wc -l < "$LOG")
+echo "========================================="
+echo "  ANALYSE DE LOGS - $(basename "$LOG")"
+echo "  Total de requetes : $TOTAL"
+echo "========================================="
+echo ""
+
+# Top 10 des IP
+echo "--- Top 10 des adresses IP ---"
+awk '{print $1}' "$LOG" | sort | uniq -c | sort -rn | head -10 | \
+    awk '{printf "  %6d requetes  %s\n", $1, $2}'
+echo ""
+
+# Codes de reponse HTTP
+echo "--- Repartition des codes HTTP ---"
+awk '{print $9}' "$LOG" | sort | uniq -c | sort -rn | \
+    awk '{printf "  %s : %d requetes (%.1f%%)\n", $2, $1, ($1/'$TOTAL')*100}'
+echo ""
+
+# Pages les plus visitees
+echo "--- Top 10 des pages visitees ---"
+awk '{print $7}' "$LOG" | sort | uniq -c | sort -rn | head -10 | \
+    awk '{printf "  %6d  %s\n", $1, $2}'
+echo ""
+
+# Trafic par heure
+echo "--- Trafic par heure ---"
+awk -F'[\\[/: ]' '{print $5}' "$LOG" | sort | uniq -c | \
+    awk '{printf "  %sh : %d requetes\n", $2, $1}'
+echo ""
+
+# Erreurs 4xx et 5xx
+echo "--- Erreurs recentes (4xx/5xx) ---"
+awk '$9 ~ /^[45]/' "$LOG" | tail -5 | \
+    awk '{printf "  %s %s %s %s\n", $1, $9, $7, $4}'
+```
+
+---
+
+## Projet 4 : Deploiement automatise d'application web
+
+### Objectif
+
+Creer un script de deploiement qui automatise la mise a jour d'une application web.
+
+### Competences visees
+
+- Gestion de Git en ligne de commande
+- Gestion des services avec `systemctl`
+- Verification de prerequis
+- Gestion d'erreurs et rollback
+
+### Mise en oeuvre
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+APP_DIR="/var/www/mon-application"
+BRANCHE="main"
+SERVICE="mon-application"
+BACKUP_DIR="/var/backups/deploiements"
+DATE=$(date +%Y%m%d_%H%M%S)
+
+log() { echo "[$(date '+%H:%M:%S')] $1"; }
+erreur() { log "ERREUR : $1" >&2; exit 1; }
+
+# Verifier les prerequis
+[ "$(id -u)" -eq 0 ] || erreur "Ce script doit etre execute en root"
+[ -d "$APP_DIR/.git" ] || erreur "Repertoire Git introuvable : $APP_DIR"
+
+log "Debut du deploiement"
+
+# Sauvegarder l'etat actuel
+mkdir -p "$BACKUP_DIR"
+COMMIT_ACTUEL=$(git -C "$APP_DIR" rev-parse HEAD)
+echo "$COMMIT_ACTUEL" > "${BACKUP_DIR}/rollback_${DATE}.txt"
+log "Commit actuel sauvegarde : ${COMMIT_ACTUEL:0:8}"
+
+# Telecharger les modifications
+log "Recuperation des modifications..."
+git -C "$APP_DIR" fetch origin "$BRANCHE"
+
+# Verifier s'il y a des changements
+LOCAL=$(git -C "$APP_DIR" rev-parse HEAD)
+REMOTE=$(git -C "$APP_DIR" rev-parse "origin/$BRANCHE")
+
+if [ "$LOCAL" = "$REMOTE" ]; then
+    log "Aucune mise a jour disponible."
+    exit 0
+fi
+
+# Appliquer les modifications
+log "Application des modifications..."
+git -C "$APP_DIR" reset --hard "origin/$BRANCHE"
+
+# Installer les dependances (adapter selon le projet)
+if [ -f "${APP_DIR}/package.json" ]; then
+    log "Installation des dependances Node.js..."
+    cd "$APP_DIR" && npm ci --production
+fi
+
+# Redemarrer le service
+log "Redemarrage du service..."
+systemctl restart "$SERVICE"
+sleep 2
+
+# Verifier que le service fonctionne
+if systemctl is-active --quiet "$SERVICE"; then
+    NOUVEAU_COMMIT=$(git -C "$APP_DIR" rev-parse HEAD)
+    log "Deploiement reussi : ${COMMIT_ACTUEL:0:8} -> ${NOUVEAU_COMMIT:0:8}"
+else
+    log "Le service ne repond pas, rollback..."
+    git -C "$APP_DIR" reset --hard "$COMMIT_ACTUEL"
+    systemctl restart "$SERVICE"
+    erreur "Deploiement echoue, rollback effectue."
+fi
+```
+
+---
+
+## Projet 5 : Gestionnaire de fichiers de configuration
+
+### Objectif
+
+Creer un outil pour versionner et restaurer les fichiers de configuration systeme.
+
+### Competences visees
+
+- Manipulation de fichiers avec `cp`, `diff`, `find`
+- Utilisation de Git pour le versionnement
+- Scripts interactifs avec `select` et `read`
+
+### Mise en oeuvre
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+REPO="/var/config-backup"
+FICHIERS_SURVEILLES=(
+    "/etc/ssh/sshd_config"
+    "/etc/nginx/nginx.conf"
+    "/etc/fstab"
+    "/etc/hosts"
+    "/etc/crontab"
+)
+
+initialiser() {
+    if [ ! -d "${REPO}/.git" ]; then
+        mkdir -p "$REPO"
+        git -C "$REPO" init
+        echo "Depot initialise dans $REPO"
+    fi
+}
+
+sauvegarder() {
+    initialiser
+    local modifications=0
+
+    for fichier in "${FICHIERS_SURVEILLES[@]}"; do
+        if [ -f "$fichier" ]; then
+            dest="${REPO}${fichier}"
+            mkdir -p "$(dirname "$dest")"
+            cp "$fichier" "$dest"
+            modifications=1
+        fi
+    done
+
+    if [ "$modifications" -eq 1 ]; then
+        cd "$REPO"
+        git add -A
+        if ! git diff --cached --quiet; then
+            git commit -m "Sauvegarde du $(date '+%Y-%m-%d %H:%M')"
+            echo "Configuration sauvegardee."
+        else
+            echo "Aucune modification detectee."
+        fi
+    fi
+}
+
+historique() {
+    initialiser
+    git -C "$REPO" log --oneline --graph -20
+}
+
+diff_fichier() {
+    if [ $# -ne 1 ]; then
+        echo "Usage : $0 diff <fichier>"
+        return 1
+    fi
+
+    local fichier="$1"
+    local sauvegarde="${REPO}${fichier}"
+
+    if [ -f "$sauvegarde" ]; then
+        diff --color "$sauvegarde" "$fichier" || true
+    else
+        echo "Aucune sauvegarde trouvee pour $fichier"
+    fi
+}
+
+restaurer() {
+    if [ $# -ne 1 ]; then
+        echo "Usage : $0 restaurer <fichier>"
+        return 1
+    fi
+
+    local fichier="$1"
+    local sauvegarde="${REPO}${fichier}"
+
+    if [ -f "$sauvegarde" ]; then
+        cp "$sauvegarde" "$fichier"
+        echo "Fichier restaure : $fichier"
+    else
+        echo "Aucune sauvegarde trouvee pour $fichier"
+    fi
+}
+
+case "${1:-aide}" in
+    sauvegarder) sauvegarder ;;
+    historique)  historique ;;
+    diff)        diff_fichier "${2:-}" ;;
+    restaurer)   restaurer "${2:-}" ;;
+    *)
+        echo "Usage : $0 {sauvegarder|historique|diff|restaurer} [fichier]"
+        ;;
+esac
+```
+
+---
+
+## Conseils pour progresser
+
+1. **Commencer petit** : modifiez un script existant avant d'en ecrire un de zero.
+2. **Tester en local** : utilisez une machine virtuelle ou un conteneur Docker pour experimenter sans risque.
+3. **Lire les scripts des autres** : etudiez les scripts dans `/etc/init.d/` ou les projets open source.
+4. **Utiliser ShellCheck** : cet outil detecte les erreurs courantes et les mauvaises pratiques.
+5. **Versionner vos scripts** : placez-les dans un depot Git des le depart.

@@ -1,0 +1,192 @@
+---
+title: "Glossaire Linux"
+description: "Lexique complet des termes essentiels de l'ecosysteme Linux et Unix."
+---
+
+# Glossaire Linux
+
+Ce glossaire regroupe les termes fondamentaux que tout utilisateur, administrateur ou developpeur travaillant avec Linux et Unix doit connaitre. Les definitions sont redigees pour etre accessibles aux debutants tout en restant precises pour les professionnels.
+
+---
+
+## A
+
+**API (Application Programming Interface)** --- Une interface de programmation applicative est un ensemble de regles et de protocoles permettant a des logiciels de communiquer entre eux. Sous Linux, les API systeme (comme les appels systeme POSIX) permettent aux programmes d'interagir avec le noyau pour acceder aux ressources materielles, gerer les fichiers ou creer des processus. Les bibliotheques comme glibc fournissent une couche d'abstraction au-dessus de ces appels systeme bruts.
+
+**APT (Advanced Package Tool)** --- Gestionnaire de paquets utilise par les distributions basees sur Debian, telles qu'Ubuntu et Linux Mint. APT permet d'installer, de mettre a jour et de supprimer des logiciels en resolvant automatiquement les dependances entre les paquets. Les commandes courantes incluent `apt update` pour rafraichir la liste des paquets disponibles et `apt install` pour installer un logiciel.
+
+**Arch Linux** --- Distribution Linux minimaliste et a publication continue (rolling release), concue pour les utilisateurs avances qui souhaitent construire leur systeme piece par piece. Sa philosophie KISS (Keep It Simple, Stupid) privilegie la simplicite, la transparence et le controle total de l'utilisateur sur sa configuration.
+
+## B
+
+**Bash (Bourne Again Shell)** --- Interprete de commandes par defaut sur la plupart des distributions Linux, successeur du shell Bourne original (sh). Bash offre des fonctionnalites avancees comme la completion automatique, l'historique des commandes, les alias et un langage de script complet avec structures de controle, fonctions et variables. Il constitue l'outil principal d'interaction en ligne de commande pour la majorite des administrateurs systeme.
+
+**BIOS (Basic Input/Output System)** --- Micrologiciel historique stocke sur la carte mere qui initialise le materiel lors du demarrage de l'ordinateur avant de charger le chargeur d'amorcage. Le BIOS utilise le schema de partitionnement MBR et est progressivement remplace par l'UEFI sur les machines modernes. Il reste neanmoins present dans de nombreux serveurs et systemes plus anciens.
+
+**Boot loader (Chargeur d'amorcage)** --- Programme execute au demarrage de la machine, charge par le BIOS ou l'UEFI, dont le role est de localiser et de lancer le noyau Linux. GRUB est le chargeur d'amorcage le plus repandu sous Linux. Le boot loader permet egalement de choisir entre plusieurs systemes d'exploitation ou differentes versions du noyau au demarrage.
+
+## C
+
+**Cgroup (Control Group)** --- Mecanisme du noyau Linux permettant de limiter, comptabiliser et isoler l'utilisation des ressources materielles (processeur, memoire, entrees/sorties disque, reseau) par des groupes de processus. Les cgroups constituent l'une des deux technologies fondamentales des conteneurs Linux avec les namespaces. Ils sont essentiels au fonctionnement de Docker, Kubernetes et systemd.
+
+**Chroot** --- Commande et mecanisme systeme permettant de modifier le repertoire racine apparent d'un processus et de ses processus enfants. Chroot cree un environnement isole, souvent appele "jail", ou le processus ne peut acceder qu'a une sous-arborescence du systeme de fichiers. Bien qu'il ne constitue pas une solution de securite complete, il sert couramment a la recuperation de systemes ou a la construction de paquets.
+
+**CLI (Command Line Interface)** --- Interface en ligne de commande permettant a l'utilisateur d'interagir avec le systeme en saisissant des commandes textuelles dans un terminal. Le CLI offre une puissance et une flexibilite superieures a l'interface graphique pour l'administration systeme, l'automatisation et le traitement par lots. Sous Linux, le CLI est intimement lie au shell utilise (Bash, Zsh, Fish, etc.).
+
+**Compilation** --- Processus de transformation du code source ecrit dans un langage de programmation (C, C++, Rust) en code machine executable par le processeur. Sous Linux, GCC (GNU Compiler Collection) est le compilateur de reference, et la compilation est souvent orchestree par des outils comme make ou cmake. La compilation du noyau Linux lui-meme est une operation courante pour les administrateurs souhaitant personnaliser leur systeme.
+
+**Conteneur** --- Technologie de virtualisation legere permettant d'executer des applications dans des environnements isoles partageant le noyau du systeme hote. Contrairement aux machines virtuelles, les conteneurs ne necessitent pas d'hyperviseur ni de systeme d'exploitation complet, ce qui les rend plus rapides a demarrer et moins gourmands en ressources. Docker et Podman sont les outils de conteneurisation les plus utilises sous Linux.
+
+**Cron** --- Service de planification de taches permettant d'executer automatiquement des commandes ou des scripts a des intervalles definis. La configuration s'effectue via un fichier appele crontab, dont la syntaxe a cinq champs definit la minute, l'heure, le jour du mois, le mois et le jour de la semaine d'execution. Cron est indispensable pour les sauvegardes automatiques, la maintenance systeme et la surveillance.
+
+## D
+
+**Daemon** --- Processus qui s'execute en arriere-plan, sans interaction directe avec l'utilisateur, et qui fournit generalement un service systeme ou reseau. Par convention, les noms des daemons se terminent souvent par la lettre "d" (sshd, httpd, crond). Sous systemd, les daemons sont geres comme des unites de service et peuvent etre demarres, arretes et surveilles avec la commande `systemctl`.
+
+**Distribution (Distro)** --- Ensemble coherent compose du noyau Linux, d'utilitaires systeme, d'un gestionnaire de paquets et souvent d'un environnement de bureau, empaquete et distribue comme un systeme d'exploitation complet. Parmi les distributions les plus connues figurent Ubuntu, Fedora, Debian, Arch Linux et openSUSE. Chaque distribution fait ses propres choix en matiere de cycle de publication, de politique de mises a jour et de public cible.
+
+**DNS (Domain Name System)** --- Systeme hierarchique et distribue de resolution de noms de domaine en adresses IP, souvent compare a un annuaire telephonique d'Internet. Sous Linux, la resolution DNS peut etre configuree via le fichier `/etc/resolv.conf` ou via systemd-resolved. Les serveurs DNS courants incluent BIND, Unbound et dnsmasq.
+
+**DNF (Dandified YUM)** --- Gestionnaire de paquets de nouvelle generation utilise par Fedora, RHEL et CentOS Stream, successeur de YUM. DNF resout les dependances de maniere plus efficace, offre de meilleures performances et une gestion plus robuste des transactions. Il utilise les paquets au format RPM et les depots de logiciels pour installer et mettre a jour les applications.
+
+## E
+
+**Environment variable (Variable d'environnement)** --- Valeur nommee accessible par les processus en cours d'execution, utilisee pour configurer le comportement des programmes et du systeme. Les variables d'environnement courantes sous Linux incluent PATH (chemins de recherche des executables), HOME (repertoire personnel) et LANG (parametres de langue). Elles se definissent avec la commande `export` et peuvent etre rendues persistantes via les fichiers de profil du shell.
+
+**ext4 (Fourth Extended Filesystem)** --- Systeme de fichiers par defaut de la plupart des distributions Linux, evolution d'ext3 avec prise en charge de volumes jusqu'a 1 exbioctet et de fichiers individuels jusqu'a 16 tebioctets. ext4 apporte des ameliorations significatives en termes de performance grace aux extents, a l'allocation differee et au journal avec somme de controle. Il constitue un choix fiable et eprouve pour la majorite des cas d'utilisation serveur et bureau.
+
+## F
+
+**Filesystem (Systeme de fichiers)** --- Methode d'organisation et de structuration des donnees sur un support de stockage, definissant comment les fichiers sont nommes, stockes et recuperes. Linux prend en charge un grand nombre de systemes de fichiers (ext4, XFS, Btrfs, ZFS, FAT32, NTFS) et utilise une arborescence unique avec la racine "/" contrairement a Windows qui utilise des lettres de lecteur. Le systeme de fichiers virtuel (VFS) du noyau fournit une interface uniforme pour tous ces types.
+
+**Firewall (Pare-feu)** --- Systeme de securite reseau qui filtre le trafic entrant et sortant selon des regles predefinies. Sous Linux, le pare-feu est implemente au niveau du noyau via Netfilter, et configure par des outils en espace utilisateur comme iptables, nftables ou des interfaces simplifiees comme ufw (Uncomplicated Firewall). La configuration du pare-feu est une etape essentielle de la securisation de tout serveur Linux.
+
+**Fork** --- Appel systeme (`fork()`) qui cree un nouveau processus (processus enfant) en dupliquant le processus appelant (processus parent). Le processus enfant recoit une copie de l'espace memoire du parent et un PID distinct. Le fork est le mecanisme fondamental de creation de processus sous Unix et Linux, souvent suivi d'un appel a `exec()` pour remplacer le programme du processus enfant.
+
+**FOSS (Free and Open Source Software)** --- Logiciel dont le code source est librement accessible, modifiable et redistribuable selon les termes d'une licence ouverte (GPL, MIT, Apache, etc.). Le mouvement FOSS est au coeur de l'ecosysteme Linux : le noyau lui-meme, la majorite des outils systeme et une vaste gamme d'applications sont distribues sous licences libres. Cette philosophie favorise la transparence, l'audit de securite et la collaboration communautaire.
+
+## G
+
+**GNU (GNU's Not Unix)** --- Projet lance par Richard Stallman en 1983 visant a creer un systeme d'exploitation entierement libre et compatible Unix. GNU a fourni la plupart des outils essentiels du systeme (compilateur GCC, editeur Emacs, shell Bash, utilitaires coreutils) qui, combines au noyau Linux, forment les systemes couramment appeles "GNU/Linux". La licence GPL, creee dans le cadre du projet GNU, est la licence libre la plus utilisee au monde.
+
+**GRUB (Grand Unified Bootloader)** --- Chargeur d'amorcage de reference pour la majorite des distributions Linux, capable de demarrer plusieurs systemes d'exploitation. GRUB 2, la version actuelle, offre une interface de menu configurable, la prise en charge de multiples systemes de fichiers et la possibilite de passer des parametres au noyau au demarrage. Sa configuration se trouve generalement dans `/boot/grub/grub.cfg`, generee a partir des fichiers de `/etc/default/grub`.
+
+**GUI (Graphical User Interface)** --- Interface utilisateur graphique permettant d'interagir avec l'ordinateur via des elements visuels tels que fenetres, icones, menus et boutons. Sous Linux, l'interface graphique repose sur un serveur d'affichage (X11 ou Wayland) et un environnement de bureau (GNOME, KDE Plasma, Xfce, etc.). Contrairement a Windows ou macOS, l'interface graphique sous Linux est entierement optionnelle et modulaire.
+
+## H
+
+**Hyperviseur** --- Logiciel permettant de creer et d'executer des machines virtuelles en partageant les ressources materielles de la machine hote. Sous Linux, KVM (Kernel-based Virtual Machine) est l'hyperviseur de type 1 integre directement dans le noyau, tandis que QEMU assure l'emulation materielle. L'ensemble KVM/QEMU, souvent pilote par libvirt et son interface virt-manager, constitue la pile de virtualisation de reference sous Linux.
+
+## I
+
+**Init** --- Premier processus lance par le noyau au demarrage du systeme, portant le PID 1, responsable de l'initialisation de l'espace utilisateur et du demarrage de tous les autres services. Historiquement, SysVinit utilisait des scripts sequentiels organises en niveaux d'execution (runlevels). Aujourd'hui, systemd a largement remplace les anciens systemes d'init en offrant un demarrage parallele, une gestion des dependances et une supervision avancee des services.
+
+**Inode** --- Structure de donnees fondamentale du systeme de fichiers qui stocke les metadonnees d'un fichier ou d'un repertoire : permissions, proprietaire, taille, horodatages et emplacements physiques des blocs de donnees sur le disque. Chaque fichier possede un numero d'inode unique au sein de sa partition, et le nom du fichier n'est qu'un lien vers cet inode dans un repertoire. La commande `ls -i` permet d'afficher les numeros d'inodes.
+
+**iptables** --- Outil en ligne de commande permettant de configurer les regles de filtrage de paquets du pare-feu Netfilter integre au noyau Linux. Les regles sont organisees en tables (filter, nat, mangle) contenant des chaines (INPUT, OUTPUT, FORWARD) qui determinent le sort de chaque paquet reseau. Bien que progressivement remplace par nftables, iptables reste tres largement utilise et documente.
+
+## J
+
+**Journal (systemd-journald)** --- Service de journalisation de systemd qui collecte et stocke les messages de log du noyau, des services et des applications dans un format binaire structure. Contrairement aux fichiers texte traditionnels de syslog, le journal permet des requetes avancees par unite, priorite, periode et autres criteres via la commande `journalctl`. Il offre egalement l'integrite des donnees grace a des mecanismes de scellement cryptographique.
+
+## K
+
+**Kernel (Noyau)** --- Composant central du systeme d'exploitation qui sert d'intermediaire entre le materiel et les logiciels. Le noyau Linux, cree par Linus Torvalds en 1991, gere la memoire, les processus, les peripheriques, les systemes de fichiers et les communications reseau. C'est un noyau monolithique modulaire, ce qui signifie que des fonctionnalites peuvent etre ajoutees ou retirees dynamiquement sous forme de modules chargeables sans redemarrage.
+
+**KVM (Kernel-based Virtual Machine)** --- Module du noyau Linux qui transforme le systeme hote en hyperviseur de type 1, permettant d'executer des machines virtuelles avec des performances proches du materiel natif. KVM exploite les extensions de virtualisation materielles des processeurs modernes (Intel VT-x, AMD-V) et fonctionne en tandem avec QEMU pour l'emulation des peripheriques. C'est la solution de virtualisation de reference dans les datacenters Linux.
+
+## L
+
+**LDAP (Lightweight Directory Access Protocol)** --- Protocole standard permettant d'acceder a des annuaires distribues pour l'authentification centralisee et la gestion des identites dans un reseau. Sous Linux, OpenLDAP est l'implementation la plus courante et permet de centraliser les comptes utilisateurs, les groupes et les politiques d'acces pour un parc de machines. LDAP est souvent integre avec Kerberos et SSSD pour fournir une solution d'authentification complete en environnement d'entreprise.
+
+**LVM (Logical Volume Manager)** --- Couche d'abstraction entre les partitions physiques et les systemes de fichiers qui offre une gestion flexible des volumes de stockage. LVM permet de redimensionner des volumes logiques, de creer des instantanes (snapshots) et de repartir les donnees sur plusieurs disques physiques sans interruption de service. Il est particulierement utile pour les serveurs dont les besoins en stockage evoluent dans le temps.
+
+## M
+
+**Mount (Montage)** --- Operation consistant a rattacher un systeme de fichiers (partition, cle USB, partage reseau) a un point de l'arborescence du systeme de fichiers, le rendant ainsi accessible. La commande `mount` effectue cette operation, et le fichier `/etc/fstab` definit les montages automatiques au demarrage. Sous Linux, tout peripherique de stockage doit etre monte avant de pouvoir acceder a son contenu, bien que les environnements de bureau modernes automatisent souvent cette operation.
+
+## N
+
+**Namespace** --- Mecanisme du noyau Linux permettant d'isoler les ressources systeme visibles par un groupe de processus, creant l'illusion que ces processus disposent de leur propre instance de ces ressources. Il existe plusieurs types de namespaces : PID (processus), net (reseau), mnt (points de montage), user (utilisateurs), UTS (nom d'hote) et IPC (communication inter-processus). Les namespaces, associes aux cgroups, constituent le fondement technique des conteneurs Linux.
+
+**NFS (Network File System)** --- Protocole de partage de fichiers en reseau permettant a un systeme Linux de monter et d'acceder a des repertoires situes sur un serveur distant comme s'ils etaient locaux. Developpe initialement par Sun Microsystems, NFS est le standard de partage de fichiers natif dans le monde Unix/Linux. La version 4 apporte des ameliorations significatives en matiere de securite (integration Kerberos) et de performance.
+
+## O
+
+**Open source** --- Modele de developpement logiciel dans lequel le code source est rendu public, permettant a quiconque de l'examiner, le modifier et le redistribuer sous certaines conditions definies par la licence. L'ecosysteme Linux repose presque entierement sur ce modele, du noyau aux applications, en passant par les outils de developpement. L'Open Source Initiative (OSI) definit les criteres officiels qu'une licence doit respecter pour etre qualifiee d'open source.
+
+## P
+
+**Package manager (Gestionnaire de paquets)** --- Outil automatisant l'installation, la mise a jour, la configuration et la suppression de logiciels sur un systeme Linux. Chaque famille de distributions dispose de son propre gestionnaire : APT pour Debian/Ubuntu, DNF pour Fedora/RHEL, Pacman pour Arch Linux, Zypper pour openSUSE. Les gestionnaires de paquets resolvent automatiquement les dependances et garantissent l'integrite des logiciels installes grace a des signatures cryptographiques.
+
+**PID (Process Identifier)** --- Numero entier unique attribue par le noyau a chaque processus en cours d'execution, permettant de l'identifier et de le manipuler. Le processus init (ou systemd) porte toujours le PID 1 et constitue l'ancetre de tous les autres processus. Les PID sont visibles via la commande `ps` ou dans le pseudo-systeme de fichiers `/proc`, et sont utilises par les commandes `kill` et `nice` pour gerer les processus.
+
+**Pipe (Tube)** --- Mecanisme de communication inter-processus qui connecte la sortie standard d'une commande a l'entree standard de la commande suivante, symbolise par le caractere `|`. Les pipes permettent de chainer des commandes pour construire des traitements complexes a partir d'outils simples, incarnant la philosophie Unix "faire une seule chose et la faire bien". Par exemple, `cat fichier.log | grep erreur | wc -l` compte le nombre de lignes contenant "erreur".
+
+**POSIX (Portable Operating System Interface)** --- Famille de normes definies par l'IEEE qui specifient l'interface entre un systeme d'exploitation et les applications, garantissant la portabilite des logiciels entre systemes compatibles. POSIX definit les appels systeme, les commandes shell, les utilitaires et les conventions que tout systeme Unix-like doit respecter. Linux est largement compatible POSIX sans etre officiellement certifie, contrairement a macOS qui detient cette certification.
+
+**Process (Processus)** --- Instance d'un programme en cours d'execution, disposant de son propre espace d'adressage memoire, de descripteurs de fichiers, de variables d'environnement et d'un identifiant unique (PID). Le noyau Linux gere l'ordonnancement des processus sur les coeurs du processeur et leur acces aux ressources systeme. La commande `top` ou `htop` permet de visualiser en temps reel les processus actifs et leur consommation de ressources.
+
+## R
+
+**RAID (Redundant Array of Independent Disks)** --- Technologie combinant plusieurs disques physiques en un seul volume logique pour ameliorer les performances, la redondance ou les deux. Sous Linux, le RAID logiciel est gere par le module mdadm du noyau et prend en charge les niveaux courants (RAID 0, 1, 5, 6, 10). Le RAID ne remplace pas les sauvegardes mais protege contre les defaillances materielles de disques individuels.
+
+**Root** --- Terme ayant deux significations fondamentales sous Linux. Premierement, l'utilisateur root (UID 0) est le super-utilisateur disposant de tous les privileges sur le systeme, sans aucune restriction d'acces. Deuxiemement, la racine "/" (root directory) est le sommet de l'arborescence du systeme de fichiers a partir duquel toute la hierarchie des repertoires se deploie. L'utilisation quotidienne du compte root est fortement deconseillee au profit de `sudo`.
+
+**RPM (Red Hat Package Manager)** --- Format de paquets logiciels et outil de gestion utilises par les distributions de la famille Red Hat (Fedora, RHEL, CentOS, openSUSE). Un paquet RPM contient les fichiers binaires compiles, les metadonnees, les scripts d'installation et la liste des dependances. Bien que la commande `rpm` permette des operations de bas niveau, les gestionnaires de haut niveau comme DNF ou Zypper sont preferes pour la gestion quotidienne.
+
+## S
+
+**SELinux (Security-Enhanced Linux)** --- Module de securite du noyau Linux implementant le controle d'acces obligatoire (MAC), developpe initialement par la NSA. SELinux ajoute une couche de securite au-dessus des permissions Unix traditionnelles en definissant des politiques detaillees qui restreignent les actions de chaque processus, meme ceux executes en tant que root. Il est active par defaut sur Fedora, RHEL et CentOS et constitue un element cle de la securisation des serveurs.
+
+**Shell** --- Programme servant d'interface entre l'utilisateur et le noyau du systeme d'exploitation, interpretant les commandes saisies et les transmettant au systeme pour execution. Les shells les plus courants sous Linux sont Bash, Zsh, Fish et Dash, chacun offrant ses propres fonctionnalites et syntaxe de script. Au-dela de l'interpretation interactive, le shell est un veritable langage de programmation utilise pour l'ecriture de scripts d'automatisation.
+
+**Signal** --- Notification asynchrone envoyee a un processus pour lui indiquer qu'un evenement particulier s'est produit, constituant un mecanisme fondamental de communication inter-processus sous Unix. Les signaux courants incluent SIGTERM (demande d'arret propre), SIGKILL (arret force non interceptable), SIGHUP (rechargement de configuration) et SIGINT (interruption par Ctrl+C). Un processus peut definir des gestionnaires personnalises pour la plupart des signaux, a l'exception de SIGKILL et SIGSTOP.
+
+**Socket** --- Point de communication bidirectionnel permettant l'echange de donnees entre processus, que ce soit sur la meme machine (sockets Unix) ou a travers un reseau (sockets TCP/IP, UDP). Les sockets reseau sont identifies par la combinaison d'une adresse IP et d'un numero de port. Sous Linux, tout est fichier, et les sockets ne font pas exception : ils apparaissent dans le systeme de fichiers et sont manipulables via des descripteurs de fichiers.
+
+**SSH (Secure Shell)** --- Protocole reseau cryptographique permettant d'etablir des connexions securisees a distance pour l'administration de systemes, le transfert de fichiers (SCP, SFTP) et la creation de tunnels chiffres. OpenSSH est l'implementation de reference sous Linux, utilisant une authentification par mot de passe ou, de preference, par paires de cles publique/privee. SSH est l'outil indispensable de tout administrateur systeme pour gerer des serveurs a distance.
+
+**Swap (Espace d'echange)** --- Zone de stockage sur disque utilisee par le noyau Linux comme extension de la memoire vive lorsque celle-ci est insuffisante. Le swap peut etre configure comme une partition dediee ou comme un fichier d'echange. Bien qu'il permette au systeme de continuer a fonctionner en cas de pression memoire, l'acces au disque etant beaucoup plus lent que l'acces a la RAM, un usage excessif du swap (thrashing) degrade considerablement les performances.
+
+**Symlink (Lien symbolique)** --- Fichier special qui contient une reference vers un autre fichier ou repertoire, fonctionnant comme un raccourci dans le systeme de fichiers. Contrairement aux liens materiels (hard links), les liens symboliques peuvent pointer vers des cibles situees sur d'autres systemes de fichiers et vers des repertoires. Ils sont crees avec la commande `ln -s` et sont largement utilises pour gerer les versions de bibliotheques, les fichiers de configuration et les chemins alternatifs.
+
+**Systemd** --- Systeme d'initialisation et gestionnaire de services qui a remplace SysVinit et Upstart sur la majorite des distributions Linux modernes. Systemd gere le demarrage parallele des services, la supervision des processus, la journalisation (journald), la resolution DNS (resolved), le montage automatique et de nombreuses autres fonctions systeme. Sa commande principale `systemctl` permet de demarrer, arreter, activer et surveiller les unites de service.
+
+## T
+
+**Terminal** --- Application fournissant une interface textuelle pour interagir avec le shell du systeme d'exploitation. Dans un environnement graphique, un emulateur de terminal (GNOME Terminal, Konsole, Alacritty, kitty) simule le comportement d'un terminal physique historique. Le terminal transmet les frappes clavier au shell et affiche la sortie des commandes, constituant la porte d'entree principale vers la puissance de la ligne de commande Linux.
+
+**TTY (Teletypewriter)** --- Terme historique designant a l'origine les teleimprimeurs, aujourd'hui utilise pour designer les terminaux virtuels du systeme Linux. Les consoles virtuelles accessibles via Ctrl+Alt+F1 a F6 sont des TTY geres directement par le noyau, tandis que les terminaux ouverts dans un environnement graphique sont des pseudo-terminaux (PTY). La commande `tty` affiche le terminal associe a la session courante.
+
+## U
+
+**UID (User Identifier)** --- Numero entier unique attribue a chaque compte utilisateur du systeme, utilise en interne par le noyau pour gerer les permissions et la propriete des fichiers. L'UID 0 est reserve au super-utilisateur root, et les UID standards pour les utilisateurs normaux commencent generalement a 1000 sur les distributions modernes. La correspondance entre UID et nom d'utilisateur est definie dans le fichier `/etc/passwd`.
+
+**UEFI (Unified Extensible Firmware Interface)** --- Specification de micrologiciel moderne remplacant le BIOS, offrant une interface de demarrage plus rapide, la prise en charge du schema de partitionnement GPT, le Secure Boot et une architecture extensible. UEFI utilise une partition systeme EFI (ESP) formatee en FAT32 pour stocker les chargeurs d'amorcage. La quasi-totalite des machines fabriquees depuis 2012 utilisent UEFI, et la plupart des distributions Linux le prennent en charge nativement.
+
+**Uptime** --- Duree pendant laquelle un systeme fonctionne sans interruption depuis son dernier demarrage, servant d'indicateur de stabilite et de disponibilite. La commande `uptime` affiche cette duree ainsi que la charge moyenne du systeme. Sur les serveurs de production, un uptime eleve est souvent recherche, bien que les redemarrages planifies soient parfois necessaires pour appliquer les mises a jour de securite du noyau (sauf avec le live patching).
+
+## V
+
+**VFS (Virtual File System)** --- Couche d'abstraction du noyau Linux qui fournit une interface uniforme pour acceder a differents types de systemes de fichiers (ext4, XFS, Btrfs, NFS, procfs, etc.). Grace au VFS, les applications utilisent les memes appels systeme (open, read, write, close) quel que soit le systeme de fichiers sous-jacent. Cette architecture permet a Linux de prendre en charge un nombre considerable de systemes de fichiers de maniere transparente pour l'utilisateur et les applications.
+
+**Virtualisation** --- Technologie permettant de creer des versions logicielles (virtuelles) de ressources materielles telles que des serveurs, du stockage ou des reseaux. Sous Linux, la virtualisation est realisee via KVM/QEMU pour les machines virtuelles completes, via les conteneurs (Docker, LXC) pour l'isolation applicative, ou encore via des outils comme VirtualBox pour les usages bureautiques. La virtualisation est un pilier de l'infrastructure cloud et des centres de donnees modernes.
+
+## W
+
+**Wayland** --- Protocole d'affichage moderne destine a remplacer le systeme X Window (X11), offrant une architecture simplifiee, de meilleures performances, une securite renforcee et une gestion native du HiDPI. Sous Wayland, le compositeur (comme Mutter pour GNOME ou KWin pour KDE) communique directement avec les applications, eliminant l'intermediaire du serveur X. La plupart des distributions majeures proposent desormais Wayland par defaut, bien que XWayland assure la retrocompatibilite avec les applications X11.
+
+## X
+
+**X11 (X Window System)** --- Systeme de fenetrage client-serveur fournissant le cadre de base pour les interfaces graphiques sous Unix et Linux depuis 1984. L'implementation de reference, X.Org, gere l'affichage, la saisie clavier et souris, et permet meme l'affichage deporte d'applications via le reseau. Bien que progressivement remplace par Wayland, X11 reste present et necessaire pour de nombreuses applications et cas d'utilisation specifiques comme l'acces distant.
+
+## Y
+
+**YAML (YAML Ain't Markup Language)** --- Format de serialisation de donnees concu pour etre lisible par les humains, largement utilise pour les fichiers de configuration dans l'ecosysteme Linux. YAML est le format de choix pour Ansible, Kubernetes, Docker Compose, les pipelines CI/CD et de nombreux autres outils DevOps. Sa syntaxe basee sur l'indentation et les paires cle-valeur en fait un format intuitif, bien que la sensibilite aux espaces puisse etre source d'erreurs.
+
+## Z
+
+**ZFS (Zettabyte File System)** --- Systeme de fichiers et gestionnaire de volumes avance, combine en une seule couche, offrant des fonctionnalites telles que la verification d'integrite des donnees, la compression transparente, les instantanes, la deduplication et le RAID integre (RAIDZ). Bien que developpe a l'origine par Sun Microsystems pour Solaris, ZFS est disponible sous Linux via le projet OpenZFS. Sa licence CDDL etant incompatible avec la GPL du noyau, il est distribue comme module externe.
+
+**Zsh (Z Shell)** --- Shell avance et hautement configurable, compatible avec Bash, qui offre des fonctionnalites superieures telles que la completion programmable avec descriptions, la correction orthographique des commandes, les globs etendus et le partage d'historique entre sessions. Le framework Oh My Zsh a considerablement popularise Zsh en facilitant l'ajout de themes et de plugins. Zsh est le shell par defaut de macOS depuis Catalina et gagne en popularite sous Linux.

@@ -6,6 +6,17 @@ export const dynamic = "force-static";
 
 const BASE_URL = "https://linux.mouctar.fr";
 
+const STATIC_PAGES = [
+  "/introduction",
+  "/glossaire",
+  "/faq",
+  "/ressources",
+  "/scripts",
+  "/projets",
+  "/tutorials",
+  "/guides",
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const commands = getCommands();
 
@@ -19,9 +30,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+  const staticPages = STATIC_PAGES.map((p) => ({
+    url: `${BASE_URL}${p}`,
+    lastModified: new Date(),
+  }));
+
   return [
     { url: BASE_URL, lastModified: new Date() },
     { url: `${BASE_URL}/commands`, lastModified: new Date() },
+    ...staticPages,
     ...categoryPages,
     ...commandPages,
   ];
