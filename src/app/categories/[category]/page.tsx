@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const cat = CATEGORIES[category as Category];
   return {
     title: `${cat.label} — Linux Platform`,
-    description: `Commandes Linux dans la categorie ${cat.label}.`,
+    description: `Commandes Linux dans la catégorie ${cat.label}.`,
   };
 }
 

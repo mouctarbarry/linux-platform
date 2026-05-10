@@ -36,7 +36,7 @@ export function Header() {
             {sidebarOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-mono text-xl font-bold tracking-tight">Linux Platform</span>
+            <span className="font-heading text-xl font-bold tracking-tight">Linux Platform</span>
           </Link>
         </div>
         <ThemeToggle />

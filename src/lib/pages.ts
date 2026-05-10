@@ -1,8 +1,8 @@
-import path from 'node:path';
-import { getContentBySlug } from './content';
-import type { ContentMeta, ContentItem } from './content';
+import path from "node:path";
+import { getContentBySlug } from "./content";
+import type { ContentMeta, ContentItem } from "./content";
 
-const PAGES_DIR = path.join(process.cwd(), 'src/content/pages');
+const PAGES_DIR = path.join(process.cwd(), "src/content/pages");
 
 function transform(slug: string, data: Record<string, unknown>): ContentMeta {
   return {

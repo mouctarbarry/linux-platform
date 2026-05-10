@@ -1,8 +1,14 @@
 import type { Metadata } from 'next';
-import { Quicksand, Ubuntu_Mono } from 'next/font/google';
+import { Inter, Quicksand, Ubuntu_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Header, Sidebar } from '@/components/header';
 import './globals.css';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-body',
+  display: 'swap',
+});
 
 const quicksand = Quicksand({
   subsets: ['latin'],
@@ -25,6 +31,9 @@ export const metadata: Metadata = {
   description:
     'Explorez 113+ commandes Linux avec exemples pratiques, tutoriels, guides complets, glossaire et FAQ. Recherche instantanee et navigation par categories.',
   metadataBase: new URL('https://linux.mouctar.fr'),
+  icons: {
+    icon: '/favicon.svg',
+  },
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
@@ -40,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="fr"
       suppressHydrationWarning
-      className={`${quicksand.variable} ${ubuntuMono.variable}`}
+      className={`${inter.variable} ${quicksand.variable} ${ubuntuMono.variable}`}
     >
       <body className="font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>

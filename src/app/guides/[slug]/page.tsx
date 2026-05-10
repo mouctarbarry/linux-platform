@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getAllGuideSlugs, getGuideBySlug } from '@/lib/guides';
 import { TerminalBlock } from '@/components/terminal-block';
-import { rehypePlugins } from '@/lib/mdx-options';
+import { remarkPlugins, rehypePlugins } from '@/lib/mdx-options';
 import type { Metadata } from 'next';
 
 interface PageProps {
@@ -70,7 +70,7 @@ export default async function GuidePage({ params }: PageProps) {
         <MDXRemote
           source={guide.content}
           components={mdxComponents}
-          options={{ mdxOptions: { rehypePlugins } }}
+          options={{ mdxOptions: { remarkPlugins, rehypePlugins } }}
         />
       </article>
     </div>

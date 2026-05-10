@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getPageBySlug } from '@/lib/pages';
-import { rehypePlugins } from '@/lib/mdx-options';
+import { remarkPlugins, rehypePlugins } from '@/lib/mdx-options';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function ProjetsPage() {
       <h1 className="mb-4 text-4xl font-bold">{page.meta.title}</h1>
       <p className="text-muted-foreground mb-8 text-lg">{page.meta.description}</p>
       <article className="prose prose-neutral dark:prose-invert max-w-none">
-        <MDXRemote source={page.content} options={{ mdxOptions: { rehypePlugins } }} />
+        <MDXRemote source={page.content} options={{ mdxOptions: { remarkPlugins, rehypePlugins } }} />
       </article>
     </div>
   );

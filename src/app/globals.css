@@ -68,6 +68,7 @@
 
   html {
     scroll-behavior: smooth;
+    font-size: 16.5px;
   }
 
   body {
@@ -75,6 +76,10 @@
     font-feature-settings:
       'rlig' 1,
       'calt' 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans), system-ui, sans-serif;
   }
 
   ::-webkit-scrollbar {
@@ -161,4 +166,31 @@ html.dark [data-rehype-pretty-code-figure] code > [data-line] span {
 
 figure[data-rehype-pretty-code-figure] + figure[data-rehype-pretty-code-figure] {
   @apply mt-2;
+}
+
+.prose table {
+  @apply w-full text-sm;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.prose thead {
+  @apply border-b border-border;
+}
+
+.prose th {
+  @apply whitespace-nowrap px-3 py-2 text-left font-semibold;
+}
+
+.prose td {
+  @apply px-3 py-2;
+}
+
+.prose tbody tr {
+  @apply border-b border-border/50;
+}
+
+.prose tbody tr:last-child {
+  @apply border-b-0;
 }

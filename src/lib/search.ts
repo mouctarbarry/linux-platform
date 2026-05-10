@@ -1,7 +1,7 @@
-import type { CommandMeta } from './commands';
+import type { CommandMeta } from "./commands";
 
 export interface SearchableItem {
-  type: 'commande' | 'tutoriel' | 'guide';
+  type: "commande" | "tutoriel" | "guide";
   slug: string;
   title: string;
   description: string;
@@ -9,7 +9,10 @@ export interface SearchableItem {
   href: string;
 }
 
-export function searchCommands(commands: CommandMeta[], query: string): CommandMeta[] {
+export function searchCommands(
+  commands: CommandMeta[],
+  query: string,
+): CommandMeta[] {
   const q = query.toLowerCase().trim();
   if (!q) return commands;
 
@@ -21,7 +24,10 @@ export function searchCommands(commands: CommandMeta[], query: string): CommandM
   );
 }
 
-export function searchAll(items: SearchableItem[], query: string): SearchableItem[] {
+export function searchAll(
+  items: SearchableItem[],
+  query: string,
+): SearchableItem[] {
   const q = query.toLowerCase().trim();
   if (!q) return items;
 
