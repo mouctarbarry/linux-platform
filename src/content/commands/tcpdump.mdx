@@ -1,0 +1,68 @@
+---
+title: tcpdump
+category: reseau
+description: Capturer et analyser le trafic reseau
+tags: [reseau, capture, paquets, analyse]
+---
+
+## Syntaxe
+
+```bash
+tcpdump [OPTIONS] [EXPRESSION]
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-i`   | Specifier l'interface reseau a ecouter            |
+| `-c`   | Limiter le nombre de paquets captures             |
+| `-w`   | Ecrire les paquets dans un fichier                |
+| `-r`   | Lire les paquets depuis un fichier                |
+| `-n`   | Ne pas resoudre les adresses IP                   |
+| `-v`   | Augmenter le niveau de detail                     |
+| `-X`   | Afficher le contenu en hexadecimal et ASCII       |
+
+## Exemples
+
+### Capturer le trafic sur une interface
+
+```bash
+$ sudo tcpdump -i eth0 -c 5
+tcpdump: verbose output suppressed, use -v for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+14:23:01.123456 IP 192.168.1.10.54321 > 93.184.216.34.443: Flags [S], seq 12345
+14:23:01.135678 IP 93.184.216.34.443 > 192.168.1.10.54321: Flags [S.], seq 67890
+14:23:01.135712 IP 192.168.1.10.54321 > 93.184.216.34.443: Flags [.], ack 1
+14:23:01.140234 IP 192.168.1.10.54321 > 93.184.216.34.443: Flags [P.], seq 1:218
+14:23:01.165432 IP 93.184.216.34.443 > 192.168.1.10.54321: Flags [.], ack 218
+5 packets captured
+```
+
+### Filtrer le trafic par port
+
+```bash
+$ sudo tcpdump -i eth0 -n port 80 -c 3
+14:25:12.234567 IP 192.168.1.10.48721 > 93.184.216.34.80: Flags [S], seq 45678
+14:25:12.246789 IP 93.184.216.34.80 > 192.168.1.10.48721: Flags [S.], seq 98765
+14:25:12.246812 IP 192.168.1.10.48721 > 93.184.216.34.80: Flags [.], ack 1
+```
+
+### Sauvegarder la capture dans un fichier
+
+```bash
+$ sudo tcpdump -i eth0 -w capture.pcap -c 100
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+100 packets captured
+100 packets received by filter
+0 packets dropped by kernel
+```
+
+### Lire et filtrer un fichier de capture
+
+```bash
+$ tcpdump -r capture.pcap -n host 192.168.1.10
+reading from file capture.pcap, link-type EN10MB (Ethernet)
+14:23:01.123456 IP 192.168.1.10.54321 > 93.184.216.34.443: Flags [S], seq 12345
+14:23:01.135712 IP 192.168.1.10.54321 > 93.184.216.34.443: Flags [.], ack 1
+```

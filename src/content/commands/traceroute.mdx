@@ -1,0 +1,64 @@
+---
+title: traceroute
+category: reseau
+description: Tracer le chemin des paquets reseau
+tags: [reseau, diagnostic, routage, chemin]
+---
+
+## Syntaxe
+
+```bash
+traceroute [OPTIONS] HOTE
+```
+
+## Options principales
+
+| Option | Description                                    |
+| ------ | ---------------------------------------------- |
+| `-n`   | Afficher les adresses IP sans resolution DNS   |
+| `-m`   | Definir le nombre maximum de sauts             |
+| `-w`   | Delai d'attente par saut en secondes           |
+| `-q`   | Nombre de paquets par saut                     |
+| `-I`   | Utiliser des paquets ICMP au lieu d'UDP        |
+| `-T`   | Utiliser des paquets TCP SYN                   |
+
+## Exemples
+
+### Tracer le chemin vers un hote
+
+```bash
+$ traceroute google.com
+traceroute to google.com (142.250.75.238), 30 hops max, 60 byte packets
+ 1  gateway (192.168.1.1)  0.542 ms  0.623 ms  0.701 ms
+ 2  10.0.0.1 (10.0.0.1)  2.134 ms  2.256 ms  2.318 ms
+ 3  172.16.0.1 (172.16.0.1)  5.421 ms  5.534 ms  5.612 ms
+ 4  par21s20-in-f14.1e100.net (142.250.75.238)  8.123 ms  8.245 ms  8.301 ms
+```
+
+### Tracer sans resolution DNS avec un maximum de 15 sauts
+
+```bash
+$ traceroute -n -m 15 192.168.1.1
+traceroute to 192.168.1.1 (192.168.1.1), 15 hops max, 60 byte packets
+ 1  192.168.1.1  0.312 ms  0.287 ms  0.265 ms
+```
+
+### Utiliser le protocole ICMP
+
+```bash
+$ sudo traceroute -I google.com
+traceroute to google.com (142.250.75.238), 30 hops max, 60 byte packets
+ 1  192.168.1.1  0.645 ms  0.598 ms  0.571 ms
+ 2  10.0.0.1  2.087 ms  2.134 ms  2.201 ms
+ 3  142.250.75.238  7.854 ms  7.912 ms  7.965 ms
+```
+
+### Envoyer un seul paquet par saut
+
+```bash
+$ traceroute -q 1 -w 2 example.com
+traceroute to example.com (93.184.216.34), 30 hops max, 60 byte packets
+ 1  gateway (192.168.1.1)  0.534 ms
+ 2  10.0.0.1 (10.0.0.1)  2.312 ms
+ 3  93.184.216.34 (93.184.216.34)  12.456 ms
+```

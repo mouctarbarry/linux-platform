@@ -1,0 +1,71 @@
+---
+title: iptables
+category: reseau
+description: Configurer le pare-feu du noyau Linux
+tags: [reseau, securite, pare-feu, filtrage]
+---
+
+## Syntaxe
+
+```bash
+iptables [OPTIONS] CHAINE REGLE
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-A`   | Ajouter une regle a la fin d'une chaine          |
+| `-D`   | Supprimer une regle d'une chaine                 |
+| `-I`   | Inserer une regle au debut d'une chaine          |
+| `-L`   | Lister les regles d'une chaine                   |
+| `-F`   | Supprimer toutes les regles d'une chaine         |
+| `-P`   | Definir la politique par defaut d'une chaine     |
+| `-p`   | Specifier le protocole (tcp, udp, icmp)          |
+| `--dport` | Specifier le port de destination              |
+
+## Exemples
+
+### Lister toutes les regles actives
+
+```bash
+$ sudo iptables -L -n -v
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target  prot opt in  out  source       destination
+  245  18K  ACCEPT  all  --  lo  *    0.0.0.0/0    0.0.0.0/0
+ 1024  84K  ACCEPT  tcp  --  *   *    0.0.0.0/0    0.0.0.0/0    tcp dpt:22
+  512  42K  ACCEPT  tcp  --  *   *    0.0.0.0/0    0.0.0.0/0    tcp dpt:80
+
+Chain FORWARD (policy DROP 0 packets, 0 bytes)
+ pkts bytes target  prot opt in  out  source       destination
+
+Chain OUTPUT (policy ACCEPT 1523 packets, 128K bytes)
+ pkts bytes target  prot opt in  out  source       destination
+```
+
+### Autoriser le trafic SSH entrant
+
+```bash
+$ sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+```
+
+### Bloquer une adresse IP specifique
+
+```bash
+$ sudo iptables -A INPUT -s 203.0.113.50 -j DROP
+```
+
+### Autoriser le trafic HTTP et HTTPS
+
+```bash
+$ sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+$ sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+```
+
+### Definir la politique par defaut a DROP
+
+```bash
+$ sudo iptables -P INPUT DROP
+$ sudo iptables -P FORWARD DROP
+$ sudo iptables -P OUTPUT ACCEPT
+```

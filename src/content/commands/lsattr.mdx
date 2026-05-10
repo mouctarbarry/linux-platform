@@ -1,0 +1,64 @@
+---
+title: lsattr
+category: permissions
+description: Afficher les attributs etendus des fichiers
+tags: [permissions, attributs, fichiers, diagnostic]
+---
+
+## Syntaxe
+
+```bash
+lsattr [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-R`   | Lister recursivement les sous-repertoires        |
+| `-a`   | Inclure les fichiers caches                      |
+| `-d`   | Afficher les attributs du repertoire lui-meme    |
+| `-l`   | Afficher en format long lisible                  |
+| `-v`   | Afficher le numero de version du fichier         |
+
+## Exemples
+
+### Afficher les attributs d'un fichier
+
+```bash
+$ lsattr /etc/resolv.conf
+----i--------e-- /etc/resolv.conf
+```
+
+### Lister les attributs de tous les fichiers d'un repertoire
+
+```bash
+$ lsattr /etc/ssh/
+-------------e-- /etc/ssh/ssh_config
+----i--------e-- /etc/ssh/sshd_config
+-------------e-- /etc/ssh/ssh_host_rsa_key
+-------------e-- /etc/ssh/ssh_host_ed25519_key
+```
+
+### Afficher les attributs du repertoire lui-meme
+
+```bash
+$ lsattr -d /var/log/
+-------------e-- /var/log/
+```
+
+### Lister recursivement avec les fichiers caches
+
+```bash
+$ lsattr -Ra /home/mouctar/config/
+-------------e-- /home/mouctar/config/.bashrc
+-------------e-- /home/mouctar/config/.profile
+----i--------e-- /home/mouctar/config/.ssh/authorized_keys
+```
+
+### Afficher en format long lisible
+
+```bash
+$ lsattr -l /etc/resolv.conf
+/etc/resolv.conf     Immutable, Extents
+```

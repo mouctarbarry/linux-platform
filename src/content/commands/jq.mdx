@@ -1,0 +1,70 @@
+---
+title: jq
+category: editeurs
+description: Traiter et transformer des donnees JSON
+tags: [editeur, json, filtre, transformation]
+---
+
+## Syntaxe
+
+```bash
+jq [OPTIONS] FILTRE [FICHIER...]
+```
+
+## Options principales
+
+| Option      | Description                                      |
+| ----------- | ------------------------------------------------ |
+| `-r`        | Afficher les chaines sans guillemets             |
+| `-c`        | Sortie compacte sur une seule ligne              |
+| `-e`        | Code de retour base sur le resultat              |
+| `-s`        | Lire toute l'entree comme un seul tableau        |
+| `--arg K V` | Definir une variable utilisable dans le filtre   |
+
+## Exemples
+
+### Extraire un champ d'un objet JSON
+
+```bash
+$ echo '{"nom": "mouctar", "role": "admin"}' | jq '.nom'
+"mouctar"
+$ echo '{"nom": "mouctar", "role": "admin"}' | jq -r '.nom'
+mouctar
+```
+
+### Filtrer un tableau d'objets
+
+```bash
+$ cat utilisateurs.json | jq '.[] | select(.actif == true) | .nom'
+"mouctar"
+"alice"
+"bob"
+```
+
+### Transformer la structure d'un JSON
+
+```bash
+$ cat serveurs.json | jq '[.[] | {hote: .hostname, ip: .adresse}]'
+[
+  { "hote": "web-01", "ip": "192.168.1.10" },
+  { "hote": "db-01", "ip": "192.168.1.20" }
+]
+```
+
+### Compter les elements d'un tableau
+
+```bash
+$ cat logs.json | jq '[.[] | select(.niveau == "erreur")] | length'
+42
+```
+
+### Utiliser des variables dans le filtre
+
+```bash
+$ jq --arg env "production" '.[] | select(.environnement == $env)' config.json
+{
+  "nom": "api-prod",
+  "environnement": "production",
+  "port": 8080
+}
+```

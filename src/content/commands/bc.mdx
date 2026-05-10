@@ -1,0 +1,77 @@
+---
+title: bc
+category: editeurs
+description: Calculatrice en ligne de commande
+tags: [editeur, calcul, mathematiques, conversion]
+---
+
+## Syntaxe
+
+```bash
+bc [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-l`   | Charger la bibliotheque mathematique standard    |
+| `-q`   | Mode silencieux (sans message de bienvenue)      |
+| `-s`   | Mode POSIX strict                                |
+| `-w`   | Afficher les avertissements pour les extensions  |
+
+## Exemples
+
+### Effectuer un calcul simple
+
+```bash
+$ echo "15 * 37 + 42" | bc
+597
+```
+
+### Calculer avec des decimales
+
+```bash
+$ echo "scale=4; 22 / 7" | bc -l
+3.1428
+$ echo "scale=10; sqrt(2)" | bc -l
+1.4142135623
+```
+
+### Convertir entre bases numeriques
+
+```bash
+$ echo "obase=2; 255" | bc
+11111111
+$ echo "obase=16; 255" | bc
+FF
+$ echo "ibase=16; FF" | bc
+255
+```
+
+### Calculer un pourcentage
+
+```bash
+$ echo "scale=2; 847 * 100 / 1200" | bc
+70.58
+```
+
+### Utiliser bc dans un script
+
+```bash
+$ prix=49.99
+$ quantite=12
+$ tva=20
+$ total=$(echo "scale=2; $prix * $quantite * (1 + $tva / 100)" | bc)
+$ echo "Total TTC : ${total} EUR"
+Total TTC : 719.85 EUR
+```
+
+### Effectuer des comparaisons
+
+```bash
+$ echo "10 > 5" | bc
+1
+$ echo "3 == 4" | bc
+0
+```

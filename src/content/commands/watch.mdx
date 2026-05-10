@@ -1,0 +1,74 @@
+---
+title: watch
+category: processus
+description: Executer une commande periodiquement
+tags: [processus, surveillance, periodique, automatisation]
+---
+
+## Syntaxe
+
+```bash
+watch [OPTIONS] COMMANDE
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-n`   | Definir l'intervalle en secondes (defaut: 2)      |
+| `-d`   | Mettre en surbrillance les differences             |
+| `-t`   | Masquer l'en-tete (titre et horloge)              |
+| `-g`   | Quitter quand la sortie de la commande change     |
+| `-e`   | Arreter en cas d'erreur et attendre une touche    |
+| `-c`   | Interpreter les sequences de couleur ANSI         |
+
+## Exemples
+
+### Surveiller l'espace disque toutes les 5 secondes
+
+```bash
+$ watch -n 5 df -h
+Every 5.0s: df -h                          serveur: Sat May 10 14:32:05 2025
+
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        50G   23G   25G  48% /
+/dev/sdb1       200G  145G   45G  77% /data
+tmpfs           7.8G  1.2M  7.8G   1% /run
+```
+
+### Surveiller les connexions reseau avec surbrillance
+
+```bash
+$ watch -d -n 1 "ss -tn state established"
+Every 1.0s: ss -tn state established       serveur: Sat May 10 14:35:12 2025
+
+Recv-Q  Send-Q   Local Address:Port   Peer Address:Port
+0       0        192.168.1.10:22      192.168.1.50:54312
+0       0        192.168.1.10:80      10.0.0.5:48721
+```
+
+### Surveiller le contenu d'un repertoire
+
+```bash
+$ watch -n 3 "ls -lh /tmp/uploads/"
+Every 3.0s: ls -lh /tmp/uploads/           serveur: Sat May 10 14:37:00 2025
+
+total 12M
+-rw-r--r-- 1 mouctar mouctar 4.2M mai 10 14:35 fichier1.csv
+-rw-r--r-- 1 mouctar mouctar 7.8M mai 10 14:36 fichier2.csv
+```
+
+### Quitter quand la sortie change
+
+```bash
+$ watch -g "cat /proc/mdstat"
+```
+
+### Surveiller la memoire sans en-tete
+
+```bash
+$ watch -t -n 2 free -h
+              total        used        free      shared  buff/cache   available
+Mem:           16Gi       4.4Gi       8.0Gi       312Mi       3.5Gi        11Gi
+Swap:         2.0Gi          0B       2.0Gi
+```

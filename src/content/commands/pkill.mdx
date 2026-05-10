@@ -1,0 +1,81 @@
+---
+title: pkill
+category: processus
+description: Envoyer des signaux aux processus par nom
+tags: [processus, signal, terminaison, gestion]
+---
+
+## Syntaxe
+
+```bash
+pkill [OPTIONS] MOTIF
+```
+
+## Options principales
+
+| Option    | Description                                       |
+| --------- | ------------------------------------------------- |
+| `-SIGNAL` | Specifier le signal a envoyer (ex: -9, -TERM)    |
+| `-u`      | Filtrer par utilisateur                           |
+| `-f`      | Rechercher dans la ligne de commande complete     |
+| `-n`      | Envoyer le signal au processus le plus recent     |
+| `-o`      | Envoyer le signal au processus le plus ancien     |
+| `-x`      | Correspondance exacte du nom                      |
+| `-e`      | Afficher les processus termines                   |
+
+## Exemples
+
+### Terminer un processus par son nom
+
+```bash
+$ pkill nginx
+```
+
+### Forcer l'arret d'un processus avec SIGKILL
+
+```bash
+$ pkill -9 firefox
+```
+
+### Terminer les processus d'un utilisateur specifique
+
+```bash
+$ pkill -u guest
+```
+
+### Envoyer un signal de rechargement a un service
+
+```bash
+$ sudo pkill -HUP nginx
+```
+
+### Terminer un processus par sa ligne de commande
+
+```bash
+$ pkill -f "python manage.py runserver"
+```
+
+### Afficher le nom des processus termines
+
+```bash
+$ pkill -e -u mouctar node
+node killed (pid 1842)
+node killed (pid 2456)
+```
+
+### Terminer uniquement le processus le plus recent
+
+```bash
+$ pkill -n bash
+```
+
+### Combiner avec pgrep pour verifier avant d'agir
+
+```bash
+$ pgrep -la node
+1842 node /home/mouctar/app/server.js
+2456 node /home/mouctar/projet/index.js
+$ pkill -f "node /home/mouctar/projet"
+$ pgrep -la node
+1842 node /home/mouctar/app/server.js
+```

@@ -1,0 +1,74 @@
+---
+title: pgrep
+category: processus
+description: Rechercher des processus par nom ou critere
+tags: [processus, recherche, pid, filtrage]
+---
+
+## Syntaxe
+
+```bash
+pgrep [OPTIONS] MOTIF
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-l`   | Afficher le nom du processus avec le PID          |
+| `-a`   | Afficher la ligne de commande complete            |
+| `-u`   | Filtrer par utilisateur                           |
+| `-c`   | Compter le nombre de processus correspondants     |
+| `-f`   | Rechercher dans la ligne de commande complete     |
+| `-n`   | Afficher uniquement le processus le plus recent   |
+| `-o`   | Afficher uniquement le processus le plus ancien   |
+| `-x`   | Correspondance exacte du nom                      |
+
+## Exemples
+
+### Rechercher les PID d'un processus par nom
+
+```bash
+$ pgrep nginx
+1205
+1206
+1207
+```
+
+### Afficher les noms avec les PID
+
+```bash
+$ pgrep -l ssh
+842 sshd
+4567 sshd
+4589 ssh-agent
+```
+
+### Afficher la ligne de commande complete
+
+```bash
+$ pgrep -a node
+1842 node /home/mouctar/app/server.js
+2456 node /home/mouctar/projet/index.js
+```
+
+### Compter les processus d'un utilisateur
+
+```bash
+$ pgrep -c -u mouctar
+14
+```
+
+### Rechercher dans la ligne de commande complete
+
+```bash
+$ pgrep -f "python.*manage.py"
+3214
+```
+
+### Trouver le processus le plus recent
+
+```bash
+$ pgrep -n -l bash
+4892 bash
+```

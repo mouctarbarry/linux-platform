@@ -1,0 +1,74 @@
+---
+title: dirname
+category: fichiers
+description: Extraire le repertoire d'un chemin
+tags: [fichiers, chemin, script, repertoire]
+---
+
+## Syntaxe
+
+```bash
+dirname [OPTION] NOM...
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `-z`   | Separer la sortie par des caracteres nuls        |
+
+## Exemples
+
+### Extraire le repertoire d'un chemin
+
+```bash
+$ dirname /home/mouctar/documents/rapport.pdf
+/home/mouctar/documents
+```
+
+### Traiter plusieurs chemins
+
+```bash
+$ dirname /var/log/syslog /etc/nginx/nginx.conf /home/mouctar/.bashrc
+/var/log
+/etc/nginx
+/home/mouctar
+```
+
+### Obtenir le repertoire parent
+
+```bash
+$ dirname /home/mouctar/projets/api
+/home/mouctar/projets
+$ dirname /home/mouctar/projets
+/home/mouctar
+```
+
+### Utiliser dirname dans un script de deploiement
+
+```bash
+$ script_dir=$(dirname "$(readlink -f "$0")")
+$ echo "Le script se trouve dans : $script_dir"
+Le script se trouve dans : /opt/deploiement/scripts
+$ source "${script_dir}/config.env"
+```
+
+### Creer automatiquement le repertoire de destination
+
+```bash
+$ destination="/backup/2026/05/10/base.sql.gz"
+$ mkdir -p "$(dirname "$destination")"
+$ pg_dump mabase | gzip > "$destination"
+$ ls -l "$destination"
+-rw-r--r-- 1 mouctar mouctar 15360 mai 10 12:00 /backup/2026/05/10/base.sql.gz
+```
+
+### Combiner avec basename pour manipuler des chemins
+
+```bash
+$ chemin="/var/www/html/assets/style.css"
+$ echo "Repertoire : $(dirname "$chemin")"
+Repertoire : /var/www/html/assets
+$ echo "Fichier    : $(basename "$chemin")"
+Fichier    : style.css
+```

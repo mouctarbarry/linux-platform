@@ -1,0 +1,72 @@
+---
+title: tmux
+category: processus
+description: Multiplexeur de terminal avance
+tags: [processus, terminal, session, multiplexeur]
+---
+
+## Syntaxe
+
+```bash
+tmux [COMMANDE] [OPTIONS]
+```
+
+## Options principales
+
+| Option              | Description                                  |
+| ------------------- | -------------------------------------------- |
+| `new -s NOM`        | Creer une nouvelle session nommee            |
+| `ls`                | Lister les sessions actives                  |
+| `attach -t NOM`     | Se connecter a une session existante         |
+| `detach`            | Detacher la session courante                 |
+| `kill-session -t`   | Terminer une session                         |
+| `new-window`        | Creer une nouvelle fenetre                   |
+| `split-window`      | Diviser le panneau courant                   |
+
+## Exemples
+
+### Creer une nouvelle session nommee
+
+```bash
+$ tmux new -s developpement
+```
+
+### Lister les sessions actives
+
+```bash
+$ tmux ls
+developpement: 3 windows (created Sat May 10 14:30:00 2025) (attached)
+serveur: 1 windows (created Sat May 10 10:15:00 2025)
+monitoring: 2 windows (created Fri May  9 08:00:00 2025)
+```
+
+### Se reconnecter a une session detachee
+
+```bash
+$ tmux attach -t serveur
+```
+
+### Terminer une session
+
+```bash
+$ tmux kill-session -t monitoring
+```
+
+### Envoyer une commande a une session en arriere-plan
+
+```bash
+$ tmux send-keys -t serveur "tail -f /var/log/syslog" Enter
+```
+
+### Raccourcis clavier principaux
+
+```bash
+# Ctrl+B, D : detacher la session courante
+# Ctrl+B, C : creer une nouvelle fenetre
+# Ctrl+B, N : passer a la fenetre suivante
+# Ctrl+B, P : passer a la fenetre precedente
+# Ctrl+B, % : diviser le panneau verticalement
+# Ctrl+B, " : diviser le panneau horizontalement
+# Ctrl+B, fleches : naviguer entre les panneaux
+# Ctrl+B, X : fermer le panneau courant
+```

@@ -1,0 +1,71 @@
+---
+title: lsusb
+category: systeme
+description: Lister les peripheriques USB
+tags: [systeme, usb, peripheriques, materiel]
+---
+
+## Syntaxe
+
+```bash
+lsusb [OPTIONS]
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-v`   | Afficher des informations detaillees              |
+| `-t`   | Afficher la hierarchie en arbre                   |
+| `-s`   | Filtrer par bus et numero de peripherique          |
+| `-d`   | Filtrer par identifiant vendeur:produit           |
+| `-D`   | Afficher les details d'un fichier de peripherique |
+
+## Exemples
+
+### Lister tous les peripheriques USB
+
+```bash
+$ lsusb
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 004: ID 046d:c52b Logitech, Inc. Unifying Receiver
+Bus 001 Device 003: ID 8087:0026 Intel Corp. AX201 Bluetooth
+Bus 001 Device 002: ID 0bda:5634 Realtek Semiconductor Corp. USB Camera
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+```
+
+### Afficher la hierarchie USB en arbre
+
+```bash
+$ lsusb -t
+/:  Bus 02.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/4p, 5000M
+/:  Bus 01.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/12p, 480M
+    |__ Port 3: Dev 2, If 0, Class=Video, Driver=uvcvideo, 480M
+    |__ Port 5: Dev 3, If 0, Class=Wireless, Driver=btusb, 12M
+    |__ Port 8: Dev 4, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+```
+
+### Afficher les details d'un peripherique specifique
+
+```bash
+$ lsusb -v -d 046d:c52b
+Bus 001 Device 004: ID 046d:c52b Logitech, Inc. Unifying Receiver
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               2.00
+  bDeviceClass            0
+  bDeviceSubClass         0
+  idVendor           0x046d Logitech, Inc.
+  idProduct          0xc52b Unifying Receiver
+  bcdDevice           30.00
+  iManufacturer           1 Logitech
+  iProduct                2 USB Receiver
+```
+
+### Filtrer par bus et peripherique
+
+```bash
+$ lsusb -s 001:004
+Bus 001 Device 004: ID 046d:c52b Logitech, Inc. Unifying Receiver
+```

@@ -1,0 +1,71 @@
+---
+title: column
+category: editeurs
+description: Formater du texte en colonnes
+tags: [editeur, texte, formatage, tableau]
+---
+
+## Syntaxe
+
+```bash
+column [OPTIONS] [FICHIER...]
+```
+
+## Options principales
+
+| Option       | Description                                      |
+| ------------ | ------------------------------------------------ |
+| `-t`         | Creer un tableau avec des colonnes alignees      |
+| `-s DELIM`   | Specifier le delimiteur d'entree                 |
+| `-o DELIM`   | Specifier le delimiteur de sortie                |
+| `-N NOMS`    | Definir les noms des colonnes                    |
+| `-J`         | Sortie au format JSON                            |
+
+## Exemples
+
+### Formater un fichier CSV en tableau
+
+```bash
+$ cat services.csv
+nom,port,statut
+nginx,80,actif
+postgres,5432,actif
+redis,6379,arrete
+
+$ column -t -s ',' services.csv
+nom       port  statut
+nginx     80    actif
+postgres  5432  actif
+redis     6379  arrete
+```
+
+### Afficher la sortie d'une commande en colonnes
+
+```bash
+$ mount | column -t
+/dev/sda1  on  /      type  ext4   (rw,relatime)
+/dev/sda2  on  /home  type  ext4   (rw,relatime)
+tmpfs      on  /tmp   type  tmpfs  (rw,nosuid)
+```
+
+### Definir des noms de colonnes personnalises
+
+```bash
+$ echo -e "web-01 192.168.1.10 actif\ndb-01 192.168.1.20 actif" | \
+  column -t -N "SERVEUR,IP,STATUT"
+SERVEUR  IP             STATUT
+web-01   192.168.1.10   actif
+db-01    192.168.1.20   actif
+```
+
+### Convertir un tableau en JSON
+
+```bash
+$ echo -e "nom port\nnginx 80\nredis 6379" | column -t -N "nom,port" -J
+{
+   "table": [
+      {"nom": "nginx", "port": "80"},
+      {"nom": "redis", "port": "6379"}
+   ]
+}
+```

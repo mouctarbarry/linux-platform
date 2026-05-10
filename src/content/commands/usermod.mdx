@@ -1,0 +1,69 @@
+---
+title: usermod
+category: permissions
+description: Modifier un compte utilisateur
+tags: [permissions, utilisateur, administration, compte]
+---
+
+## Syntaxe
+
+```bash
+usermod [OPTIONS] NOM_UTILISATEUR
+```
+
+## Options principales
+
+| Option          | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `-aG GROUPE`    | Ajouter l'utilisateur a un groupe supplementaire |
+| `-d REP`        | Modifier le repertoire personnel                 |
+| `-s SHELL`      | Changer le shell de connexion                    |
+| `-l NOM`        | Renommer le compte utilisateur                   |
+| `-L`            | Verrouiller le compte utilisateur                |
+| `-U`            | Deverrouiller le compte utilisateur              |
+
+## Exemples
+
+### Ajouter un utilisateur a un groupe supplementaire
+
+```bash
+$ sudo usermod -aG docker mouctar
+$ groups mouctar
+mouctar : mouctar sudo docker
+```
+
+### Ajouter un utilisateur a plusieurs groupes
+
+```bash
+$ sudo usermod -aG www-data,adm,log mouctar
+$ groups mouctar
+mouctar : mouctar sudo docker www-data adm log
+```
+
+### Changer le shell d'un utilisateur
+
+```bash
+$ sudo usermod -s /usr/bin/zsh mouctar
+$ grep mouctar /etc/passwd
+mouctar:x:1000:1000:Mouctar:/home/mouctar:/usr/bin/zsh
+```
+
+### Verrouiller et deverrouiller un compte
+
+```bash
+$ sudo usermod -L ancien_stagiaire
+$ sudo passwd -S ancien_stagiaire
+ancien_stagiaire L 2026-05-10 0 99999 7 -1
+
+$ sudo usermod -U ancien_stagiaire
+$ sudo passwd -S ancien_stagiaire
+ancien_stagiaire P 2026-05-10 0 99999 7 -1
+```
+
+### Modifier le repertoire personnel
+
+```bash
+$ sudo usermod -d /home/nouveau_rep -m mouctar
+$ grep mouctar /etc/passwd
+mouctar:x:1000:1000:Mouctar:/home/nouveau_rep:/usr/bin/zsh
+```

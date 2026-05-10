@@ -1,0 +1,86 @@
+---
+title: tree
+category: fichiers
+description: Afficher l'arborescence d'un repertoire
+tags: [fichiers, repertoire, arborescence, navigation]
+---
+
+## Syntaxe
+
+```bash
+tree [OPTIONS] [REPERTOIRE...]
+```
+
+## Options principales
+
+| Option       | Description                                      |
+| ------------ | ------------------------------------------------ |
+| `-L N`       | Limiter la profondeur a N niveaux                |
+| `-d`         | Afficher uniquement les repertoires              |
+| `-a`         | Inclure les fichiers caches                      |
+| `-I MOTIF`   | Exclure les fichiers correspondant au motif      |
+| `-s`         | Afficher la taille de chaque fichier             |
+| `--charset`  | Definir le jeu de caracteres pour le dessin      |
+
+## Exemples
+
+### Afficher l'arborescence du repertoire courant
+
+```bash
+$ tree
+.
+├── src
+│   ├── index.ts
+│   ├── config.ts
+│   └── utils
+│       ├── helpers.ts
+│       └── validators.ts
+├── package.json
+└── tsconfig.json
+
+2 directories, 5 files
+```
+
+### Limiter la profondeur d'affichage
+
+```bash
+$ tree -L 2 /var/www
+/var/www
+├── html
+│   ├── index.html
+│   └── assets
+└── logs
+    ├── access.log
+    └── error.log
+
+3 directories, 3 files
+```
+
+### Afficher uniquement les repertoires
+
+```bash
+$ tree -d /etc/nginx
+/etc/nginx
+├── conf.d
+├── sites-available
+└── sites-enabled
+
+3 directories
+```
+
+### Exclure certains repertoires
+
+```bash
+$ tree -I 'node_modules|.git|dist' -L 3
+.
+├── src
+│   ├── components
+│   │   ├── Header.tsx
+│   │   └── Footer.tsx
+│   └── pages
+│       └── index.tsx
+├── package.json
+└── tsconfig.json
+
+3 directories, 4 files
+```

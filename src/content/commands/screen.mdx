@@ -1,0 +1,75 @@
+---
+title: screen
+category: processus
+description: Multiplexeur de terminal persistent
+tags: [processus, terminal, session, persistance]
+---
+
+## Syntaxe
+
+```bash
+screen [OPTIONS] [COMMANDE]
+```
+
+## Options principales
+
+| Option   | Description                                      |
+| -------- | ------------------------------------------------ |
+| `-S`     | Nommer la session                                |
+| `-ls`    | Lister les sessions existantes                   |
+| `-r`     | Se reconnecter a une session detachee            |
+| `-d`     | Detacher une session attachee a distance         |
+| `-dm`    | Demarrer une session en mode detache             |
+| `-X`     | Envoyer une commande a une session existante     |
+
+## Exemples
+
+### Creer une session nommee
+
+```bash
+$ screen -S mon-serveur
+```
+
+### Lister les sessions actives
+
+```bash
+$ screen -ls
+There are screens on:
+        12345.mon-serveur   (Detached)
+        12678.compilation   (Detached)
+        12890.monitoring    (Attached)
+3 Sockets in /run/screen/S-mouctar.
+```
+
+### Se reconnecter a une session detachee
+
+```bash
+$ screen -r mon-serveur
+```
+
+### Demarrer une commande en arriere-plan
+
+```bash
+$ screen -dmS backup tar czf /backup/data.tar.gz /home/mouctar/data
+$ screen -ls
+There is a screen on:
+        13245.backup   (Detached)
+1 Socket in /run/screen/S-mouctar.
+```
+
+### Detacher et reconnecter une session occupee
+
+```bash
+$ screen -d -r compilation
+```
+
+### Raccourcis clavier principaux
+
+```bash
+# Ctrl+A, D : detacher la session courante
+# Ctrl+A, C : creer une nouvelle fenetre
+# Ctrl+A, N : passer a la fenetre suivante
+# Ctrl+A, P : passer a la fenetre precedente
+# Ctrl+A, K : fermer la fenetre courante
+# Ctrl+A, ? : afficher l'aide
+```

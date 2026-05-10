@@ -1,0 +1,60 @@
+---
+title: visudo
+category: permissions
+description: Editer le fichier sudoers en toute securite
+tags: [permissions, sudo, securite, administration]
+---
+
+## Syntaxe
+
+```bash
+visudo [OPTIONS]
+```
+
+## Options principales
+
+| Option          | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `-c`            | Verifier la syntaxe du fichier sudoers           |
+| `-f FICHIER`    | Editer un fichier sudoers alternatif             |
+| `-s`            | Activer le mode strict lors de la verification   |
+| `-q`            | Mode silencieux lors de la verification          |
+
+## Exemples
+
+### Editer le fichier sudoers principal
+
+```bash
+$ sudo visudo
+## /etc/sudoers - fichier ouvert avec verification de syntaxe
+##
+## User privilege specification
+root    ALL=(ALL:ALL) ALL
+mouctar ALL=(ALL:ALL) ALL
+```
+
+### Verifier la syntaxe du fichier sudoers
+
+```bash
+$ sudo visudo -c
+/etc/sudoers: parsed OK
+/etc/sudoers.d/custom: parsed OK
+```
+
+### Editer un fichier dans sudoers.d
+
+```bash
+$ sudo visudo -f /etc/sudoers.d/deploiement
+## Ajouter les droits de deploiement
+deploy ALL=(www-data) NOPASSWD: /usr/bin/systemctl restart nginx
+deploy ALL=(www-data) NOPASSWD: /usr/bin/systemctl restart php8.2-fpm
+```
+
+### Autoriser un groupe sans mot de passe pour certaines commandes
+
+```bash
+$ sudo visudo -f /etc/sudoers.d/monitoring
+## Commandes de monitoring sans mot de passe
+%monitoring ALL=(ALL) NOPASSWD: /usr/bin/systemctl status *
+%monitoring ALL=(ALL) NOPASSWD: /usr/bin/journalctl -u *
+```

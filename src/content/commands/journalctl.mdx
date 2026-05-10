@@ -1,0 +1,70 @@
+---
+title: journalctl
+category: systeme
+description: Consulter les journaux systemd
+tags: [systeme, journaux, logs, systemd]
+---
+
+## Syntaxe
+
+```bash
+journalctl [OPTIONS] [FILTRES]
+```
+
+## Options principales
+
+| Option          | Description                                    |
+| --------------- | ---------------------------------------------- |
+| `-u`            | Filtrer par unite systemd                      |
+| `-f`            | Suivre les nouveaux messages en temps reel     |
+| `-n`            | Afficher les N derniers messages               |
+| `-p`            | Filtrer par priorite (emerg, alert, crit, err) |
+| `--since`       | Afficher les messages depuis une date          |
+| `--until`       | Afficher les messages jusqu'a une date         |
+| `-b`            | Afficher les messages du demarrage courant     |
+| `--disk-usage`  | Afficher l'espace disque utilise par les logs  |
+
+## Exemples
+
+### Afficher les 20 derniers messages
+
+```bash
+$ journalctl -n 20
+mai 10 14:23:01 serveur systemd[1]: Started Daily apt activities.
+mai 10 14:23:05 serveur apt-daily[4521]: Checking for updates...
+mai 10 14:25:12 serveur sshd[4567]: Accepted publickey for mouctar from 192.168.1.50
+mai 10 14:25:12 serveur systemd-logind[842]: New session 45 of user mouctar.
+```
+
+### Suivre les journaux d'un service en temps reel
+
+```bash
+$ journalctl -u nginx.service -f
+mai 10 14:30:01 serveur nginx[1205]: 192.168.1.50 - - "GET / HTTP/1.1" 200 612
+mai 10 14:30:05 serveur nginx[1205]: 192.168.1.50 - - "GET /api HTTP/1.1" 200 45
+mai 10 14:30:08 serveur nginx[1205]: 10.0.0.5 - - "POST /login HTTP/1.1" 302 0
+```
+
+### Filtrer les erreurs depuis une date
+
+```bash
+$ journalctl -p err --since "2025-05-10 08:00:00"
+mai 10 09:15:32 serveur kernel: EXT4-fs error (device sda1): inode 524312
+mai 10 11:42:18 serveur sshd[3421]: error: PAM: Authentication failure for user admin
+mai 10 13:05:44 serveur nginx[1205]: connect() failed (111: Connection refused)
+```
+
+### Afficher l'espace disque utilise par les journaux
+
+```bash
+$ journalctl --disk-usage
+Archived and active journals take up 256.0M in the file system.
+```
+
+### Consulter les messages du dernier demarrage
+
+```bash
+$ journalctl -b -1 -p warning
+mai 09 08:12:03 serveur kernel: ACPI: [Firmware Bug]: BIOS _OSI(Linux) query
+mai 09 08:12:15 serveur systemd[1]: Failed to start NetworkManager Wait Online.
+```

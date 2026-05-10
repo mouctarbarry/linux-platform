@@ -1,0 +1,70 @@
+---
+title: dd
+category: fichiers
+description: Copier et convertir des donnees bloc par bloc
+tags: [fichiers, copie, disque, conversion]
+---
+
+## Syntaxe
+
+```bash
+dd [OPERANDE...]
+```
+
+## Options principales
+
+| Option          | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `if=FICHIER`    | Fichier source (input file)                      |
+| `of=FICHIER`    | Fichier destination (output file)                |
+| `bs=TAILLE`     | Taille des blocs de lecture et ecriture           |
+| `count=N`       | Copier seulement N blocs                         |
+| `status=progress`| Afficher la progression du transfert             |
+| `conv=OPTION`   | Appliquer une conversion (notrunc, sync, etc.)   |
+
+## Exemples
+
+### Creer une image d'un disque
+
+```bash
+$ sudo dd if=/dev/sda of=/backup/disque.img bs=4M status=progress
+107374182400 bytes (107 GB, 100 GiB) copied, 1200 s, 89.5 MB/s
+26214400+0 enregistrements lus
+26214400+0 enregistrements ecrits
+```
+
+### Creer un fichier de taille fixe pour un swap
+
+```bash
+$ sudo dd if=/dev/zero of=/swapfile bs=1M count=2048 status=progress
+2147483648 bytes (2.1 GB, 2.0 GiB) copied, 12 s, 179 MB/s
+2048+0 enregistrements lus
+2048+0 enregistrements ecrits
+$ sudo chmod 600 /swapfile
+$ sudo mkswap /swapfile
+```
+
+### Ecrire une image ISO sur une cle USB
+
+```bash
+$ sudo dd if=debian-12.iso of=/dev/sdb bs=4M status=progress conv=fsync
+4294967296 bytes (4.3 GB, 4.0 GiB) copied, 320 s, 13.4 MB/s
+1024+0 enregistrements lus
+1024+0 enregistrements ecrits
+```
+
+### Sauvegarder le secteur de demarrage (MBR)
+
+```bash
+$ sudo dd if=/dev/sda of=/backup/mbr.bin bs=512 count=1
+1+0 enregistrements lus
+1+0 enregistrements ecrits
+512 octets copies, 0.001 s, 512 kB/s
+```
+
+### Effacer un disque de maniere securisee
+
+```bash
+$ sudo dd if=/dev/urandom of=/dev/sdb bs=4M status=progress
+32212254720 bytes (32 GB, 30 GiB) copied, 1800 s, 17.9 MB/s
+```

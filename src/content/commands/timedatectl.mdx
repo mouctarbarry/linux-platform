@@ -1,0 +1,82 @@
+---
+title: timedatectl
+category: systeme
+description: Gerer la date, l'heure et le fuseau horaire
+tags: [systeme, date, heure, fuseau-horaire]
+---
+
+## Syntaxe
+
+```bash
+timedatectl [COMMANDE] [OPTIONS]
+```
+
+## Options principales
+
+| Option                      | Description                                  |
+| --------------------------- | -------------------------------------------- |
+| `status`                    | Afficher la date, l'heure et le fuseau actuel|
+| `set-time`                  | Definir manuellement la date et l'heure      |
+| `set-timezone`              | Definir le fuseau horaire                    |
+| `list-timezones`            | Lister tous les fuseaux horaires disponibles |
+| `set-ntp`                   | Activer ou desactiver la synchronisation NTP |
+| `timesync-status`           | Afficher l'etat de la synchronisation NTP    |
+
+## Exemples
+
+### Afficher la date et l'heure actuelles
+
+```bash
+$ timedatectl status
+               Local time: sam. 2025-05-10 14:32:05 CEST
+           Universal time: sam. 2025-05-10 12:32:05 UTC
+                 RTC time: sam. 2025-05-10 12:32:05
+                Time zone: Europe/Paris (CEST, +0200)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+```
+
+### Changer le fuseau horaire
+
+```bash
+$ sudo timedatectl set-timezone Europe/Paris
+$ timedatectl | grep "Time zone"
+                Time zone: Europe/Paris (CEST, +0200)
+```
+
+### Lister les fuseaux horaires disponibles
+
+```bash
+$ timedatectl list-timezones | grep Europe
+Europe/Amsterdam
+Europe/Berlin
+Europe/Brussels
+Europe/London
+Europe/Madrid
+Europe/Paris
+Europe/Rome
+Europe/Zurich
+```
+
+### Definir manuellement la date et l'heure
+
+```bash
+$ sudo timedatectl set-ntp false
+$ sudo timedatectl set-time "2025-05-10 15:00:00"
+$ timedatectl status | grep "Local time"
+               Local time: sam. 2025-05-10 15:00:00 CEST
+```
+
+### Activer la synchronisation NTP
+
+```bash
+$ sudo timedatectl set-ntp true
+$ timedatectl timesync-status
+       Server: 91.189.89.198 (ntp.ubuntu.com)
+Poll interval: 32s (min: 32s; max: 34min 8s)
+         Leap: normal
+      Version: 4
+      Stratum: 2
+    Frequency: +15.234ppm
+```

@@ -1,0 +1,65 @@
+---
+title: chattr
+category: permissions
+description: Modifier les attributs etendus des fichiers
+tags: [permissions, attributs, securite, fichiers]
+---
+
+## Syntaxe
+
+```bash
+chattr [OPTIONS] [+-=ATTRIBUTS] FICHIER...
+```
+
+## Options principales
+
+| Option | Description                                      |
+| ------ | ------------------------------------------------ |
+| `+i`   | Rendre le fichier immuable (non modifiable)      |
+| `-i`   | Retirer l'attribut immuable                      |
+| `+a`   | Autoriser uniquement l'ajout en fin de fichier   |
+| `-a`   | Retirer l'attribut append-only                   |
+| `+e`   | Activer l'utilisation d'extents                  |
+| `-R`   | Appliquer recursivement aux sous-repertoires     |
+
+## Exemples
+
+### Rendre un fichier immuable
+
+```bash
+$ sudo chattr +i /etc/resolv.conf
+$ lsattr /etc/resolv.conf
+----i--------e-- /etc/resolv.conf
+$ rm /etc/resolv.conf
+rm: impossible de supprimer '/etc/resolv.conf': Operation non permise
+```
+
+### Autoriser uniquement l'ajout dans un fichier journal
+
+```bash
+$ sudo chattr +a /var/log/audit.log
+$ lsattr /var/log/audit.log
+-----a-------e-- /var/log/audit.log
+$ echo "nouvelle entree" >> /var/log/audit.log   # fonctionne
+$ echo "ecrasement" > /var/log/audit.log          # refuse
+bash: /var/log/audit.log: Operation non permise
+```
+
+### Retirer l'attribut immuable pour modifier un fichier
+
+```bash
+$ sudo chattr -i /etc/resolv.conf
+$ lsattr /etc/resolv.conf
+-------------e-- /etc/resolv.conf
+$ nano /etc/resolv.conf   # modification possible
+```
+
+### Proteger recursivement un repertoire
+
+```bash
+$ sudo chattr -R +i /etc/nginx/
+$ lsattr /etc/nginx/
+----i--------e-- /etc/nginx/nginx.conf
+----i--------e-- /etc/nginx/mime.types
+----i--------e-- /etc/nginx/fastcgi_params
+```

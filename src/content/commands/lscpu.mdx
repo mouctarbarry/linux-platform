@@ -1,0 +1,76 @@
+---
+title: lscpu
+category: systeme
+description: Afficher les informations sur le processeur
+tags: [systeme, processeur, cpu, materiel]
+---
+
+## Syntaxe
+
+```bash
+lscpu [OPTIONS]
+```
+
+## Options principales
+
+| Option         | Description                                    |
+| -------------- | ---------------------------------------------- |
+| `-e`           | Afficher les informations en format etendu     |
+| `-p`           | Afficher en format analysable (parseable)      |
+| `-J`           | Afficher la sortie en format JSON              |
+| `-B`           | Afficher les tailles en octets                 |
+| `--all`        | Afficher les CPU en ligne et hors ligne        |
+
+## Exemples
+
+### Afficher les informations generales du processeur
+
+```bash
+$ lscpu
+Architecture:             x86_64
+CPU op-mode(s):           32-bit, 64-bit
+Address sizes:            39 bits physical, 48 bits virtual
+Byte Order:               Little Endian
+CPU(s):                   8
+On-line CPU(s) list:      0-7
+Thread(s) per core:       2
+Core(s) per socket:       4
+Socket(s):                1
+Vendor ID:                GenuineIntel
+Model name:               Intel(R) Core(TM) i7-10700 CPU @ 2.90GHz
+CPU MHz:                  2900.000
+CPU max MHz:              4800.0000
+L1d cache:                256 KiB
+L1i cache:                256 KiB
+L2 cache:                 2 MiB
+L3 cache:                 16 MiB
+```
+
+### Afficher en format etendu
+
+```bash
+$ lscpu -e
+CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE
+  0    0      0    0  0:0:0:0        yes
+  1    0      0    1  1:1:1:0        yes
+  2    0      0    2  2:2:2:0        yes
+  3    0      0    3  3:3:3:0        yes
+  4    0      0    0  0:0:0:0        yes
+  5    0      0    1  1:1:1:0        yes
+  6    0      0    2  2:2:2:0        yes
+  7    0      0    3  3:3:3:0        yes
+```
+
+### Afficher la sortie en format JSON
+
+```bash
+$ lscpu -J | head -10
+{
+   "lscpu": [
+      {"field": "Architecture:", "data": "x86_64"},
+      {"field": "CPU op-mode(s):", "data": "32-bit, 64-bit"},
+      {"field": "CPU(s):", "data": "8"},
+      {"field": "Model name:", "data": "Intel(R) Core(TM) i7-10700 CPU @ 2.90GHz"}
+   ]
+}
+```

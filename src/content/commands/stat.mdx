@@ -1,0 +1,65 @@
+---
+title: stat
+category: fichiers
+description: Afficher les informations detaillees d'un fichier
+tags: [fichiers, informations, permissions, diagnostic]
+---
+
+## Syntaxe
+
+```bash
+stat [OPTIONS] FICHIER...
+```
+
+## Options principales
+
+| Option          | Description                                      |
+| --------------- | ------------------------------------------------ |
+| `-c FORMAT`     | Utiliser un format de sortie personnalise        |
+| `-f`            | Afficher les informations du systeme de fichiers |
+| `-L`            | Suivre les liens symboliques                     |
+| `-t`            | Afficher en format concis sur une ligne          |
+
+## Exemples
+
+### Afficher les informations completes d'un fichier
+
+```bash
+$ stat /etc/hostname
+  Fichier : /etc/hostname
+   Taille : 11           Blocs : 8          Bloc E/S : 4096   fichier
+Peripherique : 801h/2049d   Inode : 131074     Liens : 1
+Acces : (0644/-rw-r--r--)  UID : (    0/    root)   GID : (    0/    root)
+Acces : 2026-05-10 08:00:00.000000000 +0200
+Modif. : 2026-04-15 14:30:00.000000000 +0200
+Changt : 2026-04-15 14:30:00.000000000 +0200
+  Cree : 2026-04-15 14:30:00.000000000 +0200
+```
+
+### Afficher uniquement les permissions en octal
+
+```bash
+$ stat -c '%a %n' /etc/ssh/*
+644 /etc/ssh/ssh_config
+600 /etc/ssh/sshd_config
+600 /etc/ssh/ssh_host_rsa_key
+644 /etc/ssh/ssh_host_rsa_key.pub
+```
+
+### Afficher la taille et la date de modification
+
+```bash
+$ stat -c 'Taille: %s octets - Modifie le: %y' rapport.pdf
+Taille: 245760 octets - Modifie le: 2026-05-09 16:45:00.000000000 +0200
+```
+
+### Afficher les informations du systeme de fichiers
+
+```bash
+$ stat -f /home
+  Fichier : "/home"
+      ID : a1b2c3d4e5f67890  Longueur nom : 255     Type : ext2/ext3
+Taille bloc : 4096       Blocs fondamentaux : 4096
+   Blocs : total : 25600000   libres : 12800000   disponibles : 11520000
+   Inodes : total : 6553600    libres : 6000000
+```

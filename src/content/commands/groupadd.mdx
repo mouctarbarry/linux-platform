@@ -1,0 +1,67 @@
+---
+title: groupadd
+category: permissions
+description: Creer un nouveau groupe
+tags: [permissions, groupe, administration, utilisateur]
+---
+
+## Syntaxe
+
+```bash
+groupadd [OPTIONS] NOM_GROUPE
+```
+
+## Options principales
+
+| Option      | Description                                      |
+| ----------- | ------------------------------------------------ |
+| `-g GID`    | Specifier le GID du nouveau groupe               |
+| `-r`        | Creer un groupe systeme                          |
+| `-f`        | Quitter sans erreur si le groupe existe deja     |
+| `-o`        | Autoriser un GID non unique                      |
+| `-K CLE=V`  | Remplacer les valeurs par defaut de login.defs   |
+
+## Exemples
+
+### Creer un groupe simple
+
+```bash
+$ sudo groupadd developpeurs
+$ grep developpeurs /etc/group
+developpeurs:x:1001:
+```
+
+### Creer un groupe avec un GID specifique
+
+```bash
+$ sudo groupadd -g 2000 production
+$ grep production /etc/group
+production:x:2000:
+```
+
+### Creer un groupe systeme
+
+```bash
+$ sudo groupadd -r monitoring
+$ grep monitoring /etc/group
+monitoring:x:990:
+```
+
+### Creer un groupe et y ajouter des utilisateurs
+
+```bash
+$ sudo groupadd webmasters
+$ sudo usermod -aG webmasters mouctar
+$ sudo usermod -aG webmasters alice
+$ grep webmasters /etc/group
+webmasters:x:1002:mouctar,alice
+```
+
+### Verifier les groupes existants
+
+```bash
+$ getent group | grep -E "dev|prod|web"
+developpeurs:x:1001:
+production:x:2000:
+webmasters:x:1002:mouctar,alice
+```

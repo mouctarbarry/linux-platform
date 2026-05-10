@@ -1,0 +1,72 @@
+---
+title: rsync
+category: fichiers
+description: Synchroniser des fichiers et repertoires
+tags: [fichiers, synchronisation, sauvegarde, reseau]
+---
+
+## Syntaxe
+
+```bash
+rsync [OPTIONS] SOURCE DESTINATION
+```
+
+## Options principales
+
+| Option       | Description                                      |
+| ------------ | ------------------------------------------------ |
+| `-a`         | Mode archive (preserve permissions, liens, etc.) |
+| `-v`         | Mode verbeux                                     |
+| `-z`         | Compresser les donnees pendant le transfert      |
+| `--delete`   | Supprimer les fichiers absents de la source      |
+| `--dry-run`  | Simuler sans effectuer de modifications          |
+| `--exclude`  | Exclure des fichiers selon un motif              |
+| `--progress` | Afficher la progression du transfert             |
+
+## Exemples
+
+### Synchroniser deux repertoires locaux
+
+```bash
+$ rsync -av /home/mouctar/projets/ /backup/projets/
+sending incremental file list
+./
+src/index.ts
+src/config.ts
+package.json
+sent 12,450 bytes  received 85 bytes  25,070.00 bytes/sec
+total size is 48,200  speedup is 3.84
+```
+
+### Synchroniser vers un serveur distant
+
+```bash
+$ rsync -avz --progress /var/www/html/ mouctar@serveur:/var/www/html/
+sending incremental file list
+index.html
+         2,048 100%    0.00kB/s    0:00:00 (xfr#1, to-chk=3/5)
+style.css
+         4,096 100%    3.91MB/s    0:00:00 (xfr#2, to-chk=2/5)
+```
+
+### Simuler avant d'executer
+
+```bash
+$ rsync -av --dry-run --delete /home/mouctar/docs/ /backup/docs/
+sending incremental file list
+deleting ancien_fichier.txt
+nouveau_rapport.pdf
+sent 245 bytes  received 42 bytes  574.00 bytes/sec (DRY RUN)
+```
+
+### Exclure certains fichiers et repertoires
+
+```bash
+$ rsync -av --exclude='node_modules' --exclude='.git' --exclude='*.log' \
+  /home/mouctar/projet/ /backup/projet/
+sending incremental file list
+src/
+src/index.ts
+package.json
+sent 8,192 bytes  received 65 bytes  16,514.00 bytes/sec
+```

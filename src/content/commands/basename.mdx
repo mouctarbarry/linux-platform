@@ -1,0 +1,75 @@
+---
+title: basename
+category: fichiers
+description: Extraire le nom de fichier d'un chemin
+tags: [fichiers, chemin, script, texte]
+---
+
+## Syntaxe
+
+```bash
+basename NOM [SUFFIXE]
+basename OPTION... NOM...
+```
+
+## Options principales
+
+| Option       | Description                                      |
+| ------------ | ------------------------------------------------ |
+| `-a`         | Traiter plusieurs arguments en entree            |
+| `-s SUFFIXE` | Retirer le suffixe specifie                      |
+| `-z`         | Separer la sortie par des caracteres nuls        |
+
+## Exemples
+
+### Extraire le nom de fichier d'un chemin
+
+```bash
+$ basename /home/mouctar/documents/rapport.pdf
+rapport.pdf
+```
+
+### Retirer l'extension d'un fichier
+
+```bash
+$ basename /home/mouctar/scripts/deploy.sh .sh
+deploy
+```
+
+### Retirer un suffixe specifique
+
+```bash
+$ basename -s .tar.gz archive-2026-05-10.tar.gz
+archive-2026-05-10
+```
+
+### Traiter plusieurs chemins a la fois
+
+```bash
+$ basename -a /var/log/syslog /var/log/auth.log /var/log/kern.log
+syslog
+auth.log
+kern.log
+```
+
+### Utiliser basename dans un script de sauvegarde
+
+```bash
+$ for fichier in /etc/nginx/sites-available/*; do
+>   nom=$(basename "$fichier")
+>   cp "$fichier" "/backup/nginx/${nom}.bak"
+>   echo "Sauvegarde de $nom effectuee"
+> done
+Sauvegarde de default effectuee
+Sauvegarde de monsite effectuee
+```
+
+### Combiner avec d'autres commandes
+
+```bash
+$ find /var/log -name "*.log" -exec basename {} .log \;
+syslog
+auth
+kern
+dpkg
+```

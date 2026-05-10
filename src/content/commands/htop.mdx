@@ -1,0 +1,72 @@
+---
+title: htop
+category: processus
+description: Moniteur interactif de processus
+tags: [processus, surveillance, interactif, performance]
+---
+
+## Syntaxe
+
+```bash
+htop [OPTIONS]
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-d`   | Definir le delai de rafraichissement (dixiemes)   |
+| `-u`   | Afficher uniquement les processus d'un utilisateur|
+| `-p`   | Surveiller des PID specifiques                    |
+| `-s`   | Trier par une colonne donnee                      |
+| `-t`   | Afficher les processus en arborescence            |
+| `-C`   | Mode monochrome (sans couleurs)                   |
+
+## Exemples
+
+### Lancer htop avec affichage en arborescence
+
+```bash
+$ htop -t
+  1[||||                  8.2%]   Tasks: 142, 312 thr; 2 running
+  2[||                    3.1%]   Load average: 0.52 0.38 0.41
+  3[|||||                12.5%]   Uptime: 12 days, 03:45:12
+  4[|||                   6.8%]
+  Mem[||||||||||    4.52G/16.0G]
+  Swp[               0K/2.00G]
+
+  PID USER     PRI  NI  VIRT   RES   SHR S CPU%  MEM%   TIME+  Command
+    1 root      20   0  168M  12.4M  8.2M S  0.0   0.1  0:12.34 systemd
+  842 root      20   0  512M  42.5M 18.7M S  2.1   0.3  5:42.18 |- Xorg
+ 1842 mouctar   20   0 2345M   185M  54M  S  8.3   1.1  2:15.43 |- node
+ 2103 mouctar   20   0 1876M  98.7M  32M  S  1.5   0.6  0:45.67 |- code
+```
+
+### Filtrer les processus d'un utilisateur
+
+```bash
+$ htop -u mouctar
+```
+
+### Surveiller des processus specifiques par PID
+
+```bash
+$ htop -p 1842,2103
+```
+
+### Trier par utilisation memoire
+
+```bash
+$ htop -s PERCENT_MEM
+```
+
+### Raccourcis clavier principaux
+
+```bash
+# F5 : afficher/masquer l'arborescence
+# F6 : choisir la colonne de tri
+# F9 : envoyer un signal a un processus
+# F10 : quitter htop
+# / : rechercher un processus par nom
+# u : filtrer par utilisateur
+```

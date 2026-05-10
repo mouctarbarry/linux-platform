@@ -1,0 +1,81 @@
+---
+title: nmap
+category: reseau
+description: Scanner les ports et services reseau
+tags: [reseau, securite, scan, ports]
+---
+
+## Syntaxe
+
+```bash
+nmap [OPTIONS] CIBLE
+```
+
+## Options principales
+
+| Option | Description                                       |
+| ------ | ------------------------------------------------- |
+| `-sS`  | Scan TCP SYN (semi-ouvert)                        |
+| `-sT`  | Scan TCP connect (complet)                        |
+| `-sU`  | Scan des ports UDP                                |
+| `-sV`  | Detecter les versions des services                |
+| `-O`   | Detecter le systeme d'exploitation                |
+| `-p`   | Specifier les ports a scanner                     |
+| `-A`   | Activer la detection avancee (OS, version, scripts) |
+| `-Pn`  | Ignorer la decouverte d'hote (pas de ping)        |
+
+## Exemples
+
+### Scanner les ports courants d'un hote
+
+```bash
+$ nmap 192.168.1.1
+Starting Nmap 7.94 ( https://nmap.org )
+Nmap scan report for 192.168.1.1
+Host is up (0.0024s latency).
+Not shown: 997 closed ports
+PORT    STATE SERVICE
+22/tcp  open  ssh
+80/tcp  open  http
+443/tcp open  https
+
+Nmap done: 1 IP address (1 host up) scanned in 1.45 seconds
+```
+
+### Scanner une plage de ports specifique
+
+```bash
+$ nmap -p 1-1000 192.168.1.10
+Starting Nmap 7.94 ( https://nmap.org )
+Nmap scan report for 192.168.1.10
+PORT    STATE SERVICE
+22/tcp  open  ssh
+80/tcp  open  http
+3306/tcp open mysql
+
+Nmap done: 1 IP address (1 host up) scanned in 2.31 seconds
+```
+
+### Detecter les versions des services
+
+```bash
+$ nmap -sV 192.168.1.10
+PORT    STATE SERVICE VERSION
+22/tcp  open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.6
+80/tcp  open  http    nginx 1.24.0
+3306/tcp open mysql   MySQL 8.0.36
+```
+
+### Scanner un sous-reseau complet
+
+```bash
+$ nmap -sn 192.168.1.0/24
+Nmap scan report for 192.168.1.1
+Host is up (0.0012s latency).
+Nmap scan report for 192.168.1.10
+Host is up (0.0008s latency).
+Nmap scan report for 192.168.1.25
+Host is up (0.0015s latency).
+
+Nmap done: 256 IP addresses (3 hosts up) scanned in 4.52 seconds
+```
