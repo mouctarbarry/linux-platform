@@ -23,13 +23,14 @@ export function CategoryNav({ active }: CategoryNavProps) {
           <Link
             key={key}
             href={`/categories/${key}`}
-            className={`rounded-full px-4 py-2 text-sm font-semibold transition-all ${
+            className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all ${
               active === key
                 ? 'bg-primary text-primary-foreground shadow-sm'
                 : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
             }`}
           >
-            {cat.icon} {cat.label}
+            <span className={`h-2 w-2 rounded-full ${cat.color}`} />
+            {cat.label}
           </Link>
         ),
       )}

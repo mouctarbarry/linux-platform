@@ -36,7 +36,7 @@ export default async function CommandPage({ params }: PageProps) {
   const category = CATEGORIES[command.category];
 
   return (
-    <main className="mx-auto max-w-4xl px-4 py-12">
+    <div className="mx-auto max-w-4xl px-4 py-12">
       <nav className="mb-6">
         <Link
           href="/commands"
@@ -48,7 +48,7 @@ export default async function CommandPage({ params }: PageProps) {
 
       <header className="mb-8">
         <div className="mb-2 flex items-center gap-2">
-          <span>{category.icon}</span>
+          <span className={`h-2.5 w-2.5 rounded-full ${category.color}`} />
           <Link
             href={`/categories/${command.category}`}
             className="text-sm text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-300"
@@ -73,6 +73,6 @@ export default async function CommandPage({ params }: PageProps) {
       <article className="prose prose-neutral dark:prose-invert max-w-none">
         <MDXRemote source={command.content} components={mdxComponents} />
       </article>
-    </main>
+    </div>
   );
 }

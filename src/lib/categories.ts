@@ -1,12 +1,12 @@
 export const CATEGORIES = {
-  fichiers: { label: 'Fichiers & Repertoires', icon: '📁' },
-  recherche: { label: 'Recherche & Texte', icon: '🔍' },
-  reseau: { label: 'Reseau', icon: '🌐' },
-  processus: { label: 'Processus & Services', icon: '⚙️' },
-  archivage: { label: 'Archivage & Compression', icon: '📦' },
-  systeme: { label: 'Systeme', icon: '🖥️' },
-  permissions: { label: 'Permissions & Utilisateurs', icon: '🔐' },
-  editeurs: { label: 'Editeurs & Outils', icon: '🛠️' },
+  fichiers: { label: 'Fichiers & Repertoires', color: 'bg-blue-500' },
+  recherche: { label: 'Recherche & Texte', color: 'bg-amber-500' },
+  reseau: { label: 'Reseau', color: 'bg-green-500' },
+  processus: { label: 'Processus & Services', color: 'bg-purple-500' },
+  archivage: { label: 'Archivage & Compression', color: 'bg-cyan-500' },
+  systeme: { label: 'Systeme', color: 'bg-rose-500' },
+  permissions: { label: 'Permissions & Utilisateurs', color: 'bg-orange-500' },
+  editeurs: { label: 'Editeurs & Outils', color: 'bg-teal-500' },
 } as const;
 
 export type Category = keyof typeof CATEGORIES;

@@ -15,7 +15,7 @@ export function CommandCard({ command }: CommandCardProps) {
       className="border-border bg-card hover:border-primary/30 hover:shadow-primary/5 group block rounded-xl border p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
     >
       <div className="mb-3 flex items-center gap-2.5">
-        <span className="text-lg">{category.icon}</span>
+        <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${category.color}`} />
         <h3 className="group-hover:text-primary font-mono text-lg font-bold tracking-tight">
           {command.title}
         </h3>

@@ -12,7 +12,7 @@ export default function CommandsPage() {
   const commands = getCommands();
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="mb-6 text-3xl font-bold">Toutes les commandes</h1>
       <div className="mb-8">
         <CategoryNav />
@@ -22,6 +22,6 @@ export default function CommandsPage() {
           <CommandCard key={cmd.slug} command={cmd} />
         ))}
       </div>
-    </main>
+    </div>
   );
 }

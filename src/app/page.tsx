@@ -1,4 +1,3 @@
-import { Terminal } from 'lucide-react';
 import { getCommands } from '@/lib/commands';
 import { CATEGORIES, type Category } from '@/lib/categories';
 import { SearchBar } from '@/components/search-bar';
@@ -19,20 +18,17 @@ export default function HomePage() {
   }, {});
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-16">
+    <div className="mx-auto max-w-6xl px-4 py-16">
       <header className="mb-14 text-center">
-        <div className="mb-4 flex items-center justify-center gap-3">
-          <Terminal className="text-primary h-10 w-10" />
-          <h1 className="text-5xl font-bold tracking-tight">Linux Platform</h1>
-        </div>
-        <p className="text-muted-foreground mx-auto max-w-2xl text-lg leading-relaxed">
+        <h1 className="text-5xl font-bold tracking-tight">Linux Platform</h1>
+        <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg leading-relaxed">
           Reference interactive des commandes Linux — exemples pratiques et recherche instantanee
         </p>
         <div className="text-muted-foreground mx-auto mt-6 flex flex-wrap items-center justify-center gap-4 text-sm">
           {(Object.entries(CATEGORIES) as [Category, (typeof CATEGORIES)[Category]][]).map(
             ([key, cat]) => (
               <span key={key} className="flex items-center gap-1.5">
-                <span>{cat.icon}</span>
+                <span className={`h-2 w-2 rounded-full ${cat.color}`} />
                 <span className="text-foreground font-mono font-bold">
                   {categoryCounts[key] ?? 0}
                 </span>
@@ -50,6 +46,6 @@ export default function HomePage() {
       <section>
         <SearchBar commands={commands} />
       </section>
-    </main>
+    </div>
   );
 }

@@ -32,9 +32,10 @@ export default async function CategoryPage({ params }: PageProps) {
   const cat = CATEGORIES[category];
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-12">
+    <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="mb-2 text-3xl font-bold">
-        {cat.icon} {cat.label}
+        <span className={`mr-2 inline-block h-3 w-3 rounded-full ${cat.color}`} />
+        {cat.label}
       </h1>
       <p className="mb-6 text-neutral-600 dark:text-neutral-400">
         {commands.length} commande{commands.length !== 1 ? 's' : ''} dans cette categorie
@@ -47,6 +48,6 @@ export default async function CategoryPage({ params }: PageProps) {
           <CommandCard key={cmd.slug} command={cmd} />
         ))}
       </div>
-    </main>
+    </div>
   );
 }

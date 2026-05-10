@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Quicksand, Ubuntu_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Header, Sidebar } from '@/components/header';
 import './globals.css';
 
 const quicksand = Quicksand({
@@ -30,7 +31,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="font-sans antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          {children}
+          <Header />
+          <div className="flex">
+            <Sidebar />
+            <main className="min-h-[calc(100vh-3.5rem)] flex-1 overflow-x-hidden">
+              {children}
+            </main>
+          </div>
         </ThemeProvider>
       </body>
     </html>
