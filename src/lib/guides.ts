@@ -16,9 +16,9 @@ function transform(slug: string, data: Record<string, unknown>): GuideMeta {
     title: data.title as string,
     description: data.description as string,
     tags: data.tags as string[],
-    difficulty: (data.difficulty as GuideMeta['difficulty']) ?? 'debutant',
-    estimatedTime: (data.estimatedTime as string) ?? '',
-    order: (data.order as number) ?? 0,
+    difficulty: (data.difficulty ?? 'debutant') as GuideMeta['difficulty'],
+    estimatedTime: (data.estimatedTime ?? '') as string,
+    order: (data.order ?? 0) as number,
   };
 }
 

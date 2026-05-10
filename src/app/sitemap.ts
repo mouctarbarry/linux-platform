@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { getCommands } from "@/lib/commands";
 import { CATEGORIES, type Category } from "@/lib/categories";
+import { getTutorials } from "@/lib/tutorials";
+import { getGuides } from "@/lib/guides";
 
 export const dynamic = "force-static";
 
@@ -19,6 +21,8 @@ const STATIC_PAGES = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const commands = getCommands();
+  const tutorials = getTutorials();
+  const guides = getGuides();
 
   const commandPages = commands.map((cmd) => ({
     url: `${BASE_URL}/commands/${cmd.slug}`,
@@ -35,11 +39,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+  const tutorialPages = tutorials.map((t) => ({
+    url: `${BASE_URL}/tutorials/${t.slug}`,
+    lastModified: new Date(),
+  }));
+
+  const guidePages = guides.map((g) => ({
+    url: `${BASE_URL}/guides/${g.slug}`,
+    lastModified: new Date(),
+  }));
+
   return [
     { url: BASE_URL, lastModified: new Date() },
     { url: `${BASE_URL}/commands`, lastModified: new Date() },
     ...staticPages,
     ...categoryPages,
     ...commandPages,
+    ...tutorialPages,
+    ...guidePages,
   ];
 }

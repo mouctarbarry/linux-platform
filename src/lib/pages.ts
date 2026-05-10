@@ -9,10 +9,10 @@ function transform(slug: string, data: Record<string, unknown>): ContentMeta {
     slug,
     title: data.title as string,
     description: data.description as string,
-    tags: (data.tags as string[]) ?? [],
+    tags: (data.tags ?? []) as string[],
   };
 }
 
-export function getPageBySlug(slug: string): ContentItem<ContentMeta> | undefined {
+export function getPageBySlug(slug: string): ContentItem | undefined {
   return getContentBySlug(PAGES_DIR, slug, transform);
 }

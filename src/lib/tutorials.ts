@@ -15,8 +15,8 @@ function transform(slug: string, data: Record<string, unknown>): TutorialMeta {
     title: data.title as string,
     description: data.description as string,
     tags: data.tags as string[],
-    difficulty: (data.difficulty as TutorialMeta['difficulty']) ?? 'debutant',
-    order: (data.order as number) ?? 0,
+    difficulty: (data.difficulty ?? 'debutant') as TutorialMeta['difficulty'],
+    order: (data.order ?? 0) as number,
   };
 }
 

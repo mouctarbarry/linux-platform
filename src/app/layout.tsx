@@ -18,8 +18,21 @@ const ubuntuMono = Ubuntu_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Linux Platform',
-  description: 'Reference interactive des commandes Linux',
+  title: {
+    default: 'Linux Platform — Reference interactive des commandes Linux',
+    template: '%s — Linux Platform',
+  },
+  description:
+    'Explorez 113+ commandes Linux avec exemples pratiques, tutoriels, guides complets, glossaire et FAQ. Recherche instantanee et navigation par categories.',
+  metadataBase: new URL('https://linux.mouctar.fr'),
+  openGraph: {
+    type: 'website',
+    locale: 'fr_FR',
+    siteName: 'Linux Platform',
+    title: 'Linux Platform — Reference interactive des commandes Linux',
+    description:
+      'Explorez 113+ commandes Linux avec exemples pratiques, tutoriels, guides complets, glossaire et FAQ.',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

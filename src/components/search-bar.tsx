@@ -86,8 +86,7 @@ function GlobalSearch({
 
   const grouped = results.reduce<Record<string, SearchableItem[]>>((acc, item) => {
     const key = item.type;
-    if (!acc[key]) acc[key] = [];
-    acc[key]!.push(item);
+    (acc[key] ??= []).push(item);
     return acc;
   }, {});
 
@@ -104,7 +103,7 @@ function GlobalSearch({
           {Object.entries(grouped).map(([type, groupItems]) => (
             <div key={type}>
               <h3 className="mb-3 text-lg font-semibold">
-                {TYPE_LABELS[type as SearchableItem['type']] ?? type}
+                {TYPE_LABELS[type as SearchableItem['type']]}
               </h3>
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {groupItems.map((item) => (
