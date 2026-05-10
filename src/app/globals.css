@@ -116,3 +116,49 @@
     animation: shimmer 2s infinite linear;
   }
 }
+
+[data-rehype-pretty-code-figure] pre {
+  @apply rounded-lg border border-border px-0 py-4;
+}
+
+[data-rehype-pretty-code-figure] code {
+  @apply grid text-sm;
+}
+
+[data-rehype-pretty-code-figure] [data-line] {
+  @apply px-4;
+}
+
+[data-rehype-pretty-code-figure] code [data-line-numbers] > [data-line]::before {
+  @apply mr-4 inline-block w-4 text-right text-muted-foreground;
+  content: counter(line);
+  counter-increment: line;
+}
+
+html:not(.dark) [data-rehype-pretty-code-figure] pre {
+  @apply bg-card;
+}
+
+html:not(.dark) [data-rehype-pretty-code-figure] code > [data-line] span {
+  color: var(--shiki-light) !important;
+}
+
+html.dark [data-rehype-pretty-code-figure] pre {
+  @apply bg-card;
+}
+
+html.dark [data-rehype-pretty-code-figure] code > [data-line] span {
+  color: var(--shiki-dark) !important;
+}
+
+[data-rehype-pretty-code-figure] [data-highlighted-line] {
+  @apply bg-primary/10;
+}
+
+[data-rehype-pretty-code-figure] code {
+  counter-reset: line;
+}
+
+figure[data-rehype-pretty-code-figure] + figure[data-rehype-pretty-code-figure] {
+  @apply mt-2;
+}

@@ -4,6 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getAllSlugs, getCommandBySlug } from '@/lib/commands';
 import { CATEGORIES } from '@/lib/categories';
 import { TerminalBlock } from '@/components/terminal-block';
+import { rehypePlugins } from '@/lib/mdx-options';
 import type { Metadata } from 'next';
 
 interface PageProps {
@@ -71,7 +72,11 @@ export default async function CommandPage({ params }: PageProps) {
       </header>
 
       <article className="prose prose-neutral dark:prose-invert max-w-none">
-        <MDXRemote source={command.content} components={mdxComponents} />
+        <MDXRemote
+          source={command.content}
+          components={mdxComponents}
+          options={{ mdxOptions: { rehypePlugins } }}
+        />
       </article>
     </div>
   );
