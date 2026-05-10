@@ -1,0 +1,513 @@
+---
+title: "Installer et configurer Nginx comme serveur web"
+description: "Guide complet pour installer, configurer et securiser Nginx sur Linux : server blocks, reverse proxy, SSL/TLS, optimisation et monitoring."
+tags: [nginx, serveur-web, reverse-proxy, ssl, performance]
+difficulty: "intermediaire"
+estimatedTime: "1 heure"
+order: 1
+---
+
+## Introduction
+
+Nginx (prononce "engine-x") est un serveur web haute performance, un reverse proxy et un repartiteur de charge. Cree par Igor Sysoev en 2004, il est aujourd'hui utilise par des millions de sites dans le monde grace a son architecture evenementielle non-bloquante qui lui permet de gerer un grand nombre de connexions simultanees avec une consommation memoire reduite.
+
+Ce guide vous accompagne de l'installation a la mise en production securisee d'un serveur Nginx.
+
+## Installation
+
+### Sur Debian / Ubuntu
+
+Mettez a jour les paquets disponibles puis installez Nginx :
+
+```bash
+sudo apt update
+sudo apt install -y nginx
+```
+
+Verifiez que le service est actif :
+
+```bash
+sudo systemctl status nginx
+```
+
+Activez le demarrage automatique au boot :
+
+```bash
+sudo systemctl enable nginx
+```
+
+### Sur Fedora / RHEL / AlmaLinux
+
+```bash
+sudo dnf install -y nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
+```
+
+Si vous utilisez firewalld, ouvrez les ports HTTP et HTTPS :
+
+```bash
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --reload
+```
+
+Verifiez l'installation en accedant a l'adresse IP de votre serveur dans un navigateur. Vous devriez voir la page d'accueil par defaut de Nginx.
+
+## Architecture de Nginx
+
+Nginx repose sur une architecture maitre/travailleurs (master/workers). Comprendre ce modele est essentiel pour bien configurer le serveur.
+
+**Processus master** : il lit la configuration, ouvre les ports d'ecoute et cree les processus workers. Il ne traite jamais de requetes lui-meme.
+
+**Processus workers** : chaque worker gere les connexions entrantes de facon asynchrone grace a une boucle evenementielle (epoll sur Linux). Un seul worker peut traiter des milliers de connexions simultanees sans creer de thread supplementaire.
+
+Les directives cles qui controlent cette architecture se trouvent dans le bloc principal de la configuration :
+
+```bash
+# /etc/nginx/nginx.conf
+worker_processes auto;          # Un worker par coeur CPU (recommande)
+worker_rlimit_nofile 65535;     # Nombre max de fichiers ouverts par worker
+
+events {
+    worker_connections 4096;    # Connexions simultanees par worker
+    multi_accept on;            # Accepter plusieurs connexions a la fois
+    use epoll;                  # Methode d'E/S la plus performante sous Linux
+}
+```
+
+La capacite maximale theorique de votre serveur est : `worker_processes x worker_connections`. Avec 4 workers et 4096 connexions chacun, vous pouvez gerer jusqu'a 16 384 connexions simultanees.
+
+## Configuration de base
+
+Le fichier de configuration principal se trouve a `/etc/nginx/nginx.conf`. Sur Debian/Ubuntu, les server blocks sont dans `/etc/nginx/sites-available/` avec des liens symboliques dans `/etc/nginx/sites-enabled/`. Sur Fedora/RHEL, ils sont dans `/etc/nginx/conf.d/`.
+
+Voici la structure generale du fichier principal :
+
+```bash
+# /etc/nginx/nginx.conf
+user www-data;                  # Utilisateur sous lequel tournent les workers
+worker_processes auto;
+pid /run/nginx.pid;
+error_log /var/log/nginx/error.log warn;
+
+events {
+    worker_connections 2048;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    # Format de logs personnalise
+    log_format main '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status $body_bytes_sent '
+                    '"$http_referer" "$http_user_agent"';
+
+    access_log /var/log/nginx/access.log main;
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+
+    # Inclure les server blocks
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}
+```
+
+Apres chaque modification, verifiez la syntaxe avant de recharger :
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+## Server blocks (virtual hosts)
+
+Les server blocks permettent d'heberger plusieurs sites sur le meme serveur. Chaque bloc definit un domaine, un port d'ecoute et un repertoire racine.
+
+Creez un fichier pour votre site :
+
+```bash
+sudo nano /etc/nginx/sites-available/monsite.example.com
+```
+
+Contenu du fichier :
+
+```bash
+server {
+    listen 80;
+    listen [::]:80;
+    server_name monsite.example.com www.monsite.example.com;
+
+    root /var/www/monsite.example.com/html;
+    index index.html index.htm;
+
+    # Page d'erreur personnalisee
+    error_page 404 /404.html;
+    error_page 500 502 503 504 /50x.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Desactiver l'acces aux fichiers caches
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+}
+```
+
+Activez le site et rechargez Nginx :
+
+```bash
+sudo mkdir -p /var/www/monsite.example.com/html
+echo "<h1>Bienvenue sur monsite</h1>" | sudo tee /var/www/monsite.example.com/html/index.html
+sudo ln -s /etc/nginx/sites-available/monsite.example.com /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+## Servir des fichiers statiques
+
+Nginx excelle dans la distribution de fichiers statiques. Configurez un bloc location dedie avec mise en cache navigateur :
+
+```bash
+server {
+    listen 80;
+    server_name static.example.com;
+    root /var/www/static;
+
+    # Cache long pour les ressources immutables (CSS, JS, images)
+    location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg|woff2|woff|ttf)$ {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+        access_log off;
+    }
+
+    # Compression gzip pour le texte
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml;
+    gzip_min_length 1000;
+    gzip_comp_level 5;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+```
+
+Pour verifier que la compression fonctionne :
+
+```bash
+curl -H "Accept-Encoding: gzip" -I http://static.example.com/style.css
+```
+
+Vous devriez voir l'en-tete `Content-Encoding: gzip` dans la reponse.
+
+## Reverse proxy
+
+L'un des usages les plus courants de Nginx est de servir de reverse proxy devant une application (Node.js, Python, Java, etc.). Nginx recoit les requetes des clients, les transmet a l'application backend, puis renvoie la reponse au client.
+
+```bash
+upstream backend_app {
+    server 127.0.0.1:3000;     # Instance principale
+    server 127.0.0.1:3001;     # Instance secondaire (load balancing)
+    keepalive 32;               # Connexions persistantes vers le backend
+}
+
+server {
+    listen 80;
+    server_name app.example.com;
+
+    location / {
+        proxy_pass http://backend_app;
+        proxy_http_version 1.1;
+
+        # En-tetes pour transmettre les infos du client original
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Support des WebSockets
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # Timeouts
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+}
+```
+
+Testez que le proxy fonctionne correctement :
+
+```bash
+curl -v http://app.example.com/
+```
+
+## SSL/TLS avec Let's Encrypt
+
+Securisez votre site avec un certificat gratuit Let's Encrypt via Certbot.
+
+### Installation de Certbot
+
+Sur Debian/Ubuntu :
+
+```bash
+sudo apt install -y certbot python3-certbot-nginx
+```
+
+Sur Fedora :
+
+```bash
+sudo dnf install -y certbot python3-certbot-nginx
+```
+
+### Obtenir et installer le certificat
+
+```bash
+sudo certbot --nginx -d monsite.example.com -d www.monsite.example.com
+```
+
+Certbot modifie automatiquement votre server block pour ajouter la configuration SSL. Verifiez le resultat :
+
+```bash
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+### Renouvellement automatique
+
+Les certificats Let's Encrypt expirent apres 90 jours. Certbot installe un timer systemd pour le renouvellement automatique. Verifiez son fonctionnement :
+
+```bash
+sudo systemctl status certbot.timer
+sudo certbot renew --dry-run
+```
+
+Votre server block apres activation de SSL ressemblera a ceci :
+
+```bash
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name monsite.example.com;
+
+    ssl_certificate /etc/letsencrypt/live/monsite.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/monsite.example.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+
+    root /var/www/monsite.example.com/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+# Redirection HTTP vers HTTPS
+server {
+    listen 80;
+    server_name monsite.example.com www.monsite.example.com;
+    return 301 https://$host$request_uri;
+}
+```
+
+## Optimisation des performances
+
+### Mise en cache des fichiers ouverts
+
+```bash
+open_file_cache max=10000 inactive=20s;
+open_file_cache_valid 30s;
+open_file_cache_min_uses 2;
+open_file_cache_errors on;
+```
+
+### Buffers et timeouts
+
+```bash
+client_body_buffer_size 16k;
+client_header_buffer_size 1k;
+client_max_body_size 50m;
+large_client_header_buffers 4 8k;
+
+client_body_timeout 12;
+client_header_timeout 12;
+send_timeout 10;
+```
+
+### Cache de proxy
+
+Si vous utilisez Nginx comme reverse proxy, activez le cache :
+
+```bash
+proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=app_cache:10m
+                 max_size=1g inactive=60m use_temp_path=off;
+
+server {
+    location / {
+        proxy_pass http://backend_app;
+        proxy_cache app_cache;
+        proxy_cache_valid 200 302 10m;
+        proxy_cache_valid 404 1m;
+        add_header X-Cache-Status $upstream_cache_status;
+    }
+}
+```
+
+Verifiez les hits de cache dans les en-tetes de reponse :
+
+```bash
+curl -I http://app.example.com/page
+# Cherchez : X-Cache-Status: HIT
+```
+
+## Logging et monitoring
+
+### Logs d'acces personnalises
+
+```bash
+log_format detailed '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status $body_bytes_sent '
+                    '"$http_referer" "$http_user_agent" '
+                    '$request_time $upstream_response_time';
+
+access_log /var/log/nginx/access.log detailed;
+```
+
+### Analyser les logs en temps reel
+
+```bash
+# Suivre les requetes en direct
+tail -f /var/log/nginx/access.log
+
+# Compter les codes de statut HTTP
+awk '{print $9}' /var/log/nginx/access.log | sort | uniq -c | sort -rn
+
+# Lister les 10 IPs les plus actives
+awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head -10
+
+# Identifier les requetes les plus lentes (si le format inclut request_time)
+awk '{print $NF, $7}' /var/log/nginx/access.log | sort -rn | head -20
+```
+
+### Page de statut Nginx
+
+Activez le module stub_status pour surveiller le serveur :
+
+```bash
+server {
+    listen 127.0.0.1:8080;
+
+    location /nginx_status {
+        stub_status;
+        allow 127.0.0.1;
+        deny all;
+    }
+}
+```
+
+Consultez les statistiques :
+
+```bash
+curl http://127.0.0.1:8080/nginx_status
+```
+
+## Securite
+
+### Rate limiting
+
+Protegez votre serveur contre les abus en limitant le nombre de requetes par client :
+
+```bash
+# Definir la zone de limitation (dans le bloc http)
+limit_req_zone $binary_remote_addr zone=general:10m rate=10r/s;
+limit_req_zone $binary_remote_addr zone=login:10m rate=1r/s;
+
+server {
+    # Appliquer la limite globale
+    location / {
+        limit_req zone=general burst=20 nodelay;
+        try_files $uri $uri/ =404;
+    }
+
+    # Limite stricte sur la page de connexion
+    location /login {
+        limit_req zone=login burst=3 nodelay;
+        proxy_pass http://backend_app;
+    }
+}
+```
+
+### En-tetes de securite
+
+Ajoutez des en-tetes HTTP pour renforcer la securite cote client :
+
+```bash
+# Dans le bloc server ou http
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-XSS-Protection "1; mode=block" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+add_header Content-Security-Policy "default-src 'self'; script-src 'self'" always;
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+```
+
+### Masquer la version de Nginx
+
+```bash
+# Dans le bloc http
+server_tokens off;
+```
+
+### Restreindre les methodes HTTP
+
+```bash
+location / {
+    if ($request_method !~ ^(GET|HEAD|POST)$) {
+        return 405;
+    }
+    try_files $uri $uri/ =404;
+}
+```
+
+Verifiez la configuration de securite de votre site avec :
+
+```bash
+curl -I https://monsite.example.com
+```
+
+Vous devriez voir tous les en-tetes de securite dans la reponse.
+
+## Resume des commandes essentielles
+
+```bash
+# Tester la configuration
+sudo nginx -t
+
+# Recharger sans coupure
+sudo systemctl reload nginx
+
+# Redemarrer completement
+sudo systemctl restart nginx
+
+# Voir les logs d'erreur
+sudo tail -f /var/log/nginx/error.log
+
+# Voir les logs d'acces
+sudo tail -f /var/log/nginx/access.log
+
+# Verifier les processus Nginx
+ps aux | grep nginx
+```

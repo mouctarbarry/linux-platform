@@ -1,0 +1,155 @@
+---
+title: "Installer et gerer les paquets sous Linux"
+description: "Apprenez a utiliser les gestionnaires de paquets APT, DNF, Pacman et APK pour installer, mettre a jour et supprimer des logiciels sous Linux."
+tags: [paquets, apt, dnf, pacman, apk, snap, flatpak]
+difficulty: "debutant"
+order: 1
+---
+
+## Introduction
+
+Sous Linux, les logiciels sont distribues sous forme de **paquets**. Chaque famille de distribution dispose de son propre gestionnaire de paquets. Ce tutoriel couvre les quatre principaux gestionnaires ainsi que les formats universels Snap et Flatpak.
+
+## APT -- Debian, Ubuntu et derives
+
+APT (Advanced Package Tool) est le gestionnaire de paquets des distributions basees sur Debian.
+
+### Mettre a jour la liste des paquets et le systeme
+
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+### Rechercher un paquet
+
+```bash
+apt search nginx
+apt show nginx
+```
+
+### Installer et supprimer un paquet
+
+```bash
+sudo apt install nginx -y
+sudo apt remove nginx
+sudo apt purge nginx        # supprime aussi les fichiers de configuration
+sudo apt autoremove          # supprime les dependances orphelines
+```
+
+### Lister les paquets installes
+
+```bash
+dpkg -l
+apt list --installed
+```
+
+### Les depots (repositories)
+
+Les sources de paquets sont definies dans `/etc/apt/sources.list` et dans le repertoire `/etc/apt/sources.list.d/`. Pour ajouter un depot externe :
+
+```bash
+sudo add-apt-repository ppa:ondrej/php
+sudo apt update
+```
+
+## DNF -- Fedora, RHEL 9+ et derives
+
+DNF a remplace YUM comme gestionnaire par defaut sur les distributions Red Hat.
+
+### Operations courantes
+
+```bash
+sudo dnf check-update
+sudo dnf upgrade -y
+dnf search httpd
+sudo dnf install httpd -y
+sudo dnf remove httpd
+dnf list installed
+```
+
+### Gestion des depots
+
+```bash
+dnf repolist
+sudo dnf config-manager --add-repo https://example.com/repo.repo
+```
+
+## Pacman -- Arch Linux et derives
+
+Pacman utilise une syntaxe compacte a base de drapeaux.
+
+| Action | Commande |
+|---|---|
+| Synchroniser et mettre a jour | `sudo pacman -Syu` |
+| Rechercher un paquet | `pacman -Ss vim` |
+| Installer | `sudo pacman -S vim` |
+| Supprimer avec dependances | `sudo pacman -Rns vim` |
+| Lister les paquets installes | `pacman -Q` |
+
+### Exemple complet
+
+```bash
+sudo pacman -Syu
+sudo pacman -S git base-devel
+```
+
+## APK -- Alpine Linux
+
+Alpine utilise APK, un gestionnaire leger concu pour les environnements minimaux et les conteneurs.
+
+```bash
+apk update
+apk search curl
+apk add curl
+apk del curl
+apk list --installed
+```
+
+## Comprendre les dependances
+
+Lorsque vous installez un paquet, le gestionnaire resout automatiquement ses **dependances** -- les autres paquets necessaires a son fonctionnement. Par exemple :
+
+```bash
+apt depends nginx
+dnf deplist httpd
+```
+
+Si une dependance est absente, le gestionnaire la telecharge et l'installe. Lors de la suppression, les dependances orphelines peuvent etre nettoyees avec `apt autoremove` ou `dnf autoremove`.
+
+## Snap et Flatpak -- Paquets universels
+
+### Snap (Canonical)
+
+```bash
+sudo apt install snapd
+sudo snap install vlc
+snap list
+sudo snap remove vlc
+```
+
+### Flatpak
+
+```bash
+sudo apt install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.gimp.GIMP
+flatpak list
+flatpak uninstall org.gimp.GIMP
+```
+
+Les paquets Snap et Flatpak sont isoles du systeme (sandboxing) et embarquent leurs propres dependances, ce qui garantit la compatibilite entre distributions mais augmente l'espace disque utilise.
+
+## Resume des commandes
+
+| Action | APT | DNF | Pacman | APK |
+|---|---|---|---|---|
+| Mettre a jour les sources | `apt update` | `dnf check-update` | `pacman -Sy` | `apk update` |
+| Mettre a jour le systeme | `apt upgrade` | `dnf upgrade` | `pacman -Syu` | `apk upgrade` |
+| Installer | `apt install` | `dnf install` | `pacman -S` | `apk add` |
+| Supprimer | `apt remove` | `dnf remove` | `pacman -R` | `apk del` |
+| Rechercher | `apt search` | `dnf search` | `pacman -Ss` | `apk search` |
+
+## Conclusion
+
+La maitrise du gestionnaire de paquets de votre distribution est une competence fondamentale. Quel que soit le systeme que vous utilisez, les concepts restent les memes : rechercher, installer, mettre a jour et supprimer proprement les logiciels.

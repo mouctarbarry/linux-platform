@@ -1,0 +1,590 @@
+---
+title: "Installer et configurer Apache comme serveur web"
+description: "Guide complet pour installer, configurer et securiser Apache HTTP Server sur Linux : virtual hosts, modules, SSL/TLS, PHP et monitoring."
+tags: [apache, serveur-web, httpd, ssl, php]
+difficulty: "intermediaire"
+estimatedTime: "1 heure"
+order: 2
+---
+
+## Introduction
+
+Apache HTTP Server (souvent appele simplement Apache ou httpd) est le serveur web le plus repandu dans l'histoire du Web. Developpe depuis 1995 par la fondation Apache, il est reconnu pour sa flexibilite, son systeme de modules extensible et sa documentation abondante. Bien qu'il soit plus ancien que Nginx, Apache reste un choix solide pour de nombreux cas d'usage, notamment grace a sa gestion native des fichiers .htaccess et son integration etroite avec PHP.
+
+Ce guide couvre l'installation, la configuration, la securisation et l'optimisation d'Apache sur les distributions Linux les plus courantes.
+
+## Installation
+
+### Sur Debian / Ubuntu
+
+```bash
+sudo apt update
+sudo apt install -y apache2
+```
+
+Verifiez le statut du service :
+
+```bash
+sudo systemctl status apache2
+sudo systemctl enable apache2
+```
+
+### Sur Fedora / RHEL / AlmaLinux
+
+Sur ces distributions, le paquet s'appelle `httpd` :
+
+```bash
+sudo dnf install -y httpd
+sudo systemctl start httpd
+sudo systemctl enable httpd
+```
+
+Ouvrez les ports dans le pare-feu :
+
+```bash
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --reload
+```
+
+Verifiez l'installation en accedant a l'adresse IP du serveur dans un navigateur. La page par defaut d'Apache devrait s'afficher.
+
+## Architecture Apache (MPM)
+
+Apache utilise des modules multi-processus (MPM -- Multi-Processing Modules) pour gerer les connexions. Le choix du MPM a un impact direct sur les performances et la consommation de ressources.
+
+### MPM prefork
+
+Chaque requete est traitee par un processus fils separe. C'est le mode le plus stable mais aussi le plus gourmand en memoire. Il est requis par mod_php.
+
+```bash
+# /etc/apache2/mods-available/mpm_prefork.conf (Debian)
+<IfModule mpm_prefork_module>
+    StartServers             5
+    MinSpareServers          5
+    MaxSpareServers         10
+    MaxRequestWorkers      150
+    MaxConnectionsPerChild 3000
+</IfModule>
+```
+
+### MPM worker
+
+Utilise des threads au sein de plusieurs processus. Plus leger que prefork mais incompatible avec mod_php (utilisez php-fpm a la place).
+
+```bash
+<IfModule mpm_worker_module>
+    StartServers             3
+    MinSpareThreads         75
+    MaxSpareThreads        250
+    ThreadsPerChild         25
+    MaxRequestWorkers      400
+    MaxConnectionsPerChild 1000
+</IfModule>
+```
+
+### MPM event
+
+Evolution du MPM worker, il dedie un thread a la gestion des connexions keep-alive. C'est le MPM recommande pour les serveurs modernes.
+
+```bash
+<IfModule mpm_event_module>
+    StartServers             3
+    MinSpareThreads         75
+    MaxSpareThreads        250
+    ThreadsPerChild         25
+    MaxRequestWorkers      400
+    MaxConnectionsPerChild 1000
+</IfModule>
+```
+
+Pour changer de MPM sur Debian/Ubuntu :
+
+```bash
+# Desactiver le MPM actuel et activer event
+sudo a2dismod mpm_prefork
+sudo a2enmod mpm_event
+sudo systemctl restart apache2
+```
+
+Pour verifier le MPM actif :
+
+```bash
+apachectl -V | grep MPM
+```
+
+## Configuration de base
+
+### Localisation des fichiers
+
+Les chemins different selon la distribution :
+
+| Element | Debian/Ubuntu | Fedora/RHEL |
+|---|---|---|
+| Configuration principale | `/etc/apache2/apache2.conf` | `/etc/httpd/conf/httpd.conf` |
+| Virtual hosts | `/etc/apache2/sites-available/` | `/etc/httpd/conf.d/` |
+| Modules | `/etc/apache2/mods-available/` | `/etc/httpd/conf.modules.d/` |
+| Logs | `/var/log/apache2/` | `/var/log/httpd/` |
+| Racine web | `/var/www/html/` | `/var/www/html/` |
+
+### Directives principales
+
+Voici les directives essentielles a connaitre dans le fichier de configuration principal :
+
+```bash
+# /etc/apache2/apache2.conf (Debian) ou /etc/httpd/conf/httpd.conf (Fedora)
+
+# Utilisateur et groupe sous lesquels Apache s'execute
+User www-data
+Group www-data
+
+# Adresse email de l'administrateur
+ServerAdmin admin@example.com
+
+# Nom de domaine principal du serveur
+ServerName example.com
+
+# Repertoire racine par defaut
+DocumentRoot /var/www/html
+
+# Restreindre l'acces au systeme de fichiers
+<Directory />
+    AllowOverride None
+    Require all denied
+</Directory>
+
+# Autoriser le repertoire web
+<Directory /var/www/>
+    Options -Indexes +FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
+
+# Timeout des connexions
+Timeout 300
+KeepAlive On
+MaxKeepAliveRequests 100
+KeepAliveTimeout 5
+```
+
+Testez toujours la configuration avant de redemarrer :
+
+```bash
+# Debian/Ubuntu
+sudo apachectl configtest
+
+# Fedora/RHEL
+sudo httpd -t
+```
+
+## Virtual hosts
+
+Les virtual hosts permettent d'heberger plusieurs sites sur un meme serveur Apache.
+
+### Creer un virtual host
+
+```bash
+sudo nano /etc/apache2/sites-available/monsite.example.com.conf
+```
+
+Contenu :
+
+```bash
+<VirtualHost *:80>
+    ServerName monsite.example.com
+    ServerAlias www.monsite.example.com
+    ServerAdmin admin@example.com
+    DocumentRoot /var/www/monsite.example.com/html
+
+    <Directory /var/www/monsite.example.com/html>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/monsite-error.log
+    CustomLog ${APACHE_LOG_DIR}/monsite-access.log combined
+</VirtualHost>
+```
+
+Activez le site et rechargez Apache :
+
+```bash
+sudo mkdir -p /var/www/monsite.example.com/html
+echo "<h1>Bienvenue sur monsite</h1>" | sudo tee /var/www/monsite.example.com/html/index.html
+sudo a2ensite monsite.example.com.conf
+sudo systemctl reload apache2
+```
+
+Pour desactiver un site :
+
+```bash
+sudo a2dissite monsite.example.com.conf
+sudo systemctl reload apache2
+```
+
+Sur Fedora/RHEL, placez simplement le fichier dans `/etc/httpd/conf.d/` avec l'extension `.conf` et rechargez httpd.
+
+## Modules
+
+Apache tire sa puissance de son systeme de modules. Voici les plus utilises.
+
+### Gestion des modules sur Debian/Ubuntu
+
+```bash
+# Lister les modules charges
+apachectl -M
+
+# Activer un module
+sudo a2enmod rewrite
+sudo a2enmod ssl
+sudo a2enmod proxy proxy_http
+sudo a2enmod headers
+
+# Desactiver un module
+sudo a2dismod autoindex
+
+# Recharger apres modification
+sudo systemctl restart apache2
+```
+
+### mod_rewrite -- Reecriture d'URL
+
+Ce module est indispensable pour les applications web modernes (WordPress, Laravel, etc.) :
+
+```bash
+<VirtualHost *:80>
+    ServerName app.example.com
+    DocumentRoot /var/www/app/public
+
+    <Directory /var/www/app/public>
+        AllowOverride All
+        Require all granted
+
+        # Reecrire toutes les requetes vers index.php (front controller)
+        RewriteEngine On
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^(.*)$ index.php/$1 [L]
+    </Directory>
+</VirtualHost>
+```
+
+### mod_proxy -- Reverse proxy
+
+Configurez Apache comme reverse proxy devant une application backend :
+
+```bash
+sudo a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests
+```
+
+```bash
+<VirtualHost *:80>
+    ServerName api.example.com
+
+    ProxyPreserveHost On
+    ProxyPass / http://127.0.0.1:3000/
+    ProxyPassReverse / http://127.0.0.1:3000/
+
+    # Equilibrage de charge entre plusieurs backends
+    <Proxy "balancer://app_cluster">
+        BalancerMember http://127.0.0.1:3000
+        BalancerMember http://127.0.0.1:3001
+        ProxySet lbmethod=byrequests
+    </Proxy>
+</VirtualHost>
+```
+
+### mod_headers -- En-tetes HTTP
+
+```bash
+<VirtualHost *:443>
+    # En-tetes de securite
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Cache control pour les fichiers statiques
+    <FilesMatch "\.(css|js|png|jpg|gif|ico|svg|woff2)$">
+        Header set Cache-Control "public, max-age=2592000, immutable"
+    </FilesMatch>
+</VirtualHost>
+```
+
+## Fichiers .htaccess
+
+Les fichiers `.htaccess` permettent de modifier la configuration Apache au niveau d'un repertoire sans toucher a la configuration principale. Ils sont pratiques mais ont un impact sur les performances car Apache les relit a chaque requete.
+
+Pour activer les `.htaccess`, assurez-vous que la directive `AllowOverride` est sur `All` dans la configuration du repertoire concerne.
+
+Exemples courants de `.htaccess` :
+
+```bash
+# Redirection HTTP vers HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Bloquer l'acces a certains fichiers
+<FilesMatch "\.(env|git|htpasswd|log)$">
+    Require all denied
+</FilesMatch>
+
+# Protection par mot de passe
+AuthType Basic
+AuthName "Zone restreinte"
+AuthUserFile /etc/apache2/.htpasswd
+Require valid-user
+
+# Desactiver le listing des repertoires
+Options -Indexes
+
+# Page d'erreur personnalisee
+ErrorDocument 404 /erreur-404.html
+ErrorDocument 500 /erreur-500.html
+```
+
+Pour creer un fichier de mots de passe :
+
+```bash
+sudo htpasswd -c /etc/apache2/.htpasswd utilisateur1
+sudo htpasswd /etc/apache2/.htpasswd utilisateur2
+```
+
+## SSL/TLS avec Let's Encrypt
+
+### Installation de Certbot
+
+Sur Debian/Ubuntu :
+
+```bash
+sudo apt install -y certbot python3-certbot-apache
+```
+
+Sur Fedora :
+
+```bash
+sudo dnf install -y certbot python3-certbot-apache
+```
+
+### Obtenir un certificat
+
+```bash
+sudo certbot --apache -d monsite.example.com -d www.monsite.example.com
+```
+
+Certbot cree automatiquement un virtual host SSL. Le resultat ressemble a :
+
+```bash
+<VirtualHost *:443>
+    ServerName monsite.example.com
+    DocumentRoot /var/www/monsite.example.com/html
+
+    SSLEngine on
+    SSLCertificateFile /etc/letsencrypt/live/monsite.example.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/monsite.example.com/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+
+    <Directory /var/www/monsite.example.com/html>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
+### Renouvellement automatique
+
+```bash
+sudo certbot renew --dry-run
+sudo systemctl status certbot.timer
+```
+
+## Integration PHP
+
+### Option 1 : mod_php (avec MPM prefork)
+
+C'est la methode la plus simple mais la moins performante :
+
+```bash
+sudo apt install -y libapache2-mod-php php php-mysql php-curl php-xml
+sudo a2enmod php8.2
+sudo systemctl restart apache2
+```
+
+### Option 2 : PHP-FPM (recommande)
+
+PHP-FPM fonctionne comme un service independant communiquant avec Apache via un socket. C'est la methode recommandee car elle est compatible avec les MPM event et worker.
+
+```bash
+sudo apt install -y php-fpm php-mysql php-curl php-xml
+sudo a2enmod proxy_fcgi setenvif
+sudo a2enconf php8.2-fpm
+sudo systemctl restart apache2
+```
+
+Configuration du virtual host avec PHP-FPM :
+
+```bash
+<VirtualHost *:80>
+    ServerName php.example.com
+    DocumentRoot /var/www/php-app/public
+
+    <Directory /var/www/php-app/public>
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    # Diriger les fichiers PHP vers PHP-FPM
+    <FilesMatch \.php$>
+        SetHandler "proxy:unix:/run/php/php8.2-fpm.sock|fcgi://localhost"
+    </FilesMatch>
+</VirtualHost>
+```
+
+Verifiez que PHP fonctionne :
+
+```bash
+echo "<?php phpinfo();" | sudo tee /var/www/php-app/public/info.php
+curl http://php.example.com/info.php | head -5
+# Supprimez ce fichier apres le test
+sudo rm /var/www/php-app/public/info.php
+```
+
+## Logging et monitoring
+
+### Format de logs
+
+Apache propose plusieurs formats de logs. Le format `combined` est le plus courant :
+
+```bash
+LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+LogFormat "%h %l %u %t \"%r\" %>s %O" common
+
+# Logs par virtual host
+CustomLog ${APACHE_LOG_DIR}/monsite-access.log combined
+ErrorLog ${APACHE_LOG_DIR}/monsite-error.log
+LogLevel warn
+```
+
+### Analyser les logs
+
+```bash
+# Requetes en temps reel
+tail -f /var/log/apache2/access.log
+
+# Les 10 pages les plus visitees
+awk '{print $7}' /var/log/apache2/access.log | sort | uniq -c | sort -rn | head -10
+
+# Nombre de requetes par code de statut
+awk '{print $9}' /var/log/apache2/access.log | sort | uniq -c | sort -rn
+
+# Requetes par heure
+awk '{print $4}' /var/log/apache2/access.log | cut -d: -f2 | sort | uniq -c
+```
+
+### Page de statut Apache
+
+Activez le module `mod_status` pour surveiller les performances en temps reel :
+
+```bash
+sudo a2enmod status
+```
+
+```bash
+<Location "/server-status">
+    SetHandler server-status
+    Require ip 127.0.0.1
+    Require ip ::1
+</Location>
+
+# Activer le suivi etendu
+ExtendedStatus On
+```
+
+```bash
+sudo systemctl reload apache2
+curl http://127.0.0.1/server-status?auto
+```
+
+## Securite
+
+### Masquer les informations du serveur
+
+```bash
+# Dans apache2.conf ou httpd.conf
+ServerTokens Prod
+ServerSignature Off
+```
+
+### Desactiver le listing des repertoires
+
+```bash
+<Directory /var/www/>
+    Options -Indexes
+</Directory>
+```
+
+### Limiter les methodes HTTP
+
+```bash
+<Directory /var/www/html>
+    <LimitExcept GET POST HEAD>
+        Require all denied
+    </LimitExcept>
+</Directory>
+```
+
+### Protection contre le clickjacking et XSS
+
+```bash
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+Header always set Content-Security-Policy "default-src 'self'"
+```
+
+### Limiter la taille des requetes
+
+```bash
+# Limiter la taille du corps des requetes a 10 Mo
+LimitRequestBody 10485760
+```
+
+### Bloquer les user-agents malveillants
+
+```bash
+RewriteEngine On
+RewriteCond %{HTTP_USER_AGENT} (bot|crawler|spider|scraper) [NC]
+RewriteRule .* - [F,L]
+```
+
+## Resume des commandes essentielles
+
+```bash
+# Tester la configuration
+sudo apachectl configtest
+
+# Recharger la configuration
+sudo systemctl reload apache2
+
+# Redemarrer completement
+sudo systemctl restart apache2
+
+# Activer/desactiver un site (Debian)
+sudo a2ensite monsite.conf
+sudo a2dissite monsite.conf
+
+# Activer/desactiver un module (Debian)
+sudo a2enmod rewrite
+sudo a2dismod autoindex
+
+# Voir les modules charges
+apachectl -M
+
+# Voir la configuration complete
+apachectl -S
+
+# Suivre les logs
+sudo tail -f /var/log/apache2/error.log
+```

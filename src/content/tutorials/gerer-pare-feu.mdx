@@ -1,0 +1,189 @@
+---
+title: "Gerer le pare-feu sous Linux"
+description: "Configurez le pare-feu de votre serveur Linux avec UFW, firewalld et iptables. Apprenez a proteger vos services avec des regles adaptees a chaque scenario."
+tags: [pare-feu, ufw, firewalld, iptables, securite, reseau]
+difficulty: "intermediaire"
+order: 4
+---
+
+## Introduction
+
+Le pare-feu est la premiere ligne de defense d'un serveur Linux. Il filtre le trafic reseau entrant et sortant selon des regles definies par l'administrateur. Ce tutoriel couvre trois outils : **UFW** (simple), **firewalld** (base sur des zones) et **iptables** (bas niveau).
+
+## UFW -- Uncomplicated Firewall (Debian/Ubuntu)
+
+UFW est une interface simplifiee pour iptables, installee par defaut sur Ubuntu.
+
+### Activer et verifier le pare-feu
+
+```bash
+sudo ufw enable
+sudo ufw status verbose
+```
+
+### Regles de base
+
+```bash
+sudo ufw default deny incoming      # bloquer tout le trafic entrant
+sudo ufw default allow outgoing     # autoriser tout le trafic sortant
+```
+
+### Autoriser et bloquer des services
+
+```bash
+sudo ufw allow ssh                  # autoriser SSH (port 22)
+sudo ufw allow 80/tcp               # autoriser HTTP
+sudo ufw allow 443/tcp              # autoriser HTTPS
+sudo ufw allow 8080:8090/tcp        # autoriser une plage de ports
+sudo ufw deny 3306/tcp              # bloquer MySQL depuis l'exterieur
+```
+
+### Regles par adresse IP
+
+```bash
+sudo ufw allow from 192.168.1.0/24 to any port 22    # SSH depuis le reseau local uniquement
+sudo ufw deny from 10.0.0.5                           # bloquer une IP specifique
+```
+
+### Supprimer une regle
+
+```bash
+sudo ufw status numbered
+sudo ufw delete 3                    # supprimer la regle numero 3
+```
+
+## firewalld -- Fedora, RHEL et CentOS
+
+firewalld utilise le concept de **zones** pour appliquer differents niveaux de confiance selon l'interface reseau ou la source.
+
+### Verifier l'etat
+
+```bash
+sudo systemctl start firewalld
+sudo firewall-cmd --state
+sudo firewall-cmd --get-active-zones
+```
+
+### Les zones principales
+
+| Zone | Description |
+|---|---|
+| `drop` | Tout est rejete sans reponse |
+| `block` | Tout est rejete avec un message ICMP |
+| `public` | Zone par defaut -- seuls les services autorises passent |
+| `internal` | Reseau interne de confiance |
+| `trusted` | Tout le trafic est accepte |
+
+### Gerer les services et ports
+
+```bash
+sudo firewall-cmd --zone=public --add-service=http --permanent
+sudo firewall-cmd --zone=public --add-service=https --permanent
+sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
+sudo firewall-cmd --reload
+```
+
+### Lister les regles actives
+
+```bash
+sudo firewall-cmd --zone=public --list-all
+sudo firewall-cmd --list-services
+```
+
+### Supprimer une regle
+
+```bash
+sudo firewall-cmd --zone=public --remove-service=http --permanent
+sudo firewall-cmd --reload
+```
+
+## iptables -- Le socle bas niveau
+
+iptables est l'outil historique de filtrage de paquets sous Linux. UFW et firewalld s'appuient dessus en coulisses.
+
+### Concepts fondamentaux
+
+iptables organise les regles en **chaines** :
+
+| Chaine | Role |
+|---|---|
+| `INPUT` | Trafic entrant vers la machine |
+| `OUTPUT` | Trafic sortant depuis la machine |
+| `FORWARD` | Trafic qui traverse la machine (routage) |
+
+### Exemples de regles
+
+```bash
+# Afficher les regles actuelles
+sudo iptables -L -n -v
+
+# Autoriser le trafic sur l'interface loopback
+sudo iptables -A INPUT -i lo -j ACCEPT
+
+# Autoriser les connexions etablies
+sudo iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Autoriser SSH
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Autoriser HTTP et HTTPS
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# Bloquer tout le reste
+sudo iptables -A INPUT -j DROP
+```
+
+### Sauvegarder et restaurer les regles
+
+```bash
+sudo iptables-save > /etc/iptables/rules.v4
+sudo iptables-restore < /etc/iptables/rules.v4
+```
+
+## Scenarios courants
+
+### Serveur web (HTTP + HTTPS + SSH)
+
+Avec UFW :
+
+```bash
+sudo ufw default deny incoming
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw enable
+```
+
+### Serveur accessible uniquement en SSH
+
+```bash
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow from 10.0.0.0/8 to any port 22
+sudo ufw enable
+```
+
+### NAT avec iptables (passerelle Internet)
+
+Pour partager une connexion Internet depuis l'interface `eth0` vers un reseau local sur `eth1` :
+
+```bash
+# Activer le routage IP
+echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward
+
+# Regle de NAT (masquerade)
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+sudo iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+sudo iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
+```
+
+Pour rendre le routage permanent, ajoutez dans `/etc/sysctl.conf` :
+
+```bash
+net.ipv4.ip_forward = 1
+```
+
+## Conclusion
+
+Le choix de l'outil depend de votre distribution et de la complexite de vos besoins. UFW convient parfaitement aux serveurs simples, firewalld offre une gestion par zones adaptee aux environnements multi-interfaces, et iptables reste incontournable pour les configurations avancees comme le NAT ou le filtrage fin.
