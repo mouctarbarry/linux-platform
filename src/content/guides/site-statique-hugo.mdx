@@ -1,15 +1,15 @@
 ---
 title: "Creer un site statique avec Hugo"
-description: "Guide complet pour creer, personnaliser et deployer un site statique avec Hugo : installation, themes, templates, shortcodes et deploiement sur GitHub Pages et Netlify."
-tags: [hugo, site-statique, deploiement, github-pages, netlify]
-difficulty: "debutant"
+description: "Guide complet pour créer, personnalisér et déployer un site statique avec Hugo : installation, themes, templates, shortcodes et déployément sur GitHub Pages et Netlify."
+tags: [hugo, site-statique, déployément, github-pages, netlify]
+difficulty: "débutant"
 estimatedTime: "45 min"
 order: 3
 ---
 
 ## Introduction
 
-Hugo est un generateur de sites statiques ecrit en Go. Il est repute pour sa vitesse de compilation exceptionnelle : un site de plusieurs centaines de pages se construit en quelques millisecondes. Contrairement aux CMS dynamiques comme WordPress, Hugo genere des fichiers HTML statiques que vous pouvez heberger sur n'importe quel serveur web, sans base de donnees ni langage serveur.
+Hugo est un generateur de sites statiques écrit en Go. Il est repute pour sa vitesse de compilation exceptionnelle : un site de plusieurs centaines de pages se construit en quelques millisecondes. Contrairement aux CMS dynamiques comme WordPress, Hugo genere des fichiers HTML statiques que vous pouvez hébergér sur n'importe quel serveur web, sans base de données ni langage serveur.
 
 Ce guide vous accompagne de l'installation a la mise en ligne de votre premier site Hugo.
 
@@ -17,16 +17,16 @@ Ce guide vous accompagne de l'installation a la mise en ligne de votre premier s
 
 ### Sur Debian / Ubuntu
 
-Hugo est disponible dans les depots officiels, mais la version peut etre ancienne. Pour obtenir la derniere version, utilisez le paquet snap ou telechargez le binaire :
+Hugo est disponible dans les dépôts officiels, mais la version peut être ancienne. Pour obtenir la dernière version, utilisez le paquet snap ou téléchargéz le binaire :
 
 ```bash
 # Methode 1 : via snap (version recente)
 sudo snap install hugo --channel=extended
 
-# Methode 2 : via apt (version du depot, potentiellement ancienne)
+# Methode 2 : via apt (version du dépôt, potentiellement ancienne)
 sudo apt install -y hugo
 
-# Methode 3 : telecharger le binaire depuis GitHub
+# Methode 3 : téléchargér le binaire depuis GitHub
 HUGO_VERSION="0.139.0"
 wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
 sudo dpkg -i hugo_extended_${HUGO_VERSION}_linux-amd64.deb
@@ -61,23 +61,23 @@ hugo new site mon-site
 cd mon-site
 ```
 
-Hugo cree l'arborescence suivante :
+Hugo créé l'arborescence suivante :
 
 ```bash
 mon-site/
 ├── archetypes/      # Modeles pour le nouveau contenu
 │   └── default.md
 ├── assets/          # Fichiers traites par Hugo Pipes (SCSS, JS)
-├── content/         # Contenu du site (articles, pages)
-├── data/            # Fichiers de donnees (JSON, YAML, TOML)
+├── content/         # Contenu du site (articlés, pages)
+├── data/            # Fichiers de données (JSON, YAML, TOML)
 ├── i18n/            # Traductions
 ├── layouts/         # Templates HTML
 ├── static/          # Fichiers statiques copies tels quels (images, CSS, JS)
-├── themes/          # Themes installes
+├── themes/          # Themes installés
 └── hugo.toml        # Configuration principale
 ```
 
-Initialisez un depot Git dans le repertoire du projet. Cela sera utile pour installer des themes en tant que sous-modules et pour le deploiement :
+Initialisez un dépôt Git dans le répertoire du projet. Cela sera utile pour installer des themes en tant que sous-modules et pour le déployément :
 
 ```bash
 git init
@@ -127,35 +127,35 @@ theme = 'PaperMod'
 
 ### Personnaliser un theme
 
-Ne modifiez jamais les fichiers directement dans le dossier `themes/`. A la place, copiez le fichier que vous souhaitez modifier dans le dossier `layouts/` de votre projet. Hugo donne la priorite aux fichiers de votre projet par rapport a ceux du theme.
+Ne modifiez jamais les fichiers directement dans le dossier `themes/`. A la place, copiez le fichier que vous souhaitez modifier dans le dossier `layouts/` de votre projet. Hugo donne la priorité aux fichiers de votre projet par rapport a ceux du theme.
 
 ```bash
-# Exemple : personnaliser le template d'en-tete
+# Exemple : personnalisér le template d'en-tete
 mkdir -p layouts/partials
 cp themes/PaperMod/layouts/partials/header.html layouts/partials/header.html
 ```
 
 Editez ensuite `layouts/partials/header.html` selon vos besoins.
 
-Pour ajouter du CSS personnalise, creez un fichier dans `assets/css/` :
+Pour ajouter du CSS personnalisé, creez un fichier dans `assets/css/` :
 
 ```bash
 mkdir -p assets/css
 ```
 
-Ajoutez votre CSS dans `assets/css/custom.css` et referencez-le dans la configuration du theme ou dans un template.
+Ajoutez votre CSS dans `assets/css/custom.css` et référencez-le dans la configuration du theme ou dans un template.
 
 ## Creer du contenu
 
 ### Articles
 
-Utilisez la commande `hugo new` pour creer du contenu. Hugo applique automatiquement le modele defini dans `archetypes/` :
+Utilisez la commande `hugo new` pour créer du contenu. Hugo applique automatiquement le modèle defini dans `archetypes/` :
 
 ```bash
 hugo new articles/mon-premier-article.md
 ```
 
-Cette commande cree le fichier `content/articles/mon-premier-article.md` avec le frontmatter par defaut :
+Cette commande créé le fichier `content/articles/mon-premier-article.md` avec le frontmatter par défaut :
 
 ```bash
 ---
@@ -173,16 +173,16 @@ Voici un paragraphe avec du **texte en gras** et du *texte en italique*.
 ### Liste des avantages de Hugo
 
 - Vitesse de compilation exceptionnelle
-- Pas de dependance serveur
-- Securite renforcee (pas de base de donnees)
+- Pas de dépendance serveur
+- Securite renforcee (pas de base de données)
 - Hebergement gratuit possible (GitHub Pages, Netlify)
 ```
 
-Le champ `draft: true` signifie que l'article n'apparaitra pas dans le site publie. Passez-le a `false` quand le contenu est pret.
+Le champ `draft: true` signifie que l'articlé n'apparaitra pas dans le site publie. Passez-le a `false` quand le contenu est pret.
 
-### Pages independantes
+### Pages indépendantes
 
-Pour creer une page qui n'est pas un article (par exemple "A propos") :
+Pour créer une page qui n'est pas un articlé (par exemple "A propos") :
 
 ```bash
 hugo new a-propos.md
@@ -198,12 +198,12 @@ draft: false
 type: "page"
 ---
 
-Bienvenue sur mon site. Cette page presente le projet.
+Bienvenue sur mon site. Cette page présenté le projet.
 ```
 
 ### Personnaliser les archetypes
 
-Modifiez `archetypes/default.md` pour definir le frontmatter par defaut de tout nouveau contenu :
+Modifiez `archetypes/default.md` pour définir le frontmatter par défaut de tout nouveau contenu :
 
 ```bash
 ---
@@ -211,18 +211,18 @@ title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 draft: true
 tags: []
-categories: []
+catégories: []
 description: ""
 ---
 ```
 
-Vous pouvez creer des archetypes specifiques par section. Par exemple, `archetypes/articles.md` sera utilise automatiquement pour tout contenu cree dans `content/articles/`.
+Vous pouvez créer des archetypes spécifiques par section. Par exemple, `archetypes/articles.md` sera utilisé automatiquement pour tout contenu créé dans `content/articles/`.
 
 ## Templates et shortcodes
 
 ### Fonctionnement des templates
 
-Hugo utilise le moteur de templates Go. Les templates se trouvent dans `layouts/` et suivent une hierarchie de resolution bien definie :
+Hugo utilisé le moteur de templates Go. Les templates se trouvent dans `layouts/` et suivent une hiérarchie de résolution bien définie :
 
 ```bash
 layouts/
@@ -235,7 +235,7 @@ layouts/
 │   ├── footer.html        # Pied de page reutilisable
 │   └── sidebar.html       # Barre laterale
 └── shortcodes/
-    └── alert.html         # Shortcode personnalise
+    └── alert.html         # Shortcode personnalisé
 ```
 
 Voici un exemple de template `baseof.html` :
@@ -284,9 +284,9 @@ Et un exemple de template `single.html` qui herite de `baseof.html` :
 
 ### Shortcodes
 
-Les shortcodes sont des extraits de code reutilisables que vous inserez dans vos fichiers Markdown. Hugo fournit quelques shortcodes integres et vous pouvez creer les votres.
+Les shortcodes sont des extraits de code reutilisables que vous inserez dans vos fichiers Markdown. Hugo fournit quelques shortcodes intégrés et vous pouvez créer les votres.
 
-Shortcodes integres :
+Shortcodes intégrés :
 
 ```bash
 # Integrer une video YouTube
@@ -299,7 +299,7 @@ Shortcodes integres :
 {{</* figure src="/images/photo.jpg" title="Ma photo" */>}}
 ```
 
-Creer un shortcode personnalise. Exemple d'un bloc d'alerte -- creez le fichier `layouts/shortcodes/alert.html` :
+Creer un shortcode personnalisé. Exemple d'un bloc d'alerte -- creez le fichier `layouts/shortcodes/alert.html` :
 
 ```bash
 <div class="alert alert-{{ .Get "type" | default "info" }}">
@@ -312,34 +312,34 @@ Utilisez-le dans votre contenu Markdown :
 
 ```bash
 {{</* alert type="warning" title="Attention" */>}}
-Cette commande supprime des fichiers de facon irreversible.
+Cette commande supprimé des fichiers de facon irreversible.
 {{</* /alert */>}}
 ```
 
-## Serveur de developpement
+## Serveur de développement
 
-Lancez le serveur de developpement pour visualiser votre site en local avec rechargement automatique :
+Lancez le serveur de développement pour visualiser votre site en local avec rechargement automatique :
 
 ```bash
 hugo server -D
 ```
 
-L'option `-D` inclut les brouillons (articles avec `draft: true`). Le site est accessible a l'adresse `http://localhost:1313/`. Chaque modification de fichier declenche une recompilation instantanee et le navigateur se rafraichit automatiquement.
+L'option `-D` inclut les brouillons (articlés avec `draft: true`). Le site est accessible a l'adresse `http://localhost:1313/`. Chaque modification de fichier declenche une recompilation instantanée et le navigateur se rafraichit automatiquement.
 
-Options utiles du serveur de developpement :
+Options utiles du serveur de développement :
 
 ```bash
 # Changer le port
 hugo server -D --port 8080
 
-# Ecouter sur toutes les interfaces (acces depuis le reseau local)
+# Ecouter sur toutes les interfaces (accès depuis le réseau local)
 hugo server -D --bind 0.0.0.0
 
 # Desactiver le rechargement automatique
 hugo server -D --disableLiveReload
 ```
 
-## Build et deploiement
+## Build et déployément
 
 ### Generer le site
 
@@ -349,7 +349,7 @@ Pour construire le site statique final :
 hugo
 ```
 
-Les fichiers generes se trouvent dans le dossier `public/`. C'est ce dossier que vous deployez sur votre serveur.
+Les fichiers generes se trouvent dans le dossier `public/`. C'est ce dossier que vous déployéz sur votre serveur.
 
 Options utiles pour le build :
 
@@ -360,7 +360,7 @@ hugo --minify
 # Specifier l'URL de base (utile pour les environnements de test)
 hugo --baseURL "https://test.example.com/"
 
-# Generer dans un repertoire specifique
+# Generer dans un répertoire spécifique
 hugo --destination /var/www/monsite/
 ```
 
@@ -394,7 +394,7 @@ chmod +x deploy.sh
 
 ## Deploiement sur GitHub Pages
 
-GitHub Pages permet d'heberger gratuitement votre site Hugo.
+GitHub Pages permet d'hébergér gratuitement votre site Hugo.
 
 ### Configuration du workflow GitHub Actions
 
@@ -450,20 +450,20 @@ Poussez votre code sur GitHub :
 
 ```bash
 git add .
-git commit -m "Premier deploiement Hugo"
+git commit -m "Premier déployément Hugo"
 git remote add origin https://github.com/votre-utilisateur/mon-site.git
 git push -u origin main
 ```
 
-Activez GitHub Pages dans les parametres du depot : Settings puis Pages puis Source : GitHub Actions.
+Activez GitHub Pages dans les paramètres du dépôt : Settings puis Pages puis Source : GitHub Actions.
 
 ## Deploiement sur Netlify
 
-Netlify detecte automatiquement les projets Hugo et les deploie sans configuration supplementaire.
+Netlify detecte automatiquement les projets Hugo et les déployé sans configuration supplementaire.
 
 ### Methode rapide
 
-Connectez votre depot GitHub a Netlify via l'interface web. Netlify detecte Hugo et configure le build automatiquement.
+Connectez votre dépôt GitHub a Netlify via l'interface web. Netlify detecte Hugo et configuré le build automatiquement.
 
 ### Configuration manuelle
 
@@ -489,24 +489,24 @@ Creez un fichier `netlify.toml` a la racine du projet :
   status = 301
 ```
 
-Chaque push sur la branche principale declenche un deploiement automatique. Netlify fournit aussi des URL de preview pour les pull requests.
+Chaque push sur la branche principale declenche un déployément automatique. Netlify fournit aussi des URL de preview pour les pull requests.
 
 ## Personnalisation avancee
 
-### Taxonomies personnalisees
+### Taxonomies personnalisées
 
-Par defaut, Hugo gere les `tags` et les `categories`. Vous pouvez ajouter vos propres taxonomies :
+Par défaut, Hugo gère les `tags` et les `catégories`. Vous pouvez ajouter vos propres taxonomies :
 
 ```bash
 # hugo.toml
 [taxonomies]
   tag = 'tags'
-  category = 'categories'
+  category = 'catégories'
   serie = 'series'
   auteur = 'auteurs'
 ```
 
-Utilisez-les dans le frontmatter de vos articles :
+Utilisez-les dans le frontmatter de vos articlés :
 
 ```bash
 ---
@@ -518,7 +518,7 @@ auteurs: ["Jean Dupont"]
 
 ### Site multilingue
 
-Hugo gere nativement les sites multilingues :
+Hugo géré nativement les sites multilingues :
 
 ```bash
 # hugo.toml
@@ -559,7 +559,7 @@ Hugo Pipes permet de traiter les fichiers CSS et JavaScript directement depuis l
 <script src="{{ $script.RelPermalink }}" integrity="{{ $script.Data.Integrity }}"></script>
 ```
 
-Cette approche integre la compilation SCSS, la minification et le cache-busting directement dans le processus de build Hugo, sans outil externe.
+Cette approche intégré la compilation SCSS, la minification et le cache-busting directement dans le processus de build Hugo, sans outil externe.
 
 ## Resume des commandes essentielles
 
@@ -570,13 +570,13 @@ hugo new site mon-site
 # Creer du contenu
 hugo new articles/mon-article.md
 
-# Serveur de developpement (avec brouillons)
+# Serveur de développement (avec brouillons)
 hugo server -D
 
 # Construire le site pour la production
 hugo --minify
 
-# Construire avec une URL de base specifique
+# Construire avec une URL de base spécifique
 hugo --baseURL "https://example.com/"
 
 # Deployer via rsync

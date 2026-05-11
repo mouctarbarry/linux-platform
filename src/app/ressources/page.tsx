@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Ressources Linux — Linux Platform',
-  description: 'Liens et references essentiels pour approfondir vos connaissances Linux.',
+  description: 'Liens et références essentiels pour approfondir vos connaissances Linux.',
 };
 
 export default function RessourcesPage() {

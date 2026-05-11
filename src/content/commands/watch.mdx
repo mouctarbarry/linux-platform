@@ -15,8 +15,8 @@ watch [OPTIONS] COMMANDE
 
 | Option | Description                                       |
 | ------ | ------------------------------------------------- |
-| `-n`   | Definir l'intervalle en secondes (defaut: 2)      |
-| `-d`   | Mettre en surbrillance les differences             |
+| `-n`   | Definir l'intervalle en secondes (défaut: 2)      |
+| `-d`   | Mettre en surbrillancé les differences             |
 | `-t`   | Masquer l'en-tete (titre et horloge)              |
 | `-g`   | Quitter quand la sortie de la commande change     |
 | `-e`   | Arreter en cas d'erreur et attendre une touche    |
@@ -36,7 +36,7 @@ Filesystem      Size  Used Avail Use% Mounted on
 tmpfs           7.8G  1.2M  7.8G   1% /run
 ```
 
-### Surveiller les connexions reseau avec surbrillance
+### Surveiller les connexions réseau avec surbrillance
 
 ```bash
 $ watch -d -n 1 "ss -tn state established"
@@ -47,7 +47,7 @@ Recv-Q  Send-Q   Local Address:Port   Peer Address:Port
 0       0        192.168.1.10:80      10.0.0.5:48721
 ```
 
-### Surveiller le contenu d'un repertoire
+### Surveiller le contenu d'un répertoire
 
 ```bash
 $ watch -n 3 "ls -lh /tmp/uploads/"
@@ -64,7 +64,7 @@ total 12M
 $ watch -g "cat /proc/mdstat"
 ```
 
-### Surveiller la memoire sans en-tete
+### Surveiller la mémoire sans en-tete
 
 ```bash
 $ watch -t -n 2 free -h

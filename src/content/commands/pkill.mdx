@@ -17,7 +17,7 @@ pkill [OPTIONS] MOTIF
 | --------- | ------------------------------------------------- |
 | `-SIGNAL` | Specifier le signal a envoyer (ex: -9, -TERM)    |
 | `-u`      | Filtrer par utilisateur                           |
-| `-f`      | Rechercher dans la ligne de commande complete     |
+| `-f`      | Rechercher dans la ligne de commande complète     |
 | `-n`      | Envoyer le signal au processus le plus recent     |
 | `-o`      | Envoyer le signal au processus le plus ancien     |
 | `-x`      | Correspondance exacte du nom                      |
@@ -37,7 +37,7 @@ $ pkill nginx
 $ pkill -9 firefox
 ```
 
-### Terminer les processus d'un utilisateur specifique
+### Terminer les processus d'un utilisateur spécifique
 
 ```bash
 $ pkill -u guest
@@ -69,7 +69,7 @@ node killed (pid 2456)
 $ pkill -n bash
 ```
 
-### Combiner avec pgrep pour verifier avant d'agir
+### Combiner avec pgrep pour vérifiér avant d'agir
 
 ```bash
 $ pgrep -la node

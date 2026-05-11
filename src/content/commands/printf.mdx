@@ -15,7 +15,7 @@ printf FORMAT [ARGUMENTS...]
 
 | Option | Description                                        |
 | ------ | -------------------------------------------------- |
-| `%s`   | Formater en chaine de caracteres                   |
+| `%s`   | Formater en chaine de caractères                   |
 | `%d`   | Formater en nombre entier decimal                  |
 | `%f`   | Formater en nombre a virgule flottante             |
 | `\n`   | Inserer un saut de ligne                           |
@@ -33,7 +33,7 @@ postgres           5678      15.7%
 redis              9012       4.1%
 ```
 
-### Generer une ligne de separation
+### Generer une ligne de séparation
 
 ```bash
 $ printf '%0.s-' {1..40}; printf '\n'
@@ -44,6 +44,6 @@ $ printf '%0.s-' {1..40}; printf '\n'
 
 ```bash
 $ DISQUE="sda1"; USAGE=78; TOTAL=500
-$ printf "Disque /dev/%s : %d%% utilise (%d Go total)\n" "$DISQUE" "$USAGE" "$TOTAL"
-Disque /dev/sda1 : 78% utilise (500 Go total)
+$ printf "Disque /dev/%s : %d%% utilisé (%d Go total)\n" "$DISQUE" "$USAGE" "$TOTAL"
+Disque /dev/sda1 : 78% utilisé (500 Go total)
 ```

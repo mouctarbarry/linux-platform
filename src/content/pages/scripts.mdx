@@ -5,16 +5,16 @@ description: "Scripts Bash pratiques et commentes pour automatiser vos taches qu
 
 ## Introduction aux scripts Bash
 
-Un script Bash est un fichier texte contenant une suite de commandes executees par l'interpreteur Bash. Pour creer et executer un script :
+Un script Bash est un fichier texte contenant une suite de commandes exécutées par l'interpreteur Bash. Pour créer et exécuter un script :
 
 ```bash
 # Creer le fichier
 nano mon-script.sh
 
-# Le rendre executable
+# Le rendre exécutable
 chmod +x mon-script.sh
 
-# L'executer
+# L'exécuter
 ./mon-script.sh
 ```
 
@@ -28,7 +28,7 @@ Tout script Bash commence par le **shebang** qui indique quel interpreteur utili
 
 ## Script 1 : Sauvegarde automatique
 
-Ce script cree une archive compressée d'un repertoire avec la date du jour.
+Ce script créé une archive compressée d'un répertoire avec la date du jour.
 
 ```bash
 #!/bin/bash
@@ -39,13 +39,13 @@ DEST="/home/utilisateur/sauvegardes"
 DATE=$(date +%Y-%m-%d_%H%M%S)
 ARCHIVE="sauvegarde_${DATE}.tar.gz"
 
-# Creer le repertoire de destination s'il n'existe pas
+# Creer le répertoire de destination s'il n'existe pas
 mkdir -p "$DEST"
 
 # Creer l'archive
 tar -czf "${DEST}/${ARCHIVE}" -C "$(dirname "$SOURCE")" "$(basename "$SOURCE")"
 
-# Verifier le resultat
+# Verifier le résultat
 if [ $? -eq 0 ]; then
     echo "Sauvegarde reussie : ${DEST}/${ARCHIVE}"
     echo "Taille : $(du -h "${DEST}/${ARCHIVE}" | cut -f1)"
@@ -66,17 +66,17 @@ chmod +x sauvegarde.sh
 ./sauvegarde.sh
 ```
 
-Pour l'executer quotidiennement avec cron :
+Pour l'exécuter quotidiennement avec cron :
 
 ```bash
 crontab -e
-# Ajouter cette ligne pour une execution a 2h du matin
+# Ajouter cette ligne pour une exécution a 2h du matin
 0 2 * * * /home/utilisateur/sauvegarde.sh >> /var/log/sauvegarde.log 2>&1
 ```
 
 ---
 
-## Script 2 : Surveillance de l'espace disque
+## Script 2 : Surveillancé de l'espace disque
 
 Ce script alerte quand l'espace disque depasse un seuil configurable.
 
@@ -90,7 +90,7 @@ df -H | awk 'NR>1 {print $5 " " $6}' | while read -r usage partition; do
     pourcentage=${usage%\%}
 
     if [ "$pourcentage" -ge "$SEUIL" ]; then
-        echo "ALERTE : la partition $partition est utilisee a ${usage}"
+        echo "ALERTE : la partition $partition est utilisée a ${usage}"
 
         # Envoyer un email si la commande mail est disponible
         if command -v mail > /dev/null 2>&1; then
@@ -105,13 +105,13 @@ done
 
 ## Script 3 : Recherche et remplacement dans des fichiers
 
-Ce script effectue un rechercher-remplacer recursif dans un repertoire.
+Ce script effectue un rechercher-remplacer recursif dans un répertoire.
 
 ```bash
 #!/bin/bash
 
 if [ $# -ne 3 ]; then
-    echo "Usage : $0 <repertoire> <ancien_texte> <nouveau_texte>"
+    echo "Usage : $0 <répertoire> <ancien_texte> <nouveau_texte>"
     exit 1
 fi
 
@@ -147,7 +147,7 @@ fi
 
 ## Script 4 : Moniteur de processus
 
-Ce script surveille un processus et le redemarre s'il s'arrete.
+Ce script surveille un processus et le redemarre s'il s'arrête.
 
 ```bash
 #!/bin/bash
@@ -159,13 +159,13 @@ LOG="/var/log/moniteur-${PROCESSUS}.log"
 
 while true; do
     if ! pgrep -x "$PROCESSUS" > /dev/null; then
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - $PROCESSUS arrete, redemarrage..." >> "$LOG"
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - $PROCESSUS arrête, redémarrage..." >> "$LOG"
         $COMMANDE_DEMARRAGE
 
         if pgrep -x "$PROCESSUS" > /dev/null; then
-            echo "$(date '+%Y-%m-%d %H:%M:%S') - $PROCESSUS redemarre avec succes" >> "$LOG"
+            echo "$(date '+%Y-%m-%d %H:%M:%S') - $PROCESSUS redemarre avec succès" >> "$LOG"
         else
-            echo "$(date '+%Y-%m-%d %H:%M:%S') - ECHEC du redemarrage de $PROCESSUS" >> "$LOG"
+            echo "$(date '+%Y-%m-%d %H:%M:%S') - ECHEC du redémarrage de $PROCESSUS" >> "$LOG"
         fi
     fi
     sleep "$INTERVALLE"
@@ -184,7 +184,7 @@ Ce script nettoie les fichiers de log anciens et les fichiers temporaires.
 JOURS=7
 TAILLE_MIN="100M"
 
-echo "=== Nettoyage systeme ==="
+echo "=== Nettoyage système ==="
 echo "Date : $(date)"
 echo ""
 
@@ -198,8 +198,8 @@ echo "Nettoyage de /tmp (fichiers de plus de $JOURS jours)..."
 find /tmp -type f -atime +$JOURS -delete 2>/dev/null
 echo "  Fait."
 
-# Nettoyer les logs compresses anciens
-echo "Nettoyage des logs compresses anciens..."
+# Nettoyer les logs compressés anciens
+echo "Nettoyage des logs compressés anciens..."
 find /var/log -name "*.gz" -mtime +$JOURS -delete 2>/dev/null
 find /var/log -name "*.old" -mtime +$JOURS -delete 2>/dev/null
 echo "  Fait."
@@ -217,7 +217,7 @@ if command -v apt > /dev/null 2>&1; then
 fi
 
 echo ""
-echo "Espace disque apres :"
+echo "Espace disque après :"
 df -h / | tail -1
 ```
 
@@ -225,7 +225,7 @@ df -h / | tail -1
 
 ## Script 6 : Creation de comptes utilisateurs en lot
 
-Ce script cree plusieurs comptes utilisateurs a partir d'un fichier CSV.
+Ce script créé plusieurs comptes utilisateurs a partir d'un fichier CSV.
 
 ```bash
 #!/bin/bash
@@ -253,7 +253,7 @@ while IFS=',' read -r nom prenom groupe; do
     # Creer le groupe s'il n'existe pas
     if ! getent group "$groupe" > /dev/null 2>&1; then
         groupadd "$groupe"
-        echo "Groupe cree : $groupe"
+        echo "Groupe créé : $groupe"
     fi
 
     # Creer l'utilisateur
@@ -262,9 +262,9 @@ while IFS=',' read -r nom prenom groupe; do
         # Generer un mot de passe temporaire
         mdp=$(openssl rand -base64 12)
         echo "${login}:${mdp}" | chpasswd
-        # Forcer le changement de mot de passe a la premiere connexion
+        # Forcer le changement de mot de passe a la première connexion
         chage -d 0 "$login"
-        echo "Utilisateur cree : $login (mot de passe temporaire : $mdp)"
+        echo "Utilisateur créé : $login (mot de passe temporaire : $mdp)"
     else
         echo "L'utilisateur $login existe deja, ignore."
     fi
@@ -275,16 +275,16 @@ Fichier CSV d'exemple (`utilisateurs.csv`) :
 
 ```
 nom,prenom,groupe
-Dupont,Jean,developpeurs
+Dupont,Jean,développeurs
 Martin,Marie,administrateurs
-Bernard,Pierre,developpeurs
+Bernard,Pierre,développeurs
 ```
 
 ---
 
-## Script 7 : Verification de la connectivite reseau
+## Script 7 : Verification de la connectivité réseau
 
-Ce script teste la connectivite vers plusieurs hotes et services.
+Ce script teste la connectivité vers plusieurs hotes et services.
 
 ```bash
 #!/bin/bash
@@ -292,18 +292,18 @@ Ce script teste la connectivite vers plusieurs hotes et services.
 HOTES=("8.8.8.8" "1.1.1.1" "google.com" "github.com")
 SERVICES=("google.com:443" "github.com:22")
 
-echo "=== Test de connectivite reseau ==="
+echo "=== Test de connectivité réseau ==="
 echo "Date : $(date)"
 echo ""
 
 # Test ping
 echo "--- Tests PING ---"
-for hote in "${HOTES[@]}"; do
+for hôte in "${HOTES[@]}"; do
     if ping -c 1 -W 2 "$hote" > /dev/null 2>&1; then
         latence=$(ping -c 1 -W 2 "$hote" | grep "time=" | sed 's/.*time=\([^ ]*\).*/\1/')
-        echo "  [OK] $hote (${latence} ms)"
+        echo "  [OK] $hôte (${latence} ms)"
     else
-        echo "  [KO] $hote - injoignable"
+        echo "  [KO] $hôte - injoignable"
     fi
 done
 
@@ -323,8 +323,8 @@ done
 
 echo ""
 
-# Informations reseau
-echo "--- Configuration reseau ---"
+# Informations réseau
+echo "--- Configuration réseau ---"
 echo "  Passerelle : $(ip route | grep default | awk '{print $3}')"
 echo "  DNS : $(grep nameserver /etc/resolv.conf | head -1 | awk '{print $2}')"
 echo "  IP locale : $(hostname -I | awk '{print $1}')"
@@ -332,14 +332,14 @@ echo "  IP locale : $(hostname -I | awk '{print $1}')"
 
 ---
 
-## Script 8 : Rapport systeme
+## Script 8 : Rapport système
 
-Ce script genere un rapport complet sur l'etat du systeme.
+Ce script genere un rapport complet sur l'état du système.
 
 ```bash
 #!/bin/bash
 
-RAPPORT="/tmp/rapport-systeme-$(date +%Y%m%d).txt"
+RAPPORT="/tmp/rapport-système-$(date +%Y%m%d).txt"
 
 {
     echo "========================================="
@@ -348,7 +348,7 @@ RAPPORT="/tmp/rapport-systeme-$(date +%Y%m%d).txt"
     echo "========================================="
     echo ""
 
-    echo "--- Informations systeme ---"
+    echo "--- Informations système ---"
     echo "OS : $(cat /etc/os-release 2>/dev/null | grep PRETTY_NAME | cut -d'"' -f2)"
     echo "Noyau : $(uname -r)"
     echo "Architecture : $(uname -m)"
@@ -369,7 +369,7 @@ RAPPORT="/tmp/rapport-systeme-$(date +%Y%m%d).txt"
     df -h | grep -E '^/dev/'
     echo ""
 
-    echo "--- 10 plus gros repertoires dans / ---"
+    echo "--- 10 plus gros répertoires dans / ---"
     du -h --max-depth=1 / 2>/dev/null | sort -rh | head -10
     echo ""
 
@@ -381,7 +381,7 @@ RAPPORT="/tmp/rapport-systeme-$(date +%Y%m%d).txt"
     ps aux --sort=-%cpu | head -6
     echo ""
 
-    echo "--- Derniers redemarrages ---"
+    echo "--- Derniers redémarrages ---"
     last reboot | head -5
 
 } > "$RAPPORT"
@@ -400,8 +400,8 @@ echo "Taille : $(du -h "$RAPPORT" | cut -f1)"
 #!/bin/bash
 set -euo pipefail
 
-# set -e : arreter le script a la premiere erreur
-# set -u : erreur si une variable n'est pas definie
+# set -e : arrêter le script a la première erreur
+# set -u : erreur si une variable n'est pas définie
 # set -o pipefail : propager les erreurs dans les pipes
 ```
 
@@ -411,7 +411,7 @@ set -euo pipefail
 - Utiliser des noms en minuscules pour les variables locales
 - Toujours entourer les variables de guillemets doubles : `"$variable"`
 - Commenter le but du script, pas chaque ligne evidente
-- Tester le script avec `bash -n script.sh` pour verifier la syntaxe
+- Tester le script avec `bash -n script.sh` pour vérifiér la syntaxe
 - Utiliser `shellcheck` pour detecter les problemes courants
 
 ```bash

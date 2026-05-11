@@ -1,7 +1,7 @@
 ---
 title: stat
 category: fichiers
-description: Afficher les informations detaillees d'un fichier
+description: Afficher les informations détaillées d'un fichier
 tags: [fichiers, informations, permissions, diagnostic]
 ---
 
@@ -15,14 +15,14 @@ stat [OPTIONS] FICHIER...
 
 | Option          | Description                                      |
 | --------------- | ------------------------------------------------ |
-| `-c FORMAT`     | Utiliser un format de sortie personnalise        |
-| `-f`            | Afficher les informations du systeme de fichiers |
+| `-c FORMAT`     | Utiliser un format de sortie personnalisé        |
+| `-f`            | Afficher les informations du système de fichiers |
 | `-L`            | Suivre les liens symboliques                     |
 | `-t`            | Afficher en format concis sur une ligne          |
 
 ## Exemples
 
-### Afficher les informations completes d'un fichier
+### Afficher les informations complètes d'un fichier
 
 ```bash
 $ stat /etc/hostname
@@ -53,7 +53,7 @@ $ stat -c 'Taille: %s octets - Modifie le: %y' rapport.pdf
 Taille: 245760 octets - Modifie le: 2026-05-09 16:45:00.000000000 +0200
 ```
 
-### Afficher les informations du systeme de fichiers
+### Afficher les informations du système de fichiers
 
 ```bash
 $ stat -f /home

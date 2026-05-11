@@ -2,7 +2,7 @@
 title: journalctl
 category: systeme
 description: Consulter les journaux systemd
-tags: [systeme, journaux, logs, systemd]
+tags: [système, journaux, logs, systemd]
 ---
 
 ## Syntaxe
@@ -18,11 +18,11 @@ journalctl [OPTIONS] [FILTRES]
 | `-u`            | Filtrer par unite systemd                      |
 | `-f`            | Suivre les nouveaux messages en temps reel     |
 | `-n`            | Afficher les N derniers messages               |
-| `-p`            | Filtrer par priorite (emerg, alert, crit, err) |
+| `-p`            | Filtrer par priorité (emerg, alert, crit, err) |
 | `--since`       | Afficher les messages depuis une date          |
 | `--until`       | Afficher les messages jusqu'a une date         |
-| `-b`            | Afficher les messages du demarrage courant     |
-| `--disk-usage`  | Afficher l'espace disque utilise par les logs  |
+| `-b`            | Afficher les messages du démarrage courant     |
+| `--disk-usage`  | Afficher l'espace disque utilisé par les logs  |
 
 ## Exemples
 
@@ -54,14 +54,14 @@ mai 10 11:42:18 serveur sshd[3421]: error: PAM: Authentication failure for user 
 mai 10 13:05:44 serveur nginx[1205]: connect() failed (111: Connection refused)
 ```
 
-### Afficher l'espace disque utilise par les journaux
+### Afficher l'espace disque utilisé par les journaux
 
 ```bash
 $ journalctl --disk-usage
 Archived and active journals take up 256.0M in the file system.
 ```
 
-### Consulter les messages du dernier demarrage
+### Consulter les messages du dernier démarrage
 
 ```bash
 $ journalctl -b -1 -p warning

@@ -2,7 +2,7 @@
 title: column
 category: editeurs
 description: Formater du texte en colonnes
-tags: [editeur, texte, formatage, tableau]
+tags: [éditeur, texte, formatage, tableau]
 ---
 
 ## Syntaxe
@@ -16,7 +16,7 @@ column [OPTIONS] [FICHIER...]
 | Option       | Description                                      |
 | ------------ | ------------------------------------------------ |
 | `-t`         | Creer un tableau avec des colonnes alignees      |
-| `-s DELIM`   | Specifier le delimiteur d'entree                 |
+| `-s DELIM`   | Specifier le delimiteur d'entrée                 |
 | `-o DELIM`   | Specifier le delimiteur de sortie                |
 | `-N NOMS`    | Definir les noms des colonnes                    |
 | `-J`         | Sortie au format JSON                            |
@@ -30,13 +30,13 @@ $ cat services.csv
 nom,port,statut
 nginx,80,actif
 postgres,5432,actif
-redis,6379,arrete
+redis,6379,arrête
 
 $ column -t -s ',' services.csv
 nom       port  statut
 nginx     80    actif
 postgres  5432  actif
-redis     6379  arrete
+redis     6379  arrête
 ```
 
 ### Afficher la sortie d'une commande en colonnes
@@ -48,7 +48,7 @@ $ mount | column -t
 tmpfs      on  /tmp   type  tmpfs  (rw,nosuid)
 ```
 
-### Definir des noms de colonnes personnalises
+### Definir des noms de colonnes personnalisés
 
 ```bash
 $ echo -e "web-01 192.168.1.10 actif\ndb-01 192.168.1.20 actif" | \

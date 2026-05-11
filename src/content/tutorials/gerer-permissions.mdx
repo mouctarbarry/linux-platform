@@ -1,32 +1,32 @@
 ---
 title: "Gerer les permissions de fichiers"
-description: "Maitrisez les permissions Linux avec chmod, chown, chgrp et umask. Decouvrez les permissions speciales SUID, SGID, sticky bit ainsi que les listes de controle d'acces (ACL)."
-tags: [permissions, chmod, chown, acl, securite, fichiers]
-difficulty: "debutant"
+description: "Maitrisez les permissions Linux avec chmod, chown, chgrp et umask. Découvrez les permissions speciales SUID, SGID, sticky bit ainsi que les listes de contrôle d'accès (ACL)."
+tags: [permissions, chmod, chown, acl, sécurité, fichiers]
+difficulty: "débutant"
 order: 6
 ---
 
 ## Introduction
 
-Sous Linux, chaque fichier et repertoire possede un jeu de permissions qui determine qui peut le lire, le modifier ou l'executer. Comprendre ce systeme est indispensable pour securiser un serveur et organiser le travail en equipe.
+Sous Linux, chaque fichier et répertoire possede un jeu de permissions qui déterminé qui peut le lire, le modifier ou l'exécuter. Comprendre ce système est indispensable pour sécurisér un serveur et organisér le travail en equipe.
 
 ## Les permissions de base
 
-Chaque fichier possede trois niveaux de permissions pour trois categories :
+Chaque fichier possede trois niveaux de permissions pour trois catégories :
 
 | Categorie | Lettre | Description |
 |---|---|---|
 | Proprietaire (user) | `u` | L'utilisateur qui possede le fichier |
-| Groupe (group) | `g` | Le groupe associe au fichier |
-| Autres (others) | `o` | Tous les autres utilisateurs |
+| Groupe (group) | `g` | Le groupe associé au fichier |
+| Autrès (others) | `o` | Tous les autres utilisateurs |
 
 Et trois types de droits :
 
-| Droit | Lettre | Valeur octale | Effet sur un fichier | Effet sur un repertoire |
+| Droit | Lettre | Valeur octale | Effet sur un fichier | Effet sur un répertoire |
 |---|---|---|---|---|
 | Lecture | `r` | 4 | Lire le contenu | Lister le contenu |
 | Ecriture | `w` | 2 | Modifier le contenu | Creer/supprimer des fichiers |
-| Execution | `x` | 1 | Executer le fichier | Acceder au repertoire |
+| Execution | `x` | 1 | Executer le fichier | Acceder au répertoire |
 
 ### Lire les permissions
 
@@ -34,20 +34,20 @@ Et trois types de droits :
 ls -l document.txt
 ```
 
-Resultat : `-rw-r--r-- 1 jean developpeurs 1024 jan 15 10:30 document.txt`
+Resultat : `-rw-r--r-- 1 jean développeurs 1024 jan 15 10:30 document.txt`
 
-Le premier caractere indique le type (`-` fichier, `d` repertoire, `l` lien). Les neuf caracteres suivants representent les permissions : `rw-` (proprietaire), `r--` (groupe), `r--` (autres).
+Le premier caractère indique le type (`-` fichier, `d` répertoire, `l` lien). Les neuf caractères suivants représentent les permissions : `rw-` (propriétaire), `r--` (groupe), `r--` (autres).
 
 ## chmod -- Modifier les permissions
 
 ### Notation symbolique
 
 ```bash
-chmod u+x script.sh          # ajouter l'execution pour le proprietaire
-chmod g+rw fichier.txt        # ajouter lecture et ecriture pour le groupe
+chmod u+x script.sh          # ajouter l'exécution pour le propriétaire
+chmod g+rw fichier.txt        # ajouter lecture et écriture pour le groupe
 chmod o-r fichier.txt         # retirer la lecture pour les autres
 chmod a+r fichier.txt         # ajouter la lecture pour tout le monde
-chmod u=rwx,g=rx,o= script.sh # definir les permissions exactes
+chmod u=rwx,g=rx,o= script.sh # définir les permissions exactes
 ```
 
 ### Notation octale
@@ -63,44 +63,44 @@ chmod 660 partage.txt         # rw-rw----
 
 | Valeur | Permissions | Usage courant |
 |---|---|---|
-| `755` | `rwxr-xr-x` | Scripts, repertoires publics |
+| `755` | `rwxr-xr-x` | Scripts, répertoires publics |
 | `644` | `rw-r--r--` | Fichiers de configuration |
-| `700` | `rwx------` | Repertoires prives, cles SSH |
+| `700` | `rwx------` | Répertoires prives, clés SSH |
 | `600` | `rw-------` | Fichiers sensibles |
 
 ### Application recursive
 
 ```bash
-chmod -R 755 /var/www/html    # appliquer a tous les fichiers et sous-repertoires
+chmod -R 755 /var/www/html    # appliquer a tous les fichiers et sous-répertoires
 ```
 
-## chown et chgrp -- Changer le proprietaire et le groupe
+## chown et chgrp -- Changer le propriétaire et le groupe
 
-### chown -- Changer le proprietaire
+### chown -- Changer le propriétaire
 
 ```bash
-sudo chown jean fichier.txt                # changer le proprietaire
-sudo chown jean:developpeurs fichier.txt   # changer proprietaire et groupe
+sudo chown jean fichier.txt                # changer le propriétaire
+sudo chown jean:développeurs fichier.txt   # changer propriétaire et groupe
 sudo chown -R www-data:www-data /var/www   # recursivement
 ```
 
 ### chgrp -- Changer le groupe
 
 ```bash
-sudo chgrp developpeurs projet/
-sudo chgrp -R developpeurs projet/
+sudo chgrp développeurs projet/
+sudo chgrp -R développeurs projet/
 ```
 
-## umask -- Permissions par defaut
+## umask -- Permissions par défaut
 
-Le **umask** definit les permissions retirees lors de la creation de nouveaux fichiers et repertoires. La valeur par defaut est generalement `022`.
+Le **umask** définit les permissions retirées lors de la creation de nouveaux fichiers et répertoires. La valeur par défaut est généralement `022`.
 
 ```bash
 umask                          # afficher le umask actuel
-umask 027                      # nouveaux fichiers : 640, nouveaux repertoires : 750
+umask 027                      # nouveaux fichiers : 640, nouveaux répertoires : 750
 ```
 
-| umask | Fichiers crees | Repertoires crees |
+| umask | Fichiers créés | Répertoires créés |
 |---|---|---|
 | `022` | `644` (rw-r--r--) | `755` (rwxr-xr-x) |
 | `027` | `640` (rw-r-----) | `750` (rwxr-x---) |
@@ -116,7 +116,7 @@ echo "umask 027" >> ~/.bashrc
 
 ### SUID (Set User ID) -- Valeur octale : 4000
 
-Lorsqu'un fichier a le bit SUID, il s'execute avec les permissions de son proprietaire, quel que soit l'utilisateur qui le lance.
+Lorsqu'un fichier a le bit SUID, il s'exécute avec les permissions de son propriétaire, quel que soit l'utilisateur qui le lance.
 
 ```bash
 chmod u+s /usr/bin/mon_programme
@@ -126,26 +126,26 @@ ls -l /usr/bin/passwd          # exemple classique : -rwsr-xr-x
 
 ### SGID (Set Group ID) -- Valeur octale : 2000
 
-Sur un fichier, il s'execute avec les permissions du groupe. Sur un repertoire, les nouveaux fichiers heritent du groupe du repertoire parent.
+Sur un fichier, il s'exécute avec les permissions du groupe. Sur un répertoire, les nouveaux fichiers heritent du groupe du répertoire parent.
 
 ```bash
 chmod g+s /opt/projet/
 chmod 2775 /opt/projet/
 ```
 
-Cas pratique pour un repertoire partage :
+Cas pratique pour un répertoire partage :
 
 ```bash
 sudo mkdir /opt/equipe
-sudo chown :developpeurs /opt/equipe
+sudo chown :développeurs /opt/equipe
 sudo chmod 2775 /opt/equipe
 ```
 
-Tous les fichiers crees dans `/opt/equipe` appartiendront automatiquement au groupe `developpeurs`.
+Tous les fichiers créés dans `/opt/equipe` appartiendront automatiquement au groupe `développeurs`.
 
 ### Sticky bit -- Valeur octale : 1000
 
-Sur un repertoire, seul le proprietaire d'un fichier (ou root) peut le supprimer, meme si d'autres ont le droit d'ecriture. C'est le cas de `/tmp`.
+Sur un répertoire, seul le propriétaire d'un fichier (ou root) peut le supprimer, meme si d'autres ont le droit d'écriture. C'est le cas de `/tmp`.
 
 ```bash
 chmod +t /opt/partage/
@@ -153,9 +153,9 @@ chmod 1777 /opt/partage/
 ls -ld /tmp                    # drwxrwxrwt -- le 't' indique le sticky bit
 ```
 
-## ACL -- Listes de controle d'acces
+## ACL -- Listes de contrôle d'acces
 
-Les ACL permettent de definir des permissions plus fines que le modele classique proprietaire/groupe/autres.
+Les ACL permettent de définir des permissions plus fines que le modèle classique propriétaire/groupe/autres.
 
 ### Installer le support ACL
 
@@ -173,14 +173,14 @@ getfacl fichier.txt
 ### setfacl -- Definir des ACL
 
 ```bash
-# Donner la lecture et l'ecriture a un utilisateur specifique
+# Donner la lecture et l'écriture a un utilisateur spécifique
 setfacl -m u:marie:rw fichier.txt
 
-# Donner la lecture a un groupe specifique
+# Donner la lecture a un groupe spécifique
 setfacl -m g:stagiaires:r fichier.txt
 
-# Definir des ACL par defaut sur un repertoire (appliquees aux nouveaux fichiers)
-setfacl -d -m g:developpeurs:rwx /opt/projet/
+# Definir des ACL par défaut sur un répertoire (appliquees aux nouveaux fichiers)
+setfacl -d -m g:développeurs:rwx /opt/projet/
 
 # Supprimer les ACL d'un utilisateur
 setfacl -x u:marie fichier.txt
@@ -191,16 +191,16 @@ setfacl -b fichier.txt
 
 ### Exemple pratique
 
-Un repertoire de projet ou les developpeurs ont tous les droits et les stagiaires n'ont que la lecture :
+Un répertoire de projet où les développeurs ont tous les droits et les stagiaires n'ont que la lecture :
 
 ```bash
 sudo mkdir /opt/projet
-sudo setfacl -m g:developpeurs:rwx /opt/projet
+sudo setfacl -m g:développeurs:rwx /opt/projet
 sudo setfacl -m g:stagiaires:rx /opt/projet
-sudo setfacl -d -m g:developpeurs:rwx /opt/projet
+sudo setfacl -d -m g:développeurs:rwx /opt/projet
 sudo setfacl -d -m g:stagiaires:rx /opt/projet
 ```
 
 ## Conclusion
 
-Le systeme de permissions Linux -- des droits classiques aux ACL en passant par les permissions speciales -- offre un controle d'acces granulaire et robuste. Prenez l'habitude de verifier les permissions avec `ls -l` et `getfacl`, et appliquez le principe du moindre privilege : n'accordez que les droits strictement necessaires.
+Le système de permissions Linux -- des droits classiques aux ACL en passant par les permissions speciales -- offre un contrôle d'accès granulaire et robuste. Prenez l'habitude de vérifiér les permissions avec `ls -l` et `getfacl`, et appliquez le principe du moindre privilege : n'accordez que les droits strictement nécessaires.

@@ -1,20 +1,20 @@
 ---
 title: "Gerer le pare-feu sous Linux"
-description: "Configurez le pare-feu de votre serveur Linux avec UFW, firewalld et iptables. Apprenez a proteger vos services avec des regles adaptees a chaque scenario."
-tags: [pare-feu, ufw, firewalld, iptables, securite, reseau]
-difficulty: "intermediaire"
+description: "Configurez le pare-feu de votre serveur Linux avec UFW, firewalld et iptables. Apprenez a protégér vos services avec des règles adaptees a chaque scenario."
+tags: [pare-feu, ufw, firewalld, iptables, sécurité, réseau]
+difficulty: "intermédiaire"
 order: 4
 ---
 
 ## Introduction
 
-Le pare-feu est la premiere ligne de defense d'un serveur Linux. Il filtre le trafic reseau entrant et sortant selon des regles definies par l'administrateur. Ce tutoriel couvre trois outils : **UFW** (simple), **firewalld** (base sur des zones) et **iptables** (bas niveau).
+Le pare-feu est la première ligne de defense d'un serveur Linux. Il filtre le trafic réseau entrant et sortant selon des règles définies par l'administrateur. Ce tutoriel couvre trois outils : **UFW** (simple), **firewalld** (base sur des zones) et **iptables** (bas niveau).
 
 ## UFW -- Uncomplicated Firewall (Debian/Ubuntu)
 
-UFW est une interface simplifiee pour iptables, installee par defaut sur Ubuntu.
+UFW est une interface simplifiee pour iptables, installee par défaut sur Ubuntu.
 
-### Activer et verifier le pare-feu
+### Activer et vérifiér le pare-feu
 
 ```bash
 sudo ufw enable
@@ -35,26 +35,26 @@ sudo ufw allow ssh                  # autoriser SSH (port 22)
 sudo ufw allow 80/tcp               # autoriser HTTP
 sudo ufw allow 443/tcp              # autoriser HTTPS
 sudo ufw allow 8080:8090/tcp        # autoriser une plage de ports
-sudo ufw deny 3306/tcp              # bloquer MySQL depuis l'exterieur
+sudo ufw deny 3306/tcp              # bloquer MySQL depuis l'extérieur
 ```
 
 ### Regles par adresse IP
 
 ```bash
-sudo ufw allow from 192.168.1.0/24 to any port 22    # SSH depuis le reseau local uniquement
-sudo ufw deny from 10.0.0.5                           # bloquer une IP specifique
+sudo ufw allow from 192.168.1.0/24 to any port 22    # SSH depuis le réseau local uniquement
+sudo ufw deny from 10.0.0.5                           # bloquer une IP spécifique
 ```
 
-### Supprimer une regle
+### Supprimer une règle
 
 ```bash
 sudo ufw status numbered
-sudo ufw delete 3                    # supprimer la regle numero 3
+sudo ufw delete 3                    # supprimer la règle numero 3
 ```
 
 ## firewalld -- Fedora, RHEL et CentOS
 
-firewalld utilise le concept de **zones** pour appliquer differents niveaux de confiance selon l'interface reseau ou la source.
+firewalld utilisé le concept de **zones** pour appliquer différents niveaux de confiance selon l'interface réseau où la source.
 
 ### Verifier l'etat
 
@@ -70,7 +70,7 @@ sudo firewall-cmd --get-active-zones
 |---|---|
 | `drop` | Tout est rejete sans reponse |
 | `block` | Tout est rejete avec un message ICMP |
-| `public` | Zone par defaut -- seuls les services autorises passent |
+| `public` | Zone par défaut -- seuls les services autorises passent |
 | `internal` | Reseau interne de confiance |
 | `trusted` | Tout le trafic est accepte |
 
@@ -83,27 +83,27 @@ sudo firewall-cmd --zone=public --add-port=8080/tcp --permanent
 sudo firewall-cmd --reload
 ```
 
-### Lister les regles actives
+### Lister les règles actives
 
 ```bash
 sudo firewall-cmd --zone=public --list-all
 sudo firewall-cmd --list-services
 ```
 
-### Supprimer une regle
+### Supprimer une règle
 
 ```bash
 sudo firewall-cmd --zone=public --remove-service=http --permanent
 sudo firewall-cmd --reload
 ```
 
-## iptables -- Le socle bas niveau
+## iptables -- Le soclé bas niveau
 
 iptables est l'outil historique de filtrage de paquets sous Linux. UFW et firewalld s'appuient dessus en coulisses.
 
 ### Concepts fondamentaux
 
-iptables organise les regles en **chaines** :
+iptables organisé les règles en **chaines** :
 
 | Chaine | Role |
 |---|---|
@@ -111,10 +111,10 @@ iptables organise les regles en **chaines** :
 | `OUTPUT` | Trafic sortant depuis la machine |
 | `FORWARD` | Trafic qui traverse la machine (routage) |
 
-### Exemples de regles
+### Exemples de règles
 
 ```bash
-# Afficher les regles actuelles
+# Afficher les règles actuelles
 sudo iptables -L -n -v
 
 # Autoriser le trafic sur l'interface loopback
@@ -134,7 +134,7 @@ sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 sudo iptables -A INPUT -j DROP
 ```
 
-### Sauvegarder et restaurer les regles
+### Sauvegarder et restaurer les règles
 
 ```bash
 sudo iptables-save > /etc/iptables/rules.v4
@@ -166,7 +166,7 @@ sudo ufw enable
 
 ### NAT avec iptables (passerelle Internet)
 
-Pour partager une connexion Internet depuis l'interface `eth0` vers un reseau local sur `eth1` :
+Pour partager une connexion Internet depuis l'interface `eth0` vers un réseau local sur `eth1` :
 
 ```bash
 # Activer le routage IP
@@ -186,4 +186,4 @@ net.ipv4.ip_forward = 1
 
 ## Conclusion
 
-Le choix de l'outil depend de votre distribution et de la complexite de vos besoins. UFW convient parfaitement aux serveurs simples, firewalld offre une gestion par zones adaptee aux environnements multi-interfaces, et iptables reste incontournable pour les configurations avancees comme le NAT ou le filtrage fin.
+Le choix de l'outil depend de votre distribution et de la complexité de vos besoins. UFW convient parfaitement aux serveurs simples, firewalld offre une gestion par zones adaptee aux environnements multi-interfaces, et iptables reste incontournable pour les configurations avancees comme le NAT où le filtrage fin.

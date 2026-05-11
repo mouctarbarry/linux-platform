@@ -1,16 +1,16 @@
 ---
-title: "Configurer et securiser SSH"
-description: "Guide complet pour generer des cles SSH, configurer le client et le serveur, mettre en place le tunneling et durcir la securite de vos connexions distantes."
-tags: [ssh, securite, cles, tunneling, sshd]
-difficulty: "intermediaire"
+title: "Configurer et sécurisér SSH"
+description: "Guide complet pour générer des clés SSH, configurer le client et le serveur, mettre en place le tunneling et durcir la sécurité de vos connexions distantes."
+tags: [ssh, sécurité, clés, tunneling, sshd]
+difficulty: "intermédiaire"
 order: 2
 ---
 
 ## Introduction
 
-SSH (Secure Shell) est le protocole standard pour administrer des serveurs Linux a distance. Ce tutoriel couvre la generation de cles, la configuration client et serveur, le tunneling et les bonnes pratiques de securite.
+SSH (Secure Shell) est le protocole standard pour administrer des serveurs Linux a distance. Ce tutoriel couvre la generation de clés, la configuration client et serveur, le tunneling et les bonnes pratiques de sécurité.
 
-## Generer une paire de cles SSH
+## Generer une paire de clés SSH
 
 L'algorithme recommande aujourd'hui est **Ed25519**, plus rapide et plus sur que RSA.
 
@@ -18,22 +18,22 @@ L'algorithme recommande aujourd'hui est **Ed25519**, plus rapide et plus sur que
 ssh-keygen -t ed25519 -C "votre.email@exemple.fr"
 ```
 
-La commande cree deux fichiers dans `~/.ssh/` :
+La commande créé deux fichiers dans `~/.ssh/` :
 
 | Fichier | Role |
 |---|---|
 | `id_ed25519` | Cle privee -- ne jamais la partager |
 | `id_ed25519.pub` | Cle publique -- a copier sur les serveurs |
 
-Pour proteger votre cle avec une passphrase forte, repondez a l'invite lors de la generation.
+Pour protégér votre clé avec une passphrase forte, repondez a l'invite lors de la generation.
 
-## Copier la cle publique sur un serveur
+## Copier la clé publique sur un serveur
 
 ```bash
 ssh-copy-id -i ~/.ssh/id_ed25519.pub utilisateur@serveur
 ```
 
-Cette commande ajoute votre cle publique dans le fichier `~/.ssh/authorized_keys` du serveur. Vous pouvez ensuite vous connecter sans mot de passe :
+Cette commande ajoute votre clé publique dans le fichier `~/.ssh/authorized_keys` du serveur. Vous pouvez ensuite vous connecter sans mot de passe :
 
 ```bash
 ssh utilisateur@serveur
@@ -41,7 +41,7 @@ ssh utilisateur@serveur
 
 ## Le fichier de configuration client ~/.ssh/config
 
-Ce fichier permet de definir des alias et des options par hote pour simplifier vos connexions.
+Ce fichier permet de définir des alias et des options par hôte pour simplifier vos connexions.
 
 ```bash
 # ~/.ssh/config
@@ -68,20 +68,20 @@ ssh staging
 
 ## L'agent SSH
 
-L'agent SSH garde vos cles deverrouillees en memoire pour eviter de retaper la passphrase a chaque connexion.
+L'agent SSH garde vos clés deverrouillees en mémoire pour eviter de rétaper la passphrase a chaque connexion.
 
 ```bash
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 ```
 
-Pour lister les cles chargees :
+Pour lister les clés chargees :
 
 ```bash
 ssh-add -l
 ```
 
-Pour supprimer toutes les cles de l'agent :
+Pour supprimer toutes les clés de l'agent :
 
 ```bash
 ssh-add -D
@@ -91,7 +91,7 @@ ssh-add -D
 
 ### Redirection locale (Local Port Forwarding)
 
-Acceder a un service distant (par exemple une base de donnees sur le port 5432) via un tunnel local :
+Acceder a un service distant (par exemple une base de données sur le port 5432) via un tunnel local :
 
 ```bash
 ssh -L 5432:localhost:5432 utilisateur@serveur
@@ -123,16 +123,16 @@ Editez le fichier `/etc/ssh/sshd_config` pour durcir la configuration du serveur
 sudo nano /etc/ssh/sshd_config
 ```
 
-### Parametres recommandes
+### Parametrès recommandes
 
 ```bash
-Port 2222                         # changer le port par defaut
+Port 2222                         # changer le port par défaut
 PermitRootLogin no                # interdire la connexion root
-PasswordAuthentication no         # desactiver l'authentification par mot de passe
+PasswordAuthentication no         # désactiver l'authentification par mot de passe
 PubkeyAuthentication yes          # activer l'authentification par cle
 MaxAuthTries 3                    # limiter les tentatives
 AllowUsers admin deploy           # restreindre les utilisateurs autorises
-ClientAliveInterval 300           # deconnexion apres 5 min d'inactivite
+ClientAliveInterval 300           # deconnexion après 5 min d'inactivité
 ClientAliveCountMax 2
 Protocol 2                        # forcer le protocole 2
 ```
@@ -143,17 +143,17 @@ Apres modification, redemarrez le service :
 sudo systemctl restart sshd
 ```
 
-### Verifier la configuration avant de redemarrer
+### Verifier la configuration avant de redémarrer
 
 ```bash
 sudo sshd -t
 ```
 
-Cette commande valide la syntaxe du fichier de configuration. Si elle ne renvoie aucune erreur, le redemarrage est sans risque.
+Cette commande valide la syntaxe du fichier de configuration. Si elle ne renvoie aucune erreur, le redémarrage est sans risque.
 
-## Gestion des cles sur le serveur
+## Gestion des clés sur le serveur
 
-### Lister les cles autorisees
+### Lister les clés autorisees
 
 ```bash
 cat ~/.ssh/authorized_keys
@@ -161,7 +161,7 @@ cat ~/.ssh/authorized_keys
 
 ### Revoquer une cle
 
-Editez le fichier `authorized_keys` et supprimez la ligne correspondant a la cle a revoquer :
+Editez le fichier `authorized_keys` et supprimez la ligne correspondant a la clé a revoquer :
 
 ```bash
 nano ~/.ssh/authorized_keys
@@ -169,7 +169,7 @@ nano ~/.ssh/authorized_keys
 
 ### Permissions requises
 
-Les permissions doivent etre strictes, sinon SSH refusera la connexion :
+Les permissions doivent être strictes, sinon SSH refusera la connexion :
 
 ```bash
 chmod 700 ~/.ssh
@@ -180,4 +180,4 @@ chmod 644 ~/.ssh/id_ed25519.pub
 
 ## Conclusion
 
-SSH est un outil indispensable pour tout administrateur Linux. Une configuration correcte -- cles Ed25519, agent SSH, fichier de configuration client et serveur durci -- vous permettra de travailler efficacement et en toute securite sur vos machines distantes.
+SSH est un outil indispensable pour tout administrateur Linux. Une configuration correcte -- clés Ed25519, agent SSH, fichier de configuration client et serveur durci -- vous permettra de travailler efficacement et en toute sécurité sur vos machines distantes.

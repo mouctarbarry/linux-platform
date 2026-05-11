@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Tutoriels Linux — Linux Platform',
-  description: 'Tutoriels pratiques pour apprendre Linux pas a pas.',
+  description: 'Tutoriels pratiques pour apprendre Linux pas à pas.',
 };
 
 export default function TutorialsPage() {
@@ -14,10 +14,10 @@ export default function TutorialsPage() {
     <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="mb-2 text-3xl font-bold">Tutoriels</h1>
       <p className="text-muted-foreground mb-8 text-lg">
-        Guides pratiques pas a pas pour maitriser Linux, du debutant a l&apos;avance.
+        Guides pratiques pas à pas pour maîtriser Linux, du débutant à l&apos;avancé.
       </p>
       {tutorials.length === 0 ? (
-        <p className="text-muted-foreground">Les tutoriels arrivent bientot.</p>
+        <p className="text-muted-foreground">Les tutoriels arrivent bientôt.</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tutorials.map((tuto) => (

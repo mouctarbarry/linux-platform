@@ -16,22 +16,22 @@ groupadd [OPTIONS] NOM_GROUPE
 | Option      | Description                                      |
 | ----------- | ------------------------------------------------ |
 | `-g GID`    | Specifier le GID du nouveau groupe               |
-| `-r`        | Creer un groupe systeme                          |
-| `-f`        | Quitter sans erreur si le groupe existe deja     |
+| `-r`        | Creer un groupe système                          |
+| `-f`        | Quitter sans erreur si le groupe existe déjà     |
 | `-o`        | Autoriser un GID non unique                      |
-| `-K CLE=V`  | Remplacer les valeurs par defaut de login.defs   |
+| `-K CLE=V`  | Remplacer les valeurs par défaut de login.defs   |
 
 ## Exemples
 
 ### Creer un groupe simple
 
 ```bash
-$ sudo groupadd developpeurs
-$ grep developpeurs /etc/group
-developpeurs:x:1001:
+$ sudo groupadd développeurs
+$ grep développeurs /etc/group
+développeurs:x:1001:
 ```
 
-### Creer un groupe avec un GID specifique
+### Creer un groupe avec un GID spécifique
 
 ```bash
 $ sudo groupadd -g 2000 production
@@ -39,7 +39,7 @@ $ grep production /etc/group
 production:x:2000:
 ```
 
-### Creer un groupe systeme
+### Creer un groupe système
 
 ```bash
 $ sudo groupadd -r monitoring
@@ -61,7 +61,7 @@ webmasters:x:1002:mouctar,alice
 
 ```bash
 $ getent group | grep -E "dev|prod|web"
-developpeurs:x:1001:
+développeurs:x:1001:
 production:x:2000:
 webmasters:x:1002:mouctar,alice
 ```

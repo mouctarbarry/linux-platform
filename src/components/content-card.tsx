@@ -16,9 +16,9 @@ const DIFFICULTY_STYLES = {
 } as const;
 
 const DIFFICULTY_LABELS = {
-  debutant: 'Debutant',
-  intermediaire: 'Intermediaire',
-  avance: 'Avance',
+  debutant: 'Débutant',
+  intermediaire: 'Intermédiaire',
+  avance: 'Avancé',
 } as const;
 
 export function ContentCard({

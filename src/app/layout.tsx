@@ -25,11 +25,11 @@ const ubuntuMono = Ubuntu_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Linux Platform — Reference interactive des commandes Linux',
+    default: 'Linux Platform — Référence interactive des commandes Linux',
     template: '%s — Linux Platform',
   },
   description:
-    'Explorez 113+ commandes Linux avec exemples pratiques, tutoriels, guides complets, glossaire et FAQ. Recherche instantanee et navigation par categories.',
+    'Explorez 113+ commandes Linux avec exemples pratiques, tutoriels, guides complets, glossaire et FAQ. Recherche instantanée et navigation par catégories.',
   metadataBase: new URL('https://linux.mouctar.fr'),
   icons: {
     icon: '/favicon.svg',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'fr_FR',
     siteName: 'Linux Platform',
-    title: 'Linux Platform — Reference interactive des commandes Linux',
+    title: 'Linux Platform — Référence interactive des commandes Linux',
     description:
       'Explorez 113+ commandes Linux avec exemples pratiques, tutoriels, guides complets, glossaire et FAQ.',
   },

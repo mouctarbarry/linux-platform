@@ -1,35 +1,35 @@
 ---
 title: "Gerer les services avec systemd"
-description: "Maitrisez systemctl pour controler les services, creez vos propres unites, consultez les journaux avec journalctl et utilisez les timers comme alternative a cron."
+description: "Maitrisez systemctl pour contrôler les services, creez vos propres unites, consultez les journaux avec journalctl et utilisez les timers comme alternative a cron."
 tags: [systemd, systemctl, journalctl, services, timers]
-difficulty: "intermediaire"
+difficulty: "intermédiaire"
 order: 3
 ---
 
 ## Introduction
 
-**systemd** est le systeme d'initialisation et le gestionnaire de services utilise par la majorite des distributions Linux modernes (Debian, Ubuntu, Fedora, Arch, etc.). Il remplace les anciens systemes SysVinit et Upstart.
+**systemd** est le système d'initialisation et le gestionnaire de services utilisé par la majorité des distributions Linux modernes (Debian, Ubuntu, Fedora, Arch, etc.). Il remplacé les anciens systèmes SysVinit et Upstart.
 
 ## Commandes systemctl essentielles
 
 ### Controler un service
 
 ```bash
-sudo systemctl start nginx       # demarrer un service
-sudo systemctl stop nginx        # arreter un service
-sudo systemctl restart nginx     # redemarrer un service
+sudo systemctl start nginx       # démarrer un service
+sudo systemctl stop nginx        # arrêter un service
+sudo systemctl restart nginx     # redémarrer un service
 sudo systemctl reload nginx      # recharger la configuration sans couper le service
 ```
 
-### Activer ou desactiver au demarrage
+### Activer ou désactiver au démarrage
 
 ```bash
-sudo systemctl enable nginx      # demarrage automatique au boot
-sudo systemctl disable nginx     # ne pas demarrer au boot
-sudo systemctl enable --now nginx # activer et demarrer immediatement
+sudo systemctl enable nginx      # démarrage automatique au boot
+sudo systemctl disable nginx     # ne pas démarrer au boot
+sudo systemctl enable --now nginx # activer et démarrer immédiatement
 ```
 
-### Verifier l'etat d'un service
+### Verifier l'état d'un service
 
 ```bash
 systemctl status nginx
@@ -45,7 +45,7 @@ systemctl list-units --type=service --state=running
 systemctl list-unit-files --type=service
 ```
 
-## Creer un service personnalise
+## Creer un service personnalisé
 
 Supposons que vous avez une application Node.js a faire tourner en tant que service.
 
@@ -75,7 +75,7 @@ Environment=NODE_ENV=production
 WantedBy=multi-user.target
 ```
 
-### Activer et demarrer le service
+### Activer et démarrer le service
 
 ```bash
 sudo systemctl daemon-reload
@@ -87,15 +87,15 @@ systemctl status mon-app.service
 
 | Section | Role |
 |---|---|
-| `[Unit]` | Description et dependances (After, Requires, Wants) |
-| `[Service]` | Type de service, commande de demarrage, utilisateur, redemarrage |
+| `[Unit]` | Description et dépendances (After, Requires, Wants) |
+| `[Service]` | Type de service, commande de démarrage, utilisateur, redémarrage |
 | `[Install]` | Cible dans laquelle le service est active |
 
 ## Journalctl -- Consulter les journaux
 
 systemd centralise tous les journaux via **journald**. La commande `journalctl` permet de les consulter.
 
-### Journaux d'un service specifique
+### Journaux d'un service spécifique
 
 ```bash
 journalctl -u nginx.service
@@ -103,11 +103,11 @@ journalctl -u nginx.service -f          # suivre en temps reel (comme tail -f)
 journalctl -u nginx.service --since today
 ```
 
-### Journaux du systeme
+### Journaux du système
 
 ```bash
-journalctl -b                            # journaux depuis le dernier demarrage
-journalctl -b -1                         # journaux du demarrage precedent
+journalctl -b                            # journaux depuis le dernier démarrage
+journalctl -b -1                         # journaux du démarrage précédént
 journalctl --since "2025-01-15 08:00"
 journalctl -p err                        # uniquement les erreurs
 ```
@@ -122,11 +122,11 @@ sudo journalctl --vacuum-time=30d        # supprimer les journaux de plus de 30 
 
 ## Les timers systemd -- Alternative a cron
 
-Les timers systemd offrent une alternative moderne a cron avec une meilleure integration aux journaux et une gestion fine des dependances.
+Les timers systemd offrent une alternative moderne a cron avec une meilleure intégration aux journaux et une gestion fine des dépendances.
 
 ### Creer un timer
 
-Creez d'abord un service qui execute la tache :
+Creez d'abord un service qui exécuté la tache :
 
 ```bash
 # /etc/systemd/system/sauvegarde.service
@@ -138,7 +138,7 @@ Type=oneshot
 ExecStart=/usr/local/bin/sauvegarde.sh
 ```
 
-Puis le timer associe :
+Puis le timer associé :
 
 ```bash
 # /etc/systemd/system/sauvegarde.timer
@@ -166,17 +166,17 @@ sudo systemctl enable --now sauvegarde.timer
 systemctl list-timers --all
 ```
 
-## Cibles (targets) et niveaux d'execution
+## Cibles (targets) et niveaux d'exécution
 
-Les cibles systemd remplacent les anciens niveaux d'execution (runlevels) de SysVinit.
+Les cibles systemd remplacent les anciens niveaux d'exécution (runlevels) de SysVinit.
 
 | Ancien runlevel | Cible systemd | Description |
 |---|---|---|
-| 0 | `poweroff.target` | Arret du systeme |
+| 0 | `poweroff.target` | Arret du système |
 | 1 | `rescue.target` | Mode de secours (mono-utilisateur) |
 | 3 | `multi-user.target` | Mode multi-utilisateur sans interface graphique |
 | 5 | `graphical.target` | Mode graphique |
-| 6 | `reboot.target` | Redemarrage |
+| 6 | `reboot.target` | Redémarrage |
 
 ### Changer de cible
 
@@ -185,7 +185,7 @@ sudo systemctl isolate multi-user.target   # passer en mode texte
 sudo systemctl isolate graphical.target    # passer en mode graphique
 ```
 
-### Definir la cible par defaut
+### Definir la cible par défaut
 
 ```bash
 systemctl get-default
@@ -194,4 +194,4 @@ sudo systemctl set-default multi-user.target
 
 ## Conclusion
 
-systemd est au coeur de l'administration Linux moderne. La maitrise de `systemctl` pour les services, `journalctl` pour les journaux et les timers pour la planification vous permettra de gerer efficacement n'importe quel serveur Linux.
+systemd est au coeur de l'administration Linux moderne. La maitrise de `systemctl` pour les services, `journalctl` pour les journaux et les timers pour la planification vous permettra de gérer efficacement n'importe quel serveur Linux.

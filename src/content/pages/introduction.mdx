@@ -1,46 +1,46 @@
 ---
 title: "Introduction a Linux"
-description: "Decouvrez l'histoire, la philosophie et les fondamentaux de Linux et du mouvement open source."
+description: "Découvrez l'histoire, la philosophie et les fondamentaux de Linux et du mouvement open source."
 ---
 
 ## Des origines d'Unix a Linux
 
-Pour comprendre Linux, il faut remonter aux annees 1960 et a la naissance d'Unix. Cette filiation directe explique pourquoi tant de concepts, de commandes et de conventions que vous rencontrerez sur Linux trouvent leurs racines dans un systeme vieux de plus d'un demi-siecle.
+Pour comprendre Linux, il faut remonter aux annees 1960 et a la naissance d'Unix. Cette filiation directe explique pourquoi tant de concepts, de commandes et de conventions que vous rencontrerez sur Linux trouvent leurs racines dans un système vieux de plus d'un demi-siecle.
 
 ### La naissance d'Unix aux Bell Labs
 
-En 1969, aux laboratoires Bell d'AT&T, **Ken Thompson** et **Dennis Ritchie** posent les bases d'un systeme d'exploitation qui changera l'informatique. Thompson ecrit la premiere version d'Unix en assembleur, puis Ritchie invente le langage **C** en 1972 et reecrit Unix dans ce nouveau langage. Cette decision est revolutionnaire : pour la premiere fois, un systeme d'exploitation devient portable d'une architecture materielle a une autre.
+En 1969, aux laboratoires Bell d'AT&T, **Ken Thompson** et **Dennis Ritchie** posent les bases d'un système d'exploitation qui changera l'informatique. Thompson écrit la première version d'Unix en assembleur, puis Ritchie invente le langage **C** en 1972 et reécrit Unix dans ce nouveau langage. Cette decision est revolutionnaire : pour la première fois, un système d'exploitation devient portable d'une architecture matérielle a une autre.
 
-Unix se repand rapidement dans les universites americaines au cours des annees 1970, notamment grace a la licence permissive d'AT&T. La branche **BSD** (Berkeley Software Distribution) emerge a l'Universite de Californie a Berkeley et apporte des innovations majeures comme la pile reseau TCP/IP. Cependant, a partir des annees 1980, AT&T commence a restreindre les licences, rendant Unix de plus en plus proprietaire et couteux.
+Unix se repand rapidement dans les universites americaines au cours des annees 1970, notamment grâce à la licence permissive d'AT&T. La branche **BSD** (Berkeley Software Distribution) emerge a l'Universite de Californie a Berkeley et apporte des innovations majeures comme la pile réseau TCP/IP. Cependant, a partir des annees 1980, AT&T commence a restreindre les licences, rendant Unix de plus en plus propriétaire et couteux.
 
 ### Ce qu'il faut retenir
 
-Unix a etabli des principes fondamentaux que Linux herite directement : le systeme de fichiers hierarchique, les permissions utilisateur, le concept de processus, et l'idee que tout est fichier. Lorsque vous utilisez un terminal Linux aujourd'hui, vous manipulez des concepts concus il y a plus de cinquante ans.
+Unix a etabli des principes fondamentaux que Linux herite directement : le système de fichiers hiérarchique, les permissions utilisateur, le concept de processus, et l'idee que tout est fichier. Lorsque vous utilisez un terminal Linux aujourd'hui, vous manipulez des concepts concus il y a plus de cinquante ans.
 
 ## Le projet GNU et le logiciel libre
 
 ### Richard Stallman et la liberte logicielle
 
-En 1983, **Richard Stallman**, alors chercheur au MIT, lance le **projet GNU** (GNU's Not Unix) avec un objectif ambitieux : creer un systeme d'exploitation entierement libre, compatible avec Unix. Stallman ne s'oppose pas a Unix en tant que systeme technique ; il s'oppose a la privatisation du logiciel qui empeche les utilisateurs d'etudier, modifier et partager le code.
+En 1983, **Richard Stallman**, alors chercheur au MIT, lancé le **projet GNU** (GNU's Not Unix) avec un objectif ambitieux : créer un système d'exploitation entièrement libre, compatible avec Unix. Stallman ne s'oppose pas a Unix en tant que système technique ; il s'oppose a la privatisation du logiciel qui empeche les utilisateurs d'etudier, modifier et partager le code.
 
-En 1985, il fonde la **Free Software Foundation** (FSF) et definit les quatre libertes fondamentales du logiciel libre :
+En 1985, il fonde la **Free Software Foundation** (FSF) et définit les quatre libertes fondamentales du logiciel libre :
 
-- **Liberte 0** : executer le programme comme vous le souhaitez, pour n'importe quel usage.
+- **Liberte 0** : exécuter le programme comme vous le souhaitez, pour n'importe quel usage.
 - **Liberte 1** : etudier le fonctionnement du programme et le modifier.
 - **Liberte 2** : redistribuer des copies du programme.
-- **Liberte 3** : distribuer des copies de vos versions modifiees.
+- **Liberte 3** : distribuer des copies de vos versions modifiées.
 
-Pour proteger juridiquement ces libertes, Stallman cree la licence **GPL** (GNU General Public License), qui utilise le droit d'auteur pour garantir que le code reste libre -- un mecanisme appele **copyleft**.
+Pour protégér juridiquement ces libertes, Stallman créé la licence **GPL** (GNU General Public License), qui utilisé le droit d'auteur pour garantir que le code reste libre -- un mécanisme appelé **copyleft**.
 
 ### Les outils GNU
 
-Au fil des annees, le projet GNU produit des outils essentiels que tout utilisateur Linux utilise quotidiennement, souvent sans le savoir :
+Au fil des annees, le projet GNU produit des outils essentiels que tout utilisateur Linux utilisé quotidiennement, souvent sans le savoir :
 
 ```bash
 # Le compilateur C de GNU
 gcc -o mon_programme mon_programme.c
 
-# L'editeur de texte GNU
+# L'éditeur de texte GNU
 emacs fichier.txt
 
 # Les coreutils : ls, cp, mv, rm, cat, chmod, chown...
@@ -50,37 +50,37 @@ ls -la /etc/
 bash --version
 ```
 
-A la fin des annees 1980, le projet GNU dispose d'un compilateur, d'un editeur, d'un shell, de bibliotheques et de dizaines d'utilitaires. Il ne manque qu'un element central : le **noyau**.
+A la fin des annees 1980, le projet GNU dispose d'un compilateur, d'un éditeur, d'un shell, de bibliothèques et de dizaines d'utilitaires. Il ne manque qu'un élément central : le **noyau**.
 
 ## Le noyau Linux
 
 ### Linus Torvalds et la naissance du noyau
 
-Le 25 aout 1991, un etudiant finlandais de 21 ans nomme **Linus Torvalds** publie un message devenu celebre sur le groupe Usenet `comp.os.minix` :
+Le 25 aout 1991, un etudiant finlandais de 21 ans nommé **Linus Torvalds** publie un message devenu celebre sur le groupe Usenet `comp.os.minix` :
 
 > "I'm doing a (free) operating system (just a hobby, won't be big and professional like gnu) for 386(486) AT clones."
 
-Ce qui debute comme un projet personnel -- un noyau minimaliste pour processeurs Intel 386 -- va connaitre une croissance extraordinaire. Torvalds place rapidement son code sous licence **GPL**, permettant a des developpeurs du monde entier de contribuer.
+Ce qui debute comme un projet personnel -- un noyau minimaliste pour processeurs Intel 386 -- va connaître une croissance extraordinaire. Torvalds place rapidement son code sous licence **GPL**, permettant a des développeurs du monde entier de contribuer.
 
 ### La fusion GNU/Linux
 
-Le noyau Linux, combine aux outils du projet GNU, forme un systeme d'exploitation complet et fonctionnel. C'est pourquoi certains insistent sur l'appellation **GNU/Linux** plutot que simplement "Linux" : le noyau seul ne constitue pas un systeme utilisable.
+Le noyau Linux, combiné aux outils du projet GNU, forme un système d'exploitation complet et fonctionnel. C'est pourquoi certains insistent sur l'appellation **GNU/Linux** plutot que simplement "Linux" : le noyau seul ne constitue pas un système utilisable.
 
-En pratique, un systeme GNU/Linux comprend :
+En pratique, un système GNU/Linux comprend :
 
-- Le **noyau Linux** : gestion du materiel, des processus, de la memoire et des peripheriques.
-- Les **outils GNU** : shell, coreutils, compilateur, bibliotheque C (glibc).
-- Un **systeme d'initialisation** : systemd, OpenRC ou autre.
-- Des **logiciels applicatifs** : serveurs web, bases de donnees, environnements de bureau.
+- Le **noyau Linux** : gestion du matériel, des processus, de la mémoire et des périphériques.
+- Les **outils GNU** : shell, coreutils, compilateur, bibliothèque C (glibc).
+- Un **système d'initialisation** : systemd, OpenRC ou autre.
+- Des **logiciels applicatifs** : serveurs web, bases de données, environnements de bureau.
 
-Vous pouvez verifier ces composants sur votre propre systeme :
+Vous pouvez vérifiér ces composants sur votre propre système :
 
 ```bash
 # Version du noyau Linux
 uname -r
 5.15.0-91-generic
 
-# Version de la glibc (bibliotheque C de GNU)
+# Version de la glibc (bibliothèque C de GNU)
 ldd --version
 ldd (Ubuntu GLIBC 2.35-0ubuntu3.4) 2.35
 
@@ -93,16 +93,16 @@ echo $SHELL
 
 ### Qu'est-ce que POSIX ?
 
-**POSIX** (Portable Operating System Interface) est une famille de normes definies par l'IEEE (norme IEEE 1003) qui specifie l'interface entre un systeme d'exploitation et les programmes utilisateur. En d'autres termes, POSIX decrit ce qu'un systeme compatible Unix doit fournir : quelles commandes doivent exister, comment les appels systeme doivent se comporter, quelles variables d'environnement doivent etre disponibles.
+**POSIX** (Portable Operating System Interface) est une famille de normes définies par l'IEEE (norme IEEE 1003) qui spécifié l'interface entre un système d'exploitation et les programmes utilisateur. En d'autres termes, POSIX décrit ce qu'un système compatible Unix doit fournir : quelles commandes doivent exister, comment les appels système doivent se comporter, quelles variables d'environnement doivent être disponibles.
 
 ### Pourquoi POSIX est important
 
-La conformite POSIX garantit la **portabilite** du code et des scripts. Un script ecrit pour un systeme POSIX fonctionnera sur n'importe quel autre systeme conforme, qu'il s'agisse de Linux, macOS, FreeBSD ou AIX.
+La conformite POSIX garantit la **portabilité** du code et des scripts. Un script écrit pour un système POSIX fonctionnera sur n'importe quel autre système conforme, qu'il s'agisse de Linux, macOS, FreeBSD ou AIX.
 
 ```bash
 #!/bin/sh
-# Ce script utilise uniquement des fonctionnalites POSIX.
-# Il fonctionnera sur tout systeme conforme, pas seulement Linux.
+# Ce script utilisé uniquement des fonctionnalités POSIX.
+# Il fonctionnera sur tout système conforme, pas seulement Linux.
 
 if [ -d "/var/log" ]; then
     echo "Repertoire de logs trouve."
@@ -110,21 +110,21 @@ if [ -d "/var/log" ]; then
 fi
 ```
 
-Linux n'est pas officiellement certifie POSIX (la certification coute cher), mais il est **largement conforme** dans la pratique. Connaitre les limites de POSIX vous aide a ecrire des scripts portables :
+Linux n'est pas officiellement certifié POSIX (la certification coute cher), mais il est **largement conforme** dans la pratique. Connaitre les limites de POSIX vous aide a écrire des scripts portables :
 
 ```bash
 # Syntaxe POSIX (portable) :
 command -v git > /dev/null 2>&1 && echo "git est installe"
 
-# Syntaxe specifique a Bash (non portable) :
+# Syntaxe spécifique a Bash (non portable) :
 [[ -n $(which git) ]] && echo "git est installe"
 ```
 
-Lorsque vous ecrivez des scripts destines a fonctionner sur plusieurs systemes, privilegier la syntaxe POSIX est une bonne pratique. Lorsque vous ecrivez pour un environnement Linux specifique, les extensions Bash offrent davantage de confort.
+Lorsque vous ecrivez des scripts destines a fonctionner sur plusieurs systèmes, privilégiér la syntaxe POSIX est une bonne pratique. Lorsque vous ecrivez pour un environnement Linux spécifique, les extensions Bash offrent davantage de confort.
 
 ## La philosophie Unix
 
-Le succes durable d'Unix et de Linux repose en grande partie sur un ensemble de principes de conception que l'on appelle la **philosophie Unix**. Doug McIlroy, l'inventeur des pipes Unix, la resume ainsi :
+Le succès durable d'Unix et de Linux repose en grande partie sur un ensemble de principes de conception que l'on appelle la **philosophie Unix**. Doug McIlroy, l'inventeur des pipes Unix, la resume ainsi :
 
 > "Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface."
 
@@ -132,13 +132,13 @@ Le succes durable d'Unix et de Linux repose en grande partie sur un ensemble de 
 
 **Faire une seule chose et la faire bien.** Chaque commande Linux a une responsabilite precise. `grep` cherche des motifs, `sort` trie, `wc` compte, `cut` decoupe. Aucune de ces commandes n'essaie de tout faire.
 
-**Composer des programmes avec des pipes.** L'operateur `|` (pipe) connecte la sortie d'une commande a l'entree de la suivante, permettant de construire des traitements complexes a partir de briques simples.
+**Composer des programmes avec des pipes.** L'operateur `|` (pipe) connecté la sortie d'une commande a l'entrée de la suivante, permettant de construire des traitements complexes a partir de briques simples.
 
 **Utiliser le texte comme interface universelle.** Les programmes communiquent via des flux de texte. Ce choix de conception permet a des outils ecrits a des decennies d'intervalle de fonctionner ensemble sans probleme.
 
 ### La composition en pratique
 
-Voici un exemple concret qui illustre la puissance de la composition. Supposons que vous souhaitiez identifier les 5 adresses IP qui generent le plus de requetes dans un fichier de log Apache :
+Voici un exemple concret qui illustre la puissance de la composition. Supposons que vous souhaitiez identifier les 5 adresses IP qui generent le plus de requêtes dans un fichier de log Apache :
 
 ```bash
 cat /var/log/apache2/access.log \
@@ -149,32 +149,32 @@ cat /var/log/apache2/access.log \
     | head -5
 ```
 
-Chaque etape est simple et comprehensible :
+Chaque étape est simple et comprehensible :
 
 1. `cat` lit le fichier.
 2. `awk '{print $1}'` extrait le premier champ (l'adresse IP).
 3. `sort` trie les adresses pour regrouper les doublons.
 4. `uniq -c` compte les occurrences consecutives.
 5. `sort -rn` trie par nombre decroissant.
-6. `head -5` conserve les 5 premieres lignes.
+6. `head -5` conserve les 5 premières lignes.
 
-Aucun de ces outils n'a ete concu pour analyser des logs Apache. Pourtant, leur composition produit exactement le resultat voulu. C'est la philosophie Unix en action.
+Aucun de ces outils n'a ete conçu pour analyser des logs Apache. Pourtant, leur composition produit exactement le résultat voulu. C'est la philosophie Unix en action.
 
-### Un second exemple : surveillance systeme
+### Un second exemple : surveillancé système
 
 ```bash
-# Lister les 10 processus les plus gourmands en memoire
+# Lister les 10 processus les plus gourmands en mémoire
 ps aux --sort=-%mem | head -11
 
 # Surveiller l'espace disque et alerter si un seuil est depasse
-df -h | awk 'NR>1 && int($5)>80 {print "ALERTE: "$6" utilise a "$5}'
+df -h | awk 'NR>1 && int($5)>80 {print "ALERTE: "$6" utilisé a "$5}'
 ```
 
 Ces lignes de commande remplacent des scripts de dizaines de lignes dans d'autres langages. La concision vient directement de la philosophie de composition.
 
 ## Les distributions Linux
 
-Le noyau Linux seul ne constitue pas un systeme pret a l'emploi. Une **distribution** (ou "distro") assemble le noyau, les outils GNU, un gestionnaire de paquets, un systeme d'initialisation et des logiciels preconfigures pour offrir un systeme complet et coherent.
+Le noyau Linux seul ne constitue pas un système pret a l'emploi. Une **distribution** (ou "distro") assemble le noyau, les outils GNU, un gestionnaire de paquets, un système d'initialisation et des logiciels preconfigures pour offrir un système complet et coherent.
 
 ### Les grandes familles
 
@@ -182,9 +182,9 @@ Les distributions se regroupent en familles selon leur gestionnaire de paquets e
 
 ### Famille Debian
 
-**Debian** est l'une des distributions les plus anciennes (1993). Elle privilegia la stabilite et la rigueur. Son gestionnaire de paquets `dpkg` et son outil de haut niveau `apt` sont devenus des standards.
+**Debian** est l'une des distributions les plus anciennes (1993). Elle privilegia la stabilité et la rigueur. Son gestionnaire de paquets `dpkg` et son outil de haut niveau `apt` sont devenus des standards.
 
-**Ubuntu**, basee sur Debian, vise l'accessibilite et publie des versions regulieres tous les six mois ainsi que des versions LTS (Long Term Support) tous les deux ans. C'est souvent la distribution recommandee aux debutants et la plus repandue sur les serveurs cloud.
+**Ubuntu**, basée sur Debian, vise l'accessibilité et publie des versions régulieres tous les six mois ainsi que des versions LTS (Long Term Support) tous les deux ans. C'est souvent la distribution recommandee aux débutants et la plus répandue sur les serveurs cloud.
 
 ```bash
 # Installer un paquet sur Debian/Ubuntu
@@ -197,7 +197,7 @@ apt search postgresql
 
 ### Famille Red Hat
 
-**Fedora** sert de terrain d'experimentation pour les technologies qui seront integrees dans **Red Hat Enterprise Linux** (RHEL), la distribution de reference en entreprise. **CentOS Stream** et **AlmaLinux** offrent des alternatives communautaires compatibles avec RHEL.
+**Fedora** sert de terrain d'experimentation pour les technologies qui seront intégrées dans **Red Hat Enterprise Linux** (RHEL), la distribution de référence en entreprise. **CentOS Stream** et **AlmaLinux** offrent des alternatives communautaires compatibles avec RHEL.
 
 ```bash
 # Installer un paquet sur Fedora
@@ -209,43 +209,43 @@ sudo yum install httpd
 
 ### Famille Arch
 
-**Arch Linux** adopte un modele **rolling release** : pas de versions numerotees, le systeme se met a jour en continu. Elle s'adresse a des utilisateurs experimentes qui souhaitent un controle total sur leur installation. Son wiki est considere comme l'une des meilleures documentations de l'ecosysteme Linux.
+**Arch Linux** adopte un modèle **rolling release** : pas de versions numerotees, le système se met a jour en continu. Elle s'adresse a des utilisateurs experimentes qui souhaitent un contrôle total sur leur installation. Son wiki est considere comme l'une des meilleures documentations de l'écosystème Linux.
 
 ```bash
 # Installer un paquet sur Arch Linux
 sudo pacman -S nginx
 
-# Mettre a jour l'ensemble du systeme
+# Mettre a jour l'ensemble du système
 sudo pacman -Syu
 ```
 
-### Autres distributions notables
+### Autrès distributions notables
 
 - **openSUSE** : populaire en Europe, proposant les variantes Tumbleweed (rolling) et Leap (fixe).
-- **Alpine Linux** : distribution minimaliste utilisant musl et BusyBox, tres repandue dans les conteneurs Docker.
+- **Alpine Linux** : distribution minimaliste utilisant musl et BusyBox, très répandue dans les conteneurs Docker.
 - **Gentoo** : compile tous les paquets depuis les sources, offrant une optimisation maximale.
 
 ### Comment choisir ?
 
 Le choix d'une distribution depend de votre contexte :
 
-- **Apprentissage et usage personnel** : Ubuntu ou Fedora offrent un bon equilibre entre accessibilite et richesse.
-- **Serveurs de production** : Debian, Ubuntu Server ou RHEL pour leur stabilite et leur support a long terme.
-- **Conteneurs et microservices** : Alpine Linux pour sa legerete (images de quelques megaoctets).
-- **Comprendre Linux en profondeur** : Arch Linux ou Gentoo, ou l'on construit son systeme brique par brique.
+- **Apprentissage et usage personnel** : Ubuntu ou Fedora offrent un bon equilibre entre accessibilité et richesse.
+- **Serveurs de production** : Debian, Ubuntu Server ou RHEL pour leur stabilité et leur support a long terme.
+- **Conteneurs et microservices** : Alpine Linux pour sa légèrete (images de quelques megaoctets).
+- **Comprendre Linux en profondeur** : Arch Linux ou Gentoo, ou l'on construit son système brique par brique.
 
 ## Pourquoi apprendre Linux
 
 ### Linux domine l'infrastructure mondiale
 
-Les chiffres parlent d'eux-memes. Linux fait tourner la grande majorite des serveurs web dans le monde, la totalite de l'infrastructure des grands fournisseurs cloud (AWS, Google Cloud, Azure proposent tous Linux comme systeme principal), et la quasi-totalite des supercalculateurs du classement TOP500. Android, le systeme mobile le plus repandu, repose sur un noyau Linux.
+Les chiffres parlent d'eux-memes. Linux fait tourner la grande majorité des serveurs web dans le monde, la totalité de l'infrastructure des grands fournisseurs cloud (AWS, Google Cloud, Azure proposent tous Linux comme système principal), et la quasi-totalité des supercalculateurs du classement TOP500. Android, le système mobile le plus répandu, repose sur un noyau Linux.
 
 ### Le cloud et le DevOps
 
-Les pratiques modernes de developpement et de deploiement reposent massivement sur Linux. Les conteneurs Docker, l'orchestration Kubernetes, l'integration continue -- tout cet ecosysteme suppose une maitrise de Linux.
+Les pratiques modernes de développement et de déployément reposent massivement sur Linux. Les conteneurs Docker, l'orchestration Kubernetes, l'intégration continue -- tout cet écosystème suppose une maitrise de Linux.
 
 ```bash
-# Construire et lancer un conteneur Docker (qui utilise un noyau Linux)
+# Construire et lancer un conteneur Docker (qui utilisé un noyau Linux)
 docker build -t mon-app .
 docker run -d -p 8080:80 mon-app
 
@@ -255,14 +255,14 @@ kubectl get pods -n production
 
 ### L'Internet des objets (IoT)
 
-Des Raspberry Pi aux equipements industriels, Linux est le systeme de choix pour l'embarque connecte. Sa flexibilite permet de l'adapter a des appareils disposant de ressources tres limitees.
+Des Raspberry Pi aux equipements industriels, Linux est le système de choix pour l'embarque connecte. Sa flexibilité permet de l'adapter a des appareils disposant de ressources très limitées.
 
-### Le developpement logiciel
+### Le développement logiciel
 
-La majorite des langages de programmation, des frameworks et des outils de developpement sont concus en priorite pour Linux. Meme les developpeurs travaillant sur macOS ou Windows utilisent souvent des environnements Linux via WSL (Windows Subsystem for Linux) ou des machines virtuelles.
+La majorité des langages de programmation, des frameworks et des outils de développement sont concus en priorité pour Linux. Meme les développeurs travaillant sur macOS ou Windows utilisent souvent des environnements Linux via WSL (Windows Subsystem for Linux) ou des machines virtuelles.
 
 ```bash
-# Environnement de developpement typique sous Linux
+# Environnement de développement typique sous Linux
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
@@ -270,33 +270,33 @@ pip install -r requirements.txt
 # Gestion de versions avec Git
 git clone https://github.com/utilisateur/projet.git
 cd projet
-git checkout -b nouvelle-fonctionnalite
+git checkout -b nouvelle-fonctionnalité
 ```
 
-### L'administration systeme et la securite
+### L'administration système et la sécurité
 
-La maitrise de Linux est un prerequis pour tout administrateur systeme ou professionnel de la cybersecurite. La transparence du code source, la granularite des permissions et la richesse des outils d'audit font de Linux la plateforme de reference pour la securite informatique.
+La maitrise de Linux est un prerequis pour tout administrateur système ou professionnel de la cybersécurité. La transparence du code source, la granularite des permissions et la richesse des outils d'audit font de Linux la plateforme de référence pour la sécurité informatique.
 
 ```bash
 # Gestion des utilisateurs et des permissions
-sudo useradd -m -s /bin/bash developpeur
+sudo useradd -m -s /bin/bash développeur
 sudo chmod 750 /srv/application
-sudo chown -R developpeur:www-data /srv/application
+sudo chown -R développeur:www-data /srv/application
 
-# Consultation des logs systeme
+# Consultation des logs système
 journalctl -u nginx --since "1 hour ago"
 ```
 
 ### Une competence durable
 
-Contrairement a de nombreuses technologies qui deviennent obsoletes en quelques annees, les competences Linux sont remarquablement perennes. Les commandes que vous apprenez aujourd'hui sont les memes que celles utilisees depuis des decennies, et elles seront toujours pertinentes dans les annees a venir. La philosophie Unix et la maitrise du terminal constituent un socle technique solide sur lequel construire toute carriere en informatique.
+Contrairement a de nombreuses technologies qui deviennent obsoletes en quelques annees, les competences Linux sont remarquablement perennes. Les commandes que vous apprenez aujourd'hui sont les memes que celles utilisées depuis des decennies, et elles seront toujours pertinentes dans les annees a venir. La philosophie Unix et la maitrise du terminal constituent un soclé technique solide sur lequel construire toute carriere en informatique.
 
 ## Premiers pas
 
-Maintenant que vous comprenez d'ou vient Linux et pourquoi il occupe une place centrale dans l'informatique moderne, vous etes pret a passer a la pratique. Explorez les commandes documentees sur ce site, en commencant par les fondamentaux comme `ls`, `cd`, `cat` et `grep`. Chaque commande est une brique supplementaire dans votre comprehension du systeme.
+Maintenant que vous comprenez d'ou vient Linux et pourquoi il occupe une place centrale dans l'informatique moderne, vous etes pret a passer a la pratique. Explorez les commandes documentées sur ce site, en commencant par les fondamentaux comme `ls`, `cd`, `cat` et `grep`. Chaque commande est une brique supplementaire dans votre comprehension du système.
 
 ```bash
-# Verifiez votre systeme
+# Verifiez votre système
 uname -a
 cat /etc/os-release
 whoami

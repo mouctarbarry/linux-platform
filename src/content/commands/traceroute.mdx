@@ -1,8 +1,8 @@
 ---
 title: traceroute
 category: reseau
-description: Tracer le chemin des paquets reseau
-tags: [reseau, diagnostic, routage, chemin]
+description: Tracer le chemin des paquets réseau
+tags: [réseau, diagnostic, routage, chemin]
 ---
 
 ## Syntaxe
@@ -15,7 +15,7 @@ traceroute [OPTIONS] HOTE
 
 | Option | Description                                    |
 | ------ | ---------------------------------------------- |
-| `-n`   | Afficher les adresses IP sans resolution DNS   |
+| `-n`   | Afficher les adresses IP sans résolution DNS   |
 | `-m`   | Definir le nombre maximum de sauts             |
 | `-w`   | Delai d'attente par saut en secondes           |
 | `-q`   | Nombre de paquets par saut                     |
@@ -35,7 +35,7 @@ traceroute to google.com (142.250.75.238), 30 hops max, 60 byte packets
  4  par21s20-in-f14.1e100.net (142.250.75.238)  8.123 ms  8.245 ms  8.301 ms
 ```
 
-### Tracer sans resolution DNS avec un maximum de 15 sauts
+### Tracer sans résolution DNS avec un maximum de 15 sauts
 
 ```bash
 $ traceroute -n -m 15 192.168.1.1

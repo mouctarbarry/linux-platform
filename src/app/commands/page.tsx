@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Toutes les commandes — Linux Platform',
-  description: 'Liste complete des commandes Linux documentees avec exemples pratiques.',
+  description: 'Liste complète des commandes Linux documentées avec exemples pratiques.',
 };
 
 export default function CommandsPage() {

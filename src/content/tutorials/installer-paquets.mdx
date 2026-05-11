@@ -1,20 +1,20 @@
 ---
-title: "Installer et gerer les paquets sous Linux"
+title: "Installer et gérer les paquets sous Linux"
 description: "Apprenez a utiliser les gestionnaires de paquets APT, DNF, Pacman et APK pour installer, mettre a jour et supprimer des logiciels sous Linux."
 tags: [paquets, apt, dnf, pacman, apk, snap, flatpak]
-difficulty: "debutant"
+difficulty: "débutant"
 order: 1
 ---
 
 ## Introduction
 
-Sous Linux, les logiciels sont distribues sous forme de **paquets**. Chaque famille de distribution dispose de son propre gestionnaire de paquets. Ce tutoriel couvre les quatre principaux gestionnaires ainsi que les formats universels Snap et Flatpak.
+Sous Linux, les logiciels sont distribués sous forme de **paquets**. Chaque famille de distribution dispose de son propre gestionnaire de paquets. Ce tutoriel couvre les quatre principaux gestionnaires ainsi que les formats universels Snap et Flatpak.
 
 ## APT -- Debian, Ubuntu et derives
 
-APT (Advanced Package Tool) est le gestionnaire de paquets des distributions basees sur Debian.
+APT (Advanced Package Tool) est le gestionnaire de paquets des distributions basées sur Debian.
 
-### Mettre a jour la liste des paquets et le systeme
+### Mettre a jour la liste des paquets et le système
 
 ```bash
 sudo apt update
@@ -33,20 +33,20 @@ apt show nginx
 ```bash
 sudo apt install nginx -y
 sudo apt remove nginx
-sudo apt purge nginx        # supprime aussi les fichiers de configuration
-sudo apt autoremove          # supprime les dependances orphelines
+sudo apt purge nginx        # supprimé aussi les fichiers de configuration
+sudo apt autoremove          # supprimé les dépendances orphelines
 ```
 
-### Lister les paquets installes
+### Lister les paquets installés
 
 ```bash
 dpkg -l
 apt list --installed
 ```
 
-### Les depots (repositories)
+### Les dépôts (repositories)
 
-Les sources de paquets sont definies dans `/etc/apt/sources.list` et dans le repertoire `/etc/apt/sources.list.d/`. Pour ajouter un depot externe :
+Les sources de paquets sont définies dans `/etc/apt/sources.list` et dans le répertoire `/etc/apt/sources.list.d/`. Pour ajouter un dépôt externe :
 
 ```bash
 sudo add-apt-repository ppa:ondrej/php
@@ -55,7 +55,7 @@ sudo apt update
 
 ## DNF -- Fedora, RHEL 9+ et derives
 
-DNF a remplace YUM comme gestionnaire par defaut sur les distributions Red Hat.
+DNF a remplacé YUM comme gestionnaire par défaut sur les distributions Red Hat.
 
 ### Operations courantes
 
@@ -68,7 +68,7 @@ sudo dnf remove httpd
 dnf list installed
 ```
 
-### Gestion des depots
+### Gestion des dépôts
 
 ```bash
 dnf repolist
@@ -77,15 +77,15 @@ sudo dnf config-manager --add-repo https://example.com/repo.repo
 
 ## Pacman -- Arch Linux et derives
 
-Pacman utilise une syntaxe compacte a base de drapeaux.
+Pacman utilisé une syntaxe compacte a base de drapeaux.
 
 | Action | Commande |
 |---|---|
 | Synchroniser et mettre a jour | `sudo pacman -Syu` |
 | Rechercher un paquet | `pacman -Ss vim` |
 | Installer | `sudo pacman -S vim` |
-| Supprimer avec dependances | `sudo pacman -Rns vim` |
-| Lister les paquets installes | `pacman -Q` |
+| Supprimer avec dépendances | `sudo pacman -Rns vim` |
+| Lister les paquets installés | `pacman -Q` |
 
 ### Exemple complet
 
@@ -96,7 +96,7 @@ sudo pacman -S git base-devel
 
 ## APK -- Alpine Linux
 
-Alpine utilise APK, un gestionnaire leger concu pour les environnements minimaux et les conteneurs.
+Alpine utilisé APK, un gestionnaire léger conçu pour les environnements minimaux et les conteneurs.
 
 ```bash
 apk update
@@ -106,16 +106,16 @@ apk del curl
 apk list --installed
 ```
 
-## Comprendre les dependances
+## Comprendre les dépendances
 
-Lorsque vous installez un paquet, le gestionnaire resout automatiquement ses **dependances** -- les autres paquets necessaires a son fonctionnement. Par exemple :
+Lorsque vous installez un paquet, le gestionnaire resout automatiquement ses **dépendances** -- les autres paquets nécessaires a son fonctionnement. Par exemple :
 
 ```bash
 apt depends nginx
 dnf deplist httpd
 ```
 
-Si une dependance est absente, le gestionnaire la telecharge et l'installe. Lors de la suppression, les dependances orphelines peuvent etre nettoyees avec `apt autoremove` ou `dnf autoremove`.
+Si une dépendance est absente, le gestionnaire la téléchargé et l'installe. Lors de la suppression, les dépendances orphelines peuvent être nettoyees avec `apt autoremove` ou `dnf autoremove`.
 
 ## Snap et Flatpak -- Paquets universels
 
@@ -138,18 +138,18 @@ flatpak list
 flatpak uninstall org.gimp.GIMP
 ```
 
-Les paquets Snap et Flatpak sont isoles du systeme (sandboxing) et embarquent leurs propres dependances, ce qui garantit la compatibilite entre distributions mais augmente l'espace disque utilise.
+Les paquets Snap et Flatpak sont isoles du système (sandboxing) et embarquent leurs propres dépendances, ce qui garantit la compatibilité entre distributions mais augmente l'espace disque utilise.
 
 ## Resume des commandes
 
 | Action | APT | DNF | Pacman | APK |
 |---|---|---|---|---|
 | Mettre a jour les sources | `apt update` | `dnf check-update` | `pacman -Sy` | `apk update` |
-| Mettre a jour le systeme | `apt upgrade` | `dnf upgrade` | `pacman -Syu` | `apk upgrade` |
+| Mettre a jour le système | `apt upgrade` | `dnf upgrade` | `pacman -Syu` | `apk upgrade` |
 | Installer | `apt install` | `dnf install` | `pacman -S` | `apk add` |
 | Supprimer | `apt remove` | `dnf remove` | `pacman -R` | `apk del` |
 | Rechercher | `apt search` | `dnf search` | `pacman -Ss` | `apk search` |
 
 ## Conclusion
 
-La maitrise du gestionnaire de paquets de votre distribution est une competence fondamentale. Quel que soit le systeme que vous utilisez, les concepts restent les memes : rechercher, installer, mettre a jour et supprimer proprement les logiciels.
+La maitrise du gestionnaire de paquets de votre distribution est une competence fondamentale. Quel que soit le système que vous utilisez, les concepts restent les memes : rechercher, installer, mettre a jour et supprimer proprement les logiciels.

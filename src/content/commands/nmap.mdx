@@ -1,8 +1,8 @@
 ---
 title: nmap
 category: reseau
-description: Scanner les ports et services reseau
-tags: [reseau, securite, scan, ports]
+description: Scanner les ports et services réseau
+tags: [réseau, sécurité, scan, ports]
 ---
 
 ## Syntaxe
@@ -19,10 +19,10 @@ nmap [OPTIONS] CIBLE
 | `-sT`  | Scan TCP connect (complet)                        |
 | `-sU`  | Scan des ports UDP                                |
 | `-sV`  | Detecter les versions des services                |
-| `-O`   | Detecter le systeme d'exploitation                |
-| `-p`   | Specifier les ports a scanner                     |
+| `-O`   | Detecter le système d'exploitation                |
+| `-p`   | Specifier les ports a scannér                     |
 | `-A`   | Activer la detection avancee (OS, version, scripts) |
-| `-Pn`  | Ignorer la decouverte d'hote (pas de ping)        |
+| `-Pn`  | Ignorer la decouverte d'hôte (pas de ping)        |
 
 ## Exemples
 
@@ -39,10 +39,10 @@ PORT    STATE SERVICE
 80/tcp  open  http
 443/tcp open  https
 
-Nmap done: 1 IP address (1 host up) scanned in 1.45 seconds
+Nmap done: 1 IP address (1 host up) scannéd in 1.45 seconds
 ```
 
-### Scanner une plage de ports specifique
+### Scanner une plage de ports spécifique
 
 ```bash
 $ nmap -p 1-1000 192.168.1.10
@@ -53,7 +53,7 @@ PORT    STATE SERVICE
 80/tcp  open  http
 3306/tcp open mysql
 
-Nmap done: 1 IP address (1 host up) scanned in 2.31 seconds
+Nmap done: 1 IP address (1 host up) scannéd in 2.31 seconds
 ```
 
 ### Detecter les versions des services
@@ -66,7 +66,7 @@ PORT    STATE SERVICE VERSION
 3306/tcp open mysql   MySQL 8.0.36
 ```
 
-### Scanner un sous-reseau complet
+### Scanner un sous-réseau complet
 
 ```bash
 $ nmap -sn 192.168.1.0/24
@@ -77,5 +77,5 @@ Host is up (0.0008s latency).
 Nmap scan report for 192.168.1.25
 Host is up (0.0015s latency).
 
-Nmap done: 256 IP addresses (3 hosts up) scanned in 4.52 seconds
+Nmap done: 256 IP addresses (3 hosts up) scannéd in 4.52 seconds
 ```

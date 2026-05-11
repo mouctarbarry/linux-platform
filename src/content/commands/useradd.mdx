@@ -25,16 +25,16 @@ useradd [OPTIONS] NOM_UTILISATEUR
 ### Créer un utilisateur avec son répertoire personnel
 
 ```bash
-$ sudo useradd -m -s /bin/bash developpeur
-$ sudo passwd developpeur
+$ sudo useradd -m -s /bin/bash développeur
+$ sudo passwd développeur
 Nouveau mot de passe :
-Retapez le nouveau mot de passe :
+Rétapez le nouveau mot de passe :
 passwd : le mot de passe a été mis à jour avec succès
-$ ls -la /home/developpeur/
-drwxr-x--- 2 developpeur developpeur 4096 mai  8 10:00 .
+$ ls -la /home/développeur/
+drwxr-x--- 2 développeur développeur 4096 mai  8 10:00 .
 drwxr-xr-x 5 root        root        4096 mai  8 10:00 ..
--rw-r--r-- 1 developpeur developpeur  220 mai  8 10:00 .bash_logout
--rw-r--r-- 1 developpeur developpeur 3771 mai  8 10:00 .bashrc
+-rw-r--r-- 1 développeur développeur  220 mai  8 10:00 .bash_logout
+-rw-r--r-- 1 développeur développeur 3771 mai  8 10:00 .bashrc
 ```
 
 ### Créer un utilisateur dans plusieurs groupes

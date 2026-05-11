@@ -1,14 +1,14 @@
 ---
 title: "Gerer les utilisateurs et les groupes"
-description: "Apprenez a creer, modifier et supprimer des utilisateurs et des groupes sous Linux. Maitrisez les fichiers systeme, les mots de passe et l'elevation de privileges avec sudo."
-tags: [utilisateurs, groupes, sudo, passwd, securite]
-difficulty: "debutant"
+description: "Apprenez a créer, modifier et supprimer des utilisateurs et des groupes sous Linux. Maitrisez les fichiers système, les mots de passe et l'elevation de privileges avec sudo."
+tags: [utilisateurs, groupes, sudo, passwd, sécurité]
+difficulty: "débutant"
 order: 5
 ---
 
 ## Introduction
 
-La gestion des utilisateurs et des groupes est une tache fondamentale de l'administration Linux. Chaque processus et chaque fichier est associe a un utilisateur et a un groupe, ce qui constitue la base du modele de securite du systeme.
+La gestion des utilisateurs et des groupes est une tache fondamentale de l'administration Linux. Chaque processus et chaque fichier est associé a un utilisateur et a un groupe, ce qui constitue la base du modèle de sécurité du système.
 
 ## Creer un utilisateur
 
@@ -18,7 +18,7 @@ La gestion des utilisateurs et des groupes est une tache fondamentale de l'admin
 sudo useradd jean
 ```
 
-Cette commande cree l'utilisateur mais sans repertoire personnel ni mot de passe. Pour une creation plus complete :
+Cette commande créé l'utilisateur mais sans répertoire personnel ni mot de passe. Pour une creation plus complète :
 
 ```bash
 sudo useradd -m -s /bin/bash -c "Jean Dupont" jean
@@ -26,8 +26,8 @@ sudo useradd -m -s /bin/bash -c "Jean Dupont" jean
 
 | Option | Effet |
 |---|---|
-| `-m` | Creer le repertoire personnel `/home/jean` |
-| `-s /bin/bash` | Definir le shell par defaut |
+| `-m` | Creer le répertoire personnel `/home/jean` |
+| `-s /bin/bash` | Definir le shell par défaut |
 | `-c "Jean Dupont"` | Ajouter un commentaire (nom complet) |
 | `-G sudo,docker` | Ajouter a des groupes supplementaires |
 
@@ -37,7 +37,7 @@ sudo useradd -m -s /bin/bash -c "Jean Dupont" jean
 sudo passwd jean
 ```
 
-Pour forcer le changement de mot de passe a la premiere connexion :
+Pour forcer le changement de mot de passe a la première connexion :
 
 ```bash
 sudo passwd -e jean
@@ -45,12 +45,12 @@ sudo passwd -e jean
 
 ## Modifier un utilisateur
 
-### usermod -- Modifier les proprietes
+### usermod -- Modifier les propriétés
 
 ```bash
 sudo usermod -c "Jean M. Dupont" jean       # modifier le commentaire
 sudo usermod -s /bin/zsh jean                # changer le shell
-sudo usermod -d /home/jean_new -m jean       # deplacer le repertoire personnel
+sudo usermod -d /home/jean_new -m jean       # déplacér le répertoire personnel
 sudo usermod -l jean_nouveau jean            # renommer l'utilisateur
 sudo usermod -L jean                         # verrouiller le compte
 sudo usermod -U jean                         # deverrouiller le compte
@@ -60,7 +60,7 @@ sudo usermod -U jean                         # deverrouiller le compte
 
 ```bash
 sudo chage -l jean                           # afficher les informations d'expiration
-sudo chage -M 90 jean                        # mot de passe expire apres 90 jours
+sudo chage -M 90 jean                        # mot de passe expire après 90 jours
 sudo chage -E 2026-12-31 jean               # compte expire le 31 decembre 2026
 sudo chage -W 14 jean                        # avertir 14 jours avant expiration
 ```
@@ -69,7 +69,7 @@ sudo chage -W 14 jean                        # avertir 14 jours avant expiration
 
 ```bash
 sudo userdel jean                            # supprimer l'utilisateur (conserve /home/jean)
-sudo userdel -r jean                         # supprimer l'utilisateur et son repertoire
+sudo userdel -r jean                         # supprimer l'utilisateur et son répertoire
 ```
 
 ## Gerer les groupes
@@ -77,8 +77,8 @@ sudo userdel -r jean                         # supprimer l'utilisateur et son re
 ### Creer et supprimer un groupe
 
 ```bash
-sudo groupadd developpeurs
-sudo groupmod -n devs developpeurs           # renommer le groupe
+sudo groupadd développeurs
+sudo groupmod -n devs développeurs           # renommer le groupe
 sudo groupdel devs                           # supprimer le groupe
 ```
 
@@ -98,11 +98,11 @@ groups jean
 id jean
 ```
 
-## Les fichiers systeme
+## Les fichiers système
 
 ### /etc/passwd
 
-Chaque ligne represente un utilisateur :
+Chaque ligne représente un utilisateur :
 
 ```bash
 jean:x:1001:1001:Jean Dupont:/home/jean:/bin/bash
@@ -111,12 +111,12 @@ jean:x:1001:1001:Jean Dupont:/home/jean:/bin/bash
 | Champ | Signification |
 |---|---|
 | `jean` | Nom d'utilisateur |
-| `x` | Mot de passe stocke dans /etc/shadow |
+| `x` | Mot de passe stocké dans /etc/shadow |
 | `1001` | UID (identifiant utilisateur) |
 | `1001` | GID (identifiant du groupe principal) |
 | `Jean Dupont` | Commentaire |
 | `/home/jean` | Repertoire personnel |
-| `/bin/bash` | Shell par defaut |
+| `/bin/bash` | Shell par défaut |
 
 ### /etc/shadow
 
@@ -131,7 +131,7 @@ sudo cat /etc/shadow | grep jean
 Liste les groupes et leurs membres :
 
 ```bash
-cat /etc/group | grep developpeurs
+cat /etc/group | grep développeurs
 ```
 
 Format : `nom_groupe:x:GID:membre1,membre2`
@@ -149,51 +149,51 @@ su -                   # se connecter en tant que root
 
 ```bash
 sudo apt update
-sudo -u postgres psql  # executer en tant que l'utilisateur postgres
+sudo -u postgres psql  # exécuter en tant que l'utilisateur postgres
 sudo -i                # ouvrir un shell root interactif
 ```
 
 ### visudo -- Configurer les droits sudo
 
-La configuration de sudo se fait dans `/etc/sudoers`. Il faut toujours utiliser `visudo` qui verifie la syntaxe avant de sauvegarder :
+La configuration de sudo se fait dans `/etc/sudoers`. Il faut toujours utiliser `visudo` qui vérifié la syntaxe avant de sauvegarder :
 
 ```bash
 sudo visudo
 ```
 
-Exemples de regles :
+Exemples de règles :
 
 ```bash
 # Autoriser jean a tout faire
 jean ALL=(ALL:ALL) ALL
 
-# Autoriser le groupe deploiement a redemarrer nginx sans mot de passe
-%deploiement ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx
+# Autoriser le groupe déployément a redémarrer nginx sans mot de passe
+%déployément ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx
 
-# Autoriser marie a gerer les paquets
+# Autoriser marie a gérer les paquets
 marie ALL=(ALL) /usr/bin/apt update, /usr/bin/apt upgrade
 ```
 
 ### Fichiers sudoers.d
 
-Plutot que de modifier le fichier principal, vous pouvez creer des fichiers dans `/etc/sudoers.d/` :
+Plutot que de modifier le fichier principal, vous pouvez créer des fichiers dans `/etc/sudoers.d/` :
 
 ```bash
-sudo visudo -f /etc/sudoers.d/deploiement
+sudo visudo -f /etc/sudoers.d/déployément
 ```
 
 ```bash
-%deploiement ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx, /usr/bin/systemctl restart php-fpm
+%déployément ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx, /usr/bin/systemctl restart php-fpm
 ```
 
 ## Bonnes pratiques
 
-- Toujours utiliser `visudo` pour editer la configuration sudo
-- Preferer les groupes aux regles individuelles pour gerer les droits
+- Toujours utiliser `visudo` pour éditer la configuration sudo
+- Preferer les groupes aux règles individuelles pour gérer les droits
 - Utiliser `-aG` avec `usermod` pour ne pas ecraser les groupes existants
 - Definir une politique d'expiration des mots de passe avec `chage`
-- Verrouiller les comptes inutilises plutot que de les supprimer immediatement
+- Verrouiller les comptes inutilisés plutot que de les supprimer immédiatement
 
 ## Conclusion
 
-La gestion des utilisateurs et des groupes sous Linux repose sur un ensemble de commandes simples mais puissantes. Combinees a une bonne configuration de sudo, elles permettent de mettre en place un controle d'acces precis et securise sur vos systemes.
+La gestion des utilisateurs et des groupes sous Linux repose sur un ensemble de commandes simples mais puissantes. Combinees a une bonne configuration de sudo, elles permettent de mettre en place un contrôle d'accès precis et sécurisé sur vos systèmes.

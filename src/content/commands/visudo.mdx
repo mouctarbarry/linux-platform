@@ -1,8 +1,8 @@
 ---
 title: visudo
 category: permissions
-description: Editer le fichier sudoers en toute securite
-tags: [permissions, sudo, securite, administration]
+description: Editer le fichier sudoers en toute sécurité
+tags: [permissions, sudo, sécurité, administration]
 ---
 
 ## Syntaxe
@@ -17,8 +17,8 @@ visudo [OPTIONS]
 | --------------- | ------------------------------------------------ |
 | `-c`            | Verifier la syntaxe du fichier sudoers           |
 | `-f FICHIER`    | Editer un fichier sudoers alternatif             |
-| `-s`            | Activer le mode strict lors de la verification   |
-| `-q`            | Mode silencieux lors de la verification          |
+| `-s`            | Activer le mode strict lors de la vérification   |
+| `-q`            | Mode silencieux lors de la vérification          |
 
 ## Exemples
 
@@ -26,7 +26,7 @@ visudo [OPTIONS]
 
 ```bash
 $ sudo visudo
-## /etc/sudoers - fichier ouvert avec verification de syntaxe
+## /etc/sudoers - fichier ouvert avec vérification de syntaxe
 ##
 ## User privilege specification
 root    ALL=(ALL:ALL) ALL
@@ -44,8 +44,8 @@ $ sudo visudo -c
 ### Editer un fichier dans sudoers.d
 
 ```bash
-$ sudo visudo -f /etc/sudoers.d/deploiement
-## Ajouter les droits de deploiement
+$ sudo visudo -f /etc/sudoers.d/déployément
+## Ajouter les droits de déployément
 deploy ALL=(www-data) NOPASSWD: /usr/bin/systemctl restart nginx
 deploy ALL=(www-data) NOPASSWD: /usr/bin/systemctl restart php8.2-fpm
 ```

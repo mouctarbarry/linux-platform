@@ -38,7 +38,7 @@ export default async function CategoryPage({ params }: PageProps) {
         {cat.label}
       </h1>
       <p className="mb-6 text-neutral-600 dark:text-neutral-400">
-        {commands.length} commande{commands.length !== 1 ? 's' : ''} dans cette categorie
+        {commands.length} commande{commands.length !== 1 ? 's' : ''} dans cette catégorie
       </p>
       <div className="mb-8">
         <CategoryNav active={category} />

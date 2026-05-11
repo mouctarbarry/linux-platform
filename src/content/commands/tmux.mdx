@@ -15,27 +15,27 @@ tmux [COMMANDE] [OPTIONS]
 
 | Option              | Description                                  |
 | ------------------- | -------------------------------------------- |
-| `new -s NOM`        | Creer une nouvelle session nommee            |
+| `new -s NOM`        | Creer une nouvelle session nommée            |
 | `ls`                | Lister les sessions actives                  |
 | `attach -t NOM`     | Se connecter a une session existante         |
 | `detach`            | Detacher la session courante                 |
 | `kill-session -t`   | Terminer une session                         |
-| `new-window`        | Creer une nouvelle fenetre                   |
+| `new-window`        | Creer une nouvelle fenêtre                   |
 | `split-window`      | Diviser le panneau courant                   |
 
 ## Exemples
 
-### Creer une nouvelle session nommee
+### Creer une nouvelle session nommée
 
 ```bash
-$ tmux new -s developpement
+$ tmux new -s développement
 ```
 
 ### Lister les sessions actives
 
 ```bash
 $ tmux ls
-developpement: 3 windows (created Sat May 10 14:30:00 2025) (attached)
+développement: 3 windows (created Sat May 10 14:30:00 2025) (attached)
 serveur: 1 windows (created Sat May 10 10:15:00 2025)
 monitoring: 2 windows (created Fri May  9 08:00:00 2025)
 ```
@@ -52,7 +52,7 @@ $ tmux attach -t serveur
 $ tmux kill-session -t monitoring
 ```
 
-### Envoyer une commande a une session en arriere-plan
+### Envoyer une commande a une session en arrière-plan
 
 ```bash
 $ tmux send-keys -t serveur "tail -f /var/log/syslog" Enter
@@ -62,9 +62,9 @@ $ tmux send-keys -t serveur "tail -f /var/log/syslog" Enter
 
 ```bash
 # Ctrl+B, D : detacher la session courante
-# Ctrl+B, C : creer une nouvelle fenetre
-# Ctrl+B, N : passer a la fenetre suivante
-# Ctrl+B, P : passer a la fenetre precedente
+# Ctrl+B, C : créer une nouvelle fenêtre
+# Ctrl+B, N : passer a la fenêtre suivante
+# Ctrl+B, P : passer a la fenêtre précédénte
 # Ctrl+B, % : diviser le panneau verticalement
 # Ctrl+B, " : diviser le panneau horizontalement
 # Ctrl+B, fleches : naviguer entre les panneaux

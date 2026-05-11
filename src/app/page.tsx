@@ -8,9 +8,9 @@ import type { SearchableItem } from '@/lib/search';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Linux Platform — Reference interactive des commandes Linux',
+  title: 'Linux Platform — Référence interactive des commandes Linux',
   description:
-    'Explorez les commandes Linux essentielles avec des exemples pratiques, une recherche instantanee et une navigation par categories.',
+    'Explorez les commandes Linux essentielles avec des exemples pratiques, une recherche instantanée et une navigation par catégories.',
 };
 
 export default function HomePage() {
@@ -55,7 +55,7 @@ export default function HomePage() {
       <header className="mb-10 text-center sm:mb-14">
         <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-5xl">Linux Platform</h1>
         <p className="text-muted-foreground mx-auto mt-4 max-w-2xl text-lg leading-relaxed">
-          Reference interactive des commandes Linux — exemples pratiques et recherche instantanee
+          Référence interactive des commandes Linux — exemples pratiques et recherche instantanée
         </p>
         <div className="text-muted-foreground mx-auto mt-6 flex flex-wrap items-center justify-center gap-4 text-sm">
           {(Object.entries(CATEGORIES) as [Category, (typeof CATEGORIES)[Category]][]).map(

@@ -5,9 +5,9 @@ import { remarkPlugins, rehypePlugins } from '@/lib/mdx-options';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Introduction a Linux — Linux Platform',
+  title: 'Introduction à Linux — Linux Platform',
   description:
-    "Decouvrez l'histoire, la philosophie et les fondamentaux de Linux et du mouvement open source.",
+    "Découvrez l'histoire, la philosophie et les fondamentaux de Linux et du mouvement open source.",
 };
 
 export default function IntroductionPage() {

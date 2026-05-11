@@ -1,8 +1,8 @@
 ---
 title: jq
 category: editeurs
-description: Traiter et transformer des donnees JSON
-tags: [editeur, json, filtre, transformation]
+description: Traiter et transformer des données JSON
+tags: [éditeur, json, filtre, transformation]
 ---
 
 ## Syntaxe
@@ -17,8 +17,8 @@ jq [OPTIONS] FILTRE [FICHIER...]
 | ----------- | ------------------------------------------------ |
 | `-r`        | Afficher les chaines sans guillemets             |
 | `-c`        | Sortie compacte sur une seule ligne              |
-| `-e`        | Code de retour base sur le resultat              |
-| `-s`        | Lire toute l'entree comme un seul tableau        |
+| `-e`        | Code de retour base sur le résultat              |
+| `-s`        | Lire toute l'entrée comme un seul tableau        |
 | `--arg K V` | Definir une variable utilisable dans le filtre   |
 
 ## Exemples
@@ -51,7 +51,7 @@ $ cat serveurs.json | jq '[.[] | {hote: .hostname, ip: .adresse}]'
 ]
 ```
 
-### Compter les elements d'un tableau
+### Compter les éléments d'un tableau
 
 ```bash
 $ cat logs.json | jq '[.[] | select(.niveau == "erreur")] | length'

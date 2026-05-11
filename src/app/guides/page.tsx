@@ -17,7 +17,7 @@ export default function GuidesPage() {
         Guides complets et detailles pour installer, configurer et administrer des services.
       </p>
       {guides.length === 0 ? (
-        <p className="text-muted-foreground">Les guides arrivent bientot.</p>
+        <p className="text-muted-foreground">Les guides arrivent bientôt.</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {guides.map((guide) => (

@@ -2,7 +2,7 @@
 title: chattr
 category: permissions
 description: Modifier les attributs etendus des fichiers
-tags: [permissions, attributs, securite, fichiers]
+tags: [permissions, attributs, sécurité, fichiers]
 ---
 
 ## Syntaxe
@@ -20,7 +20,7 @@ chattr [OPTIONS] [+-=ATTRIBUTS] FICHIER...
 | `+a`   | Autoriser uniquement l'ajout en fin de fichier   |
 | `-a`   | Retirer l'attribut append-only                   |
 | `+e`   | Activer l'utilisation d'extents                  |
-| `-R`   | Appliquer recursivement aux sous-repertoires     |
+| `-R`   | Appliquer recursivement aux sous-répertoires     |
 
 ## Exemples
 
@@ -40,7 +40,7 @@ rm: impossible de supprimer '/etc/resolv.conf': Operation non permise
 $ sudo chattr +a /var/log/audit.log
 $ lsattr /var/log/audit.log
 -----a-------e-- /var/log/audit.log
-$ echo "nouvelle entree" >> /var/log/audit.log   # fonctionne
+$ echo "nouvelle entrée" >> /var/log/audit.log   # fonctionne
 $ echo "ecrasement" > /var/log/audit.log          # refuse
 bash: /var/log/audit.log: Operation non permise
 ```
@@ -54,7 +54,7 @@ $ lsattr /etc/resolv.conf
 $ nano /etc/resolv.conf   # modification possible
 ```
 
-### Proteger recursivement un repertoire
+### Proteger recursivement un répertoire
 
 ```bash
 $ sudo chattr -R +i /etc/nginx/

@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Glossaire Linux — Linux Platform',
-  description: "Lexique complet des termes essentiels de l'ecosysteme Linux et Unix.",
+  description: "Lexique complet des termes essentiels de l'écosystème Linux et Unix.",
 };
 
 export default function GlossairePage() {

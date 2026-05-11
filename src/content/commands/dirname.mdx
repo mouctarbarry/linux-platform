@@ -1,8 +1,8 @@
 ---
 title: dirname
 category: fichiers
-description: Extraire le repertoire d'un chemin
-tags: [fichiers, chemin, script, repertoire]
+description: Extraire le répertoire d'un chemin
+tags: [fichiers, chemin, script, répertoire]
 ---
 
 ## Syntaxe
@@ -15,11 +15,11 @@ dirname [OPTION] NOM...
 
 | Option | Description                                      |
 | ------ | ------------------------------------------------ |
-| `-z`   | Separer la sortie par des caracteres nuls        |
+| `-z`   | Separer la sortie par des caractères nuls        |
 
 ## Exemples
 
-### Extraire le repertoire d'un chemin
+### Extraire le répertoire d'un chemin
 
 ```bash
 $ dirname /home/mouctar/documents/rapport.pdf
@@ -35,7 +35,7 @@ $ dirname /var/log/syslog /etc/nginx/nginx.conf /home/mouctar/.bashrc
 /home/mouctar
 ```
 
-### Obtenir le repertoire parent
+### Obtenir le répertoire parent
 
 ```bash
 $ dirname /home/mouctar/projets/api
@@ -44,16 +44,16 @@ $ dirname /home/mouctar/projets
 /home/mouctar
 ```
 
-### Utiliser dirname dans un script de deploiement
+### Utiliser dirname dans un script de déployément
 
 ```bash
 $ script_dir=$(dirname "$(readlink -f "$0")")
 $ echo "Le script se trouve dans : $script_dir"
-Le script se trouve dans : /opt/deploiement/scripts
+Le script se trouve dans : /opt/déployément/scripts
 $ source "${script_dir}/config.env"
 ```
 
-### Creer automatiquement le repertoire de destination
+### Creer automatiquement le répertoire de destination
 
 ```bash
 $ destination="/backup/2026/05/10/base.sql.gz"

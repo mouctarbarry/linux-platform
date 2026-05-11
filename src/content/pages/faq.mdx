@@ -1,21 +1,21 @@
 ---
 title: "FAQ Linux"
-description: "Reponses aux questions les plus frequentes sur Linux, son installation et son utilisation."
+description: "Reponses aux questions les plus fréquentes sur Linux, son installation et son utilisation."
 ---
 
 # FAQ Linux
 
-Retrouvez ici les reponses aux questions les plus frequentes sur Linux. Cette page s'adresse aussi bien aux debutants qu'aux administrateurs systeme confirmes.
+Retrouvez ici les reponses aux questions les plus fréquentes sur Linux. Cette page s'adresse aussi bien aux débutants qu'aux administrateurs système confirmes.
 
 ---
 
 ## 1. Qu'est-ce que Linux exactement ?
 
-Linux est un noyau de systeme d'exploitation libre et open source cree par Linus Torvalds en 1991. A strictement parler, "Linux" designe uniquement le noyau (kernel), c'est-a-dire la couche logicielle qui fait le lien entre le materiel et les programmes. Cependant, dans le langage courant, on utilise le terme "Linux" pour designer l'ensemble du systeme d'exploitation, parfois appele GNU/Linux, qui combine le noyau Linux avec les outils du projet GNU et d'autres logiciels.
+Linux est un noyau de système d'exploitation libre et open source créé par Linus Torvalds en 1991. A strictement parler, "Linux" designe uniquement le noyau (kernel), c'est-a-dire la couche logicielle qui fait le lien entre le matériel et les programmes. Cependant, dans le langage courant, on utilisé le terme "Linux" pour designer l'ensemble du système d'exploitation, parfois appelé GNU/Linux, qui combiné le noyau Linux avec les outils du projet GNU et d'autres logiciels.
 
-Linux est utilise partout : serveurs web, smartphones (Android repose sur un noyau Linux), supercalculateurs, objets connectes, et bien sur les postes de travail. Sa nature open source signifie que n'importe qui peut consulter, modifier et redistribuer son code source. Cela a donne naissance a des centaines de distributions differentes, chacune adaptee a des besoins specifiques. Contrairement aux systemes proprietaires, Linux offre une transparence totale sur le fonctionnement du systeme, une securite renforcee grace a la communaute de developpeurs qui examine le code, et une liberte complete dans son utilisation.
+Linux est utilisé partout : serveurs web, smartphones (Android repose sur un noyau Linux), supercalculateurs, objets connectes, et bien sur les postes de travail. Sa nature open source signifie que n'importe qui peut consulter, modifier et redistribuer son code source. Cela a donne naissance a des centaines de distributions différentes, chacune adaptee a des besoins spécifiques. Contrairement aux systèmes propriétaires, Linux offre une transparence totale sur le fonctionnement du système, une sécurité renforcee grâce à la communaute de développeurs qui examine le code, et une liberte complète dans son utilisation.
 
-Pour verifier la version du noyau Linux installee sur votre machine :
+Pour vérifiér la version du noyau Linux installee sur votre machine :
 
 ```bash
 uname -r
@@ -25,33 +25,33 @@ uname -r
 
 ## 2. Quelle distribution Linux choisir pour debuter ?
 
-Le choix d'une distribution depend de votre profil et de vos objectifs. Pour un debutant souhaitant une transition en douceur depuis Windows ou macOS, **Ubuntu** reste la reference grace a sa communaute francophone tres active, sa documentation abondante et son installation simplifiee. **Linux Mint**, basee sur Ubuntu, offre une interface encore plus familiere pour les utilisateurs venant de Windows, avec un bureau traditionnel et des outils graphiques intuitifs.
+Le choix d'une distribution depend de votre profil et de vos objectifs. Pour un débutant souhaitant une transition en douceur depuis Windows ou macOS, **Ubuntu** reste la référence grâce à sa communaute francophone très active, sa documentation abondante et son installation simplifiee. **Linux Mint**, basée sur Ubuntu, offre une interface encore plus familiere pour les utilisateurs venant de Windows, avec un bureau traditionnel et des outils graphiques intuitifs.
 
-Si vous preferez une approche plus moderne de l'interface, **Fedora** propose les dernieres versions des logiciels tout en restant stable. Pour ceux qui veulent comprendre Linux en profondeur, **Debian** est un excellent choix : elle privilegie la stabilite et sert de base a de nombreuses autres distributions. Les administrateurs systeme se tourneront souvent vers **Rocky Linux** ou **AlmaLinux** pour les serveurs en production, car elles sont compatibles avec Red Hat Enterprise Linux.
+Si vous préféréz une approche plus moderne de l'interface, **Fedora** proposé les dernières versions des logiciels tout en restant stable. Pour ceux qui veulent comprendre Linux en profondeur, **Debian** est un excellent choix : elle privilégié la stabilité et sert de base a de nombreuses autres distributions. Les administrateurs système se tourneront souvent vers **Rocky Linux** ou **AlmaLinux** pour les serveurs en production, car elles sont compatibles avec Red Hat Enterprise Linux.
 
-Pour les utilisateurs avances desireux d'apprendre les rouages du systeme, **Arch Linux** offre une approche minimaliste ou vous construisez votre systeme brique par brique. Quelle que soit la distribution choisie, vous pouvez la tester sans rien installer grace a un live USB :
+Pour les utilisateurs avances desireux d'apprendre les rouages du système, **Arch Linux** offre une approche minimaliste ou vous construisez votre système brique par brique. Quelle que soit la distribution choisie, vous pouvez la tester sans rien installer grâce à un live USB :
 
 ```bash
-# Creer une cle USB bootable avec dd (remplacez /dev/sdX par votre cle)
-sudo dd if=ubuntu-24.04-desktop-amd64.iso of=/dev/sdX bs=4M status=progress
+# Creer une clé USB bootable avec dd (remplacez /dev/sdX par votre cle)
+sudo dd if=ubuntu-24.04-desktop-amd64.iso of=/dev/sdX bs=4M status=progrèss
 sync
 ```
 
 ---
 
-## 3. Comment installer Linux a cote de Windows (dual boot) ?
+## 3. Comment installer Linux a côté de Windows (dual boot) ?
 
-Le dual boot vous permet de conserver Windows tout en installant Linux sur le meme ordinateur. Avant toute chose, sauvegardez vos donnees importantes. Ensuite, depuis Windows, ouvrez l'outil "Gestion des disques" et reduisez la partition principale pour liberer de l'espace (un minimum de 50 Go est recommande pour un usage confortable). Desactivez egalement le demarrage rapide de Windows dans les options d'alimentation, car cette fonctionnalite peut interferer avec Linux.
+Le dual boot vous permet de conserver Windows tout en installant Linux sur le meme ordinateur. Avant toute chose, sauvegardez vos données importantes. Ensuite, depuis Windows, ouvrez l'outil "Gestion des disques" et reduisez la partition principale pour liberer de l'espace (un minimum de 50 Go est recommande pour un usage confortable). Desactivez également le démarrage rapide de Windows dans les options d'alimentation, car cette fonctionnalité peut interferer avec Linux.
 
-Telechargez l'image ISO de la distribution choisie, puis creez une cle USB bootable avec un outil comme Rufus (sous Windows) ou la commande `dd` (sous Linux). Redemarrez l'ordinateur et accedez au menu de demarrage (souvent F12, F2 ou Echap selon le constructeur). Selectionnez la cle USB et lancez l'installateur. La plupart des distributions modernes detectent Windows automatiquement et proposent l'option "Installer a cote de Windows".
+Telechargez l'image ISO de la distribution choisie, puis creez une clé USB bootable avec un outil comme Rufus (sous Windows) où la commande `dd` (sous Linux). Redemarrez l'ordinateur et accedez au menu de démarrage (souvent F12, F2 ou Echap selon le constructeur). Selectionnez la clé USB et lancez l'installateur. La plupart des distributions modernes detectent Windows automatiquement et proposent l'option "Installer a côté de Windows".
 
-Si votre machine utilise UEFI avec Secure Boot, il est generalement possible de le laisser active avec Ubuntu et Fedora. Pour d'autres distributions, vous devrez peut-etre le desactiver dans le BIOS. Apres l'installation, le gestionnaire de demarrage GRUB s'affichera a chaque demarrage et vous permettra de choisir entre Linux et Windows :
+Si votre machine utilisé UEFI avec Secure Boot, il est généralement possible de le laisser active avec Ubuntu et Fedora. Pour d'autres distributions, vous devrez peut-etre le désactiver dans le BIOS. Apres l'installation, le gestionnaire de démarrage GRUB s'affichera a chaque démarrage et vous permettra de choisir entre Linux et Windows :
 
 ```bash
-# Verifier la configuration de GRUB apres installation
+# Verifier la configuration de GRUB après installation
 cat /etc/default/grub
 
-# Mettre a jour GRUB apres modification de sa configuration
+# Mettre a jour GRUB après modification de sa configuration
 sudo update-grub
 ```
 
@@ -59,9 +59,9 @@ sudo update-grub
 
 ## 4. Comment ouvrir un terminal ?
 
-Le terminal est l'outil central de tout utilisateur Linux. Il permet d'interagir directement avec le systeme via des commandes textuelles, offrant un controle precis et une efficacite superieure aux interfaces graphiques pour de nombreuses taches. Sur la plupart des environnements de bureau, le raccourci clavier **Ctrl+Alt+T** ouvre instantanement un terminal. Sous GNOME, vous pouvez aussi chercher "Terminal" dans la vue des activites.
+Le terminal est l'outil central de tout utilisateur Linux. Il permet d'interagir directement avec le système via des commandes textuelles, offrant un contrôle precis et une efficacité supérieure aux interfaces graphiques pour de nombreuses taches. Sur la plupart des environnements de bureau, le raccourci clavier **Ctrl+Alt+T** ouvre instantanement un terminal. Sous GNOME, vous pouvez aussi chercher "Terminal" dans la vue des activités.
 
-Chaque environnement de bureau propose son propre emulateur de terminal : GNOME Terminal pour GNOME, Konsole pour KDE Plasma, XFCE Terminal pour XFCE. Il existe aussi des terminaux tiers aux fonctionnalites avancees comme **Alacritty** (rapide, accelere par le GPU), **Kitty** (riche en fonctionnalites) ou **Terminator** (qui permet de diviser la fenetre en plusieurs panneaux).
+Chaque environnement de bureau proposé son propre émulateur de terminal : GNOME Terminal pour GNOME, Konsole pour KDE Plasma, XFCE Terminal pour XFCE. Il existe aussi des terminaux tiers aux fonctionnalités avancees comme **Alacritty** (rapide, accelere par le GPU), **Kitty** (riche en fonctionnalités) ou **Terminator** (qui permet de diviser la fenêtre en plusieurs panneaux).
 
 Sur un serveur sans interface graphique, vous etes directement en mode console. Vous pouvez basculer entre les consoles virtuelles avec Ctrl+Alt+F1 a F6. La touche Ctrl+Alt+F7 (ou F2 selon la distribution) vous ramene a l'interface graphique si elle est installee :
 
@@ -69,7 +69,7 @@ Sur un serveur sans interface graphique, vous etes directement en mode console. 
 # Voir quel shell est en cours d'utilisation
 echo $SHELL
 
-# Voir quel emulateur de terminal est utilise
+# Voir quel émulateur de terminal est utilise
 echo $TERM
 ```
 
@@ -77,11 +77,11 @@ echo $TERM
 
 ## 5. Quelle est la difference entre sudo et su ?
 
-Ces deux commandes permettent d'executer des actions avec des privileges eleves, mais leur fonctionnement est fondamentalement different. **`su`** (substitute user) vous permet de changer d'identite utilisateur. Utilisee sans argument, elle vous connecte en tant que root, l'administrateur du systeme, et vous demande le mot de passe de root. Vous restez ensuite dans une session root jusqu'a ce que vous tapiez `exit`. Cela peut etre risque car toutes les commandes sont executees avec les pleins pouvoirs.
+Ces deux commandes permettent d'exécuter des actions avec des privileges élevés, mais leur fonctionnement est fondamentalement different. **`su`** (substitute user) vous permet de changer d'identité utilisateur. Utilisee sans argument, elle vous connecté en tant que root, l'administrateur du système, et vous demande le mot de passe de root. Vous restez ensuite dans une session root jusqu'a ce que vous tapiez `exit`. Cela peut être risque car toutes les commandes sont exécutées avec les pleins pouvoirs.
 
-**`sudo`** (superuser do) vous permet d'executer une seule commande avec les privileges root en utilisant votre propre mot de passe. C'est l'approche recommandee car elle offre une meilleure tracabilite (chaque commande est journalisee dans `/var/log/auth.log`), limite l'exposition aux erreurs et permet un controle fin des permissions via le fichier `/etc/sudoers`. Sur Ubuntu et ses derivees, le compte root est desactive par defaut et `sudo` est la seule methode prevue.
+**`sudo`** (superuser do) vous permet d'exécuter une seule commande avec les privileges root en utilisant votre propre mot de passe. C'est l'approche recommandee car elle offre une meilleure tracabilite (chaque commande est journalisee dans `/var/log/auth.log`), limite l'exposition aux erreurs et permet un contrôle fin des permissions via le fichier `/etc/sudoers`. Sur Ubuntu et ses derivees, le compte root est désactivé par défaut et `sudo` est la seule méthode prevue.
 
-La regle d'or : utilisez `sudo` pour des commandes ponctuelles et evitez de travailler en permanence en root. Si vous devez enchainer plusieurs commandes administratives, preferez `sudo -i` a `su` :
+La règle d'or : utilisez `sudo` pour des commandes ponctuelles et evitez de travailler en permanence en root. Si vous devez enchainer plusieurs commandes administratives, préféréz `sudo -i` a `su` :
 
 ```bash
 # Executer une seule commande en tant que root
@@ -93,7 +93,7 @@ sudo -i
 # Changer d'utilisateur (passer a l'utilisateur "jean")
 su - jean
 
-# Editer le fichier sudoers en toute securite
+# Editer le fichier sudoers en toute sécurité
 sudo visudo
 ```
 
@@ -101,11 +101,11 @@ sudo visudo
 
 ## 6. Comment installer un logiciel sous Linux ?
 
-Sous Linux, l'installation de logiciels passe principalement par un gestionnaire de paquets, un outil qui telecharge, installe, met a jour et desinstalle les logiciels de maniere centralisee. Chaque famille de distributions utilise son propre gestionnaire : **APT** pour Debian, Ubuntu et derivees ; **DNF** pour Fedora et Red Hat ; **Pacman** pour Arch Linux ; **Zypper** pour openSUSE. Cette approche est plus sure que de telecharger des executables depuis Internet, car les paquets proviennent de depots officiels verifies.
+Sous Linux, l'installation de logiciels passe principalement par un gestionnaire de paquets, un outil qui téléchargé, installe, met a jour et desinstallé les logiciels de manière centralisee. Chaque famille de distributions utilisé son propre gestionnaire : **APT** pour Debian, Ubuntu et derivees ; **DNF** pour Fedora et Red Hat ; **Pacman** pour Arch Linux ; **Zypper** pour openSUSE. Cette approche est plus sure que de téléchargér des exécutables depuis Internet, car les paquets proviennent de dépôts officiels vérifiés.
 
-En complement des gestionnaires natifs, des formats universels comme **Flatpak**, **Snap** et **AppImage** permettent d'installer des applications independamment de la distribution. Flatpak est particulierement populaire et donne acces a un vaste catalogue via Flathub. Pour les developpeurs, des outils specifiques comme pip (Python), npm (Node.js) ou cargo (Rust) permettent d'installer des bibliotheques et outils propres a leur ecosysteme.
+En complement des gestionnaires natifs, des formats universels comme **Flatpak**, **Snap** et **AppImage** permettent d'installer des applications indépendamment de la distribution. Flatpak est particulierement populaire et donne accès a un vaste catalogue via Flathub. Pour les développeurs, des outils spécifiques comme pip (Python), npm (Node.js) ou cargo (Rust) permettent d'installer des bibliothèques et outils propres a leur écosystème.
 
-Enfin, il est parfois necessaire de compiler un logiciel depuis ses sources, notamment pour des versions recentes ou des logiciels non disponibles dans les depots :
+Enfin, il est parfois nécessaire de compiler un logiciel depuis ses sources, notamment pour des versions recentes ou des logiciels non disponibles dans les dépôts :
 
 ```bash
 # Debian/Ubuntu : installer un logiciel
@@ -122,62 +122,62 @@ sudo pacman -S nom-du-paquet
 flatpak install flathub org.mozilla.firefox
 
 # Compiler depuis les sources (schema classique)
-./configure && make && sudo make install
+./configuré && make && sudo make install
 ```
 
 ---
 
-## 7. Comment mettre a jour son systeme ?
+## 7. Comment mettre a jour son système ?
 
-La mise a jour reguliere de votre systeme est essentielle pour la securite, la stabilite et l'acces aux dernieres fonctionnalites. Sous Linux, les mises a jour couvrent l'ensemble des logiciels installes via le gestionnaire de paquets, y compris le noyau, les pilotes, les bibliotheques et les applications. Contrairement a d'autres systemes, il n'est generalement pas necessaire de redemarrer apres une mise a jour, sauf lors d'un changement de noyau.
+La mise a jour réguliere de votre système est essentielle pour la sécurité, la stabilité et l'accès aux dernières fonctionnalités. Sous Linux, les mises a jour couvrent l'ensemble des logiciels installés via le gestionnaire de paquets, y compris le noyau, les pilotes, les bibliothèques et les applications. Contrairement a d'autres systèmes, il n'est généralement pas nécessaire de redémarrer après une mise a jour, sauf lors d'un changement de noyau.
 
-Sur un serveur en production, il est recommande de planifier les mises a jour et de les tester au prealable dans un environnement de staging. Les mises a jour de securite meritent cependant d'etre appliquees sans delai. Certaines distributions proposent un systeme de mises a jour automatiques pour les correctifs de securite, ce qui constitue une bonne pratique pour les serveurs :
+Sur un serveur en production, il est recommande de planifier les mises a jour et de les tester au prealable dans un environnement de staging. Les mises a jour de sécurité meritent cependant d'être appliquees sans delai. Certaines distributions proposent un système de mises a jour automatiques pour les correctifs de sécurité, ce qui constitue une bonne pratique pour les serveurs :
 
 ```bash
-# Debian/Ubuntu : mettre a jour la liste des paquets puis le systeme
+# Debian/Ubuntu : mettre a jour la liste des paquets puis le système
 sudo apt update && sudo apt upgrade -y
 
-# Mise a niveau complete (gere aussi les changements de dependances)
+# Mise a niveau complète (géré aussi les changements de dépendances)
 sudo apt full-upgrade -y
 
-# Fedora : mettre a jour l'ensemble du systeme
+# Fedora : mettre a jour l'ensemble du système
 sudo dnf upgrade --refresh
 
 # Arch Linux : synchroniser et mettre a jour
 sudo pacman -Syu
 
-# Activer les mises a jour de securite automatiques (Debian/Ubuntu)
+# Activer les mises a jour de sécurité automatiques (Debian/Ubuntu)
 sudo apt install unattended-upgrades
-sudo dpkg-reconfigure unattended-upgrades
+sudo dpkg-reconfiguré unattended-upgrades
 ```
 
 ---
 
-## 8. Comment gerer les permissions des fichiers ?
+## 8. Comment gérer les permissions des fichiers ?
 
-Le systeme de permissions sous Linux est au coeur de sa securite. Chaque fichier et repertoire possede trois niveaux de permissions : **lecture (r)**, **ecriture (w)** et **execution (x)**, appliques a trois categories : le **proprietaire** du fichier, le **groupe** associe, et les **autres** utilisateurs. Ce modele garantit que seuls les utilisateurs autorises peuvent acceder ou modifier un fichier.
+Le système de permissions sous Linux est au coeur de sa sécurité. Chaque fichier et répertoire possede trois niveaux de permissions : **lecture (r)**, **écriture (w)** et **exécution (x)**, appliques a trois catégories : le **propriétaire** du fichier, le **groupe** associe, et les **autres** utilisateurs. Ce modèle garantit que seuls les utilisateurs autorises peuvent accéder ou modifier un fichier.
 
-Les permissions sont affichees par la commande `ls -l` sous la forme d'une chaine comme `-rwxr-xr--`, ou les trois premiers caracteres apres le tiret concernent le proprietaire, les trois suivants le groupe, et les trois derniers les autres. On modifie les permissions avec `chmod`, en utilisant soit la notation symbolique (u+x, g-w) soit la notation octale (755, 644). La commande `chown` permet de changer le proprietaire et le groupe d'un fichier.
+Les permissions sont affichées par la commande `ls -l` sous la forme d'une chaine comme `-rwxr-xr--`, où les trois premiers caractères après le tiret concernent le propriétaire, les trois suivants le groupe, et les trois derniers les autres. On modifié les permissions avec `chmod`, en utilisant soit la notation symbolique (u+x, g-w) soit la notation octale (755, 644). La commande `chown` permet de changer le propriétaire et le groupe d'un fichier.
 
-Au-dela des permissions classiques, Linux propose les **ACL** (Access Control Lists) pour un controle plus fin, et les attributs speciaux comme le **setuid**, le **setgid** et le **sticky bit** pour des cas d'usage avances :
+Au-dela des permissions classiques, Linux proposé les **ACL** (Access Control Lists) pour un contrôle plus fin, et les attributs speciaux comme le **setuid**, le **setgid** et le **sticky bit** pour des cas d'usage avances :
 
 ```bash
-# Voir les permissions detaillees d'un fichier
+# Voir les permissions détaillées d'un fichier
 ls -la /chemin/vers/fichier
 
-# Donner les droits d'execution au proprietaire
+# Donner les droits d'exécution au propriétaire
 chmod u+x script.sh
 
 # Definir les permissions en notation octale (rwxr-xr-x)
 chmod 755 script.sh
 
-# Changer le proprietaire et le groupe
+# Changer le propriétaire et le groupe
 sudo chown utilisateur:groupe fichier.txt
 
-# Appliquer des permissions recursivement a un repertoire
-chmod -R 750 /chemin/vers/repertoire
+# Appliquer des permissions recursivement a un répertoire
+chmod -R 750 /chemin/vers/répertoire
 
-# Definir une ACL pour un utilisateur specifique
+# Definir une ACL pour un utilisateur spécifique
 setfacl -m u:jean:rwx /chemin/vers/fichier
 ```
 
@@ -185,23 +185,23 @@ setfacl -m u:jean:rwx /chemin/vers/fichier
 
 ## 9. Qu'est-ce qu'un shell et lequel choisir ?
 
-Le shell est l'interpreteur de commandes qui fait le lien entre vous et le systeme d'exploitation. Lorsque vous tapez une commande dans le terminal, c'est le shell qui l'interprete, l'execute et vous affiche le resultat. Il offre egalement un langage de script permettant d'automatiser des sequences de commandes. C'est un outil fondamental pour tout utilisateur de Linux.
+Le shell est l'interpreteur de commandes qui fait le lien entre vous et le système d'exploitation. Lorsque vous tapez une commande dans le terminal, c'est le shell qui l'interprete, l'exécuté et vous affiché le résultat. Il offre également un langage de script permettant d'automatiser des sequences de commandes. C'est un outil fondamental pour tout utilisateur de Linux.
 
-**Bash** (Bourne Again Shell) est le shell par defaut sur la majorite des distributions. Il est mature, extremement bien documente et compatible avec pratiquement tous les scripts existants. **Zsh** est une alternative populaire qui etend les fonctionnalites de Bash avec une completion plus intelligente, des themes configurables via le framework Oh My Zsh, et des corrections automatiques de frappe. C'est le shell par defaut sur macOS depuis Catalina.
+**Bash** (Bourne Again Shell) est le shell par défaut sur la majorité des distributions. Il est mature, extremement bien documente et compatible avec pratiquement tous les scripts existants. **Zsh** est une alternative populaire qui etend les fonctionnalités de Bash avec une complétion plus intelligente, des themes configurables via le framework Oh My Zsh, et des corrections automatiques de frappe. C'est le shell par défaut sur macOS depuis Catalina.
 
-**Fish** (Friendly Interactive Shell) se distingue par sa facilite d'utilisation : coloration syntaxique en temps reel, suggestions automatiques basees sur l'historique, et une configuration web accessible. Pour les scripts de production, Bash reste le choix le plus sur en termes de compatibilite. Pour une utilisation interactive quotidienne, Zsh ou Fish offrent un confort supplementaire appreciable :
+**Fish** (Friendly Interactive Shell) se distingue par sa facilite d'utilisation : coloration syntaxique en temps reel, suggestions automatiques basées sur l'historique, et une configuration web accessible. Pour les scripts de production, Bash reste le choix le plus sur en termes de compatibilité. Pour une utilisation interactive quotidienne, Zsh ou Fish offrent un confort supplementaire appreciable :
 
 ```bash
 # Voir le shell actuel
 echo $SHELL
 
-# Lister les shells disponibles sur le systeme
+# Lister les shells disponibles sur le système
 cat /etc/shells
 
-# Changer de shell par defaut (ici pour zsh)
+# Changer de shell par défaut (ici pour zsh)
 chsh -s /usr/bin/zsh
 
-# Installer Oh My Zsh pour personnaliser zsh
+# Installer Oh My Zsh pour personnalisér zsh
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
@@ -209,47 +209,47 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 
 ## 10. Comment se connecter a un serveur distant ?
 
-La connexion a distance sous Linux repose principalement sur le protocole **SSH** (Secure Shell), qui fournit un canal chiffre pour l'administration de serveurs distants. SSH est installe par defaut sur la quasi-totalite des distributions Linux et permet non seulement d'ouvrir un terminal distant, mais aussi de transferer des fichiers, de creer des tunnels reseau et de rediriger des ports.
+La connexion a distance sous Linux repose principalement sur le protocole **SSH** (Secure Shell), qui fournit un canal chiffre pour l'administration de serveurs distants. SSH est installé par défaut sur la quasi-totalité des distributions Linux et permet non seulement d'ouvrir un terminal distant, mais aussi de transférér des fichiers, de créer des tunnels réseau et de rediriger des ports.
 
-Pour une connexion plus securisee, il est fortement recommande d'utiliser l'authentification par cle publique/privee plutot que par mot de passe. Vous generez une paire de cles sur votre machine locale, puis deposez la cle publique sur le serveur. Cette methode est a la fois plus sure (pas de mot de passe a intercepter) et plus pratique (pas besoin de saisir un mot de passe a chaque connexion).
+Pour une connexion plus sécurisée, il est fortement recommande d'utiliser l'authentification par clé publique/privee plutot que par mot de passe. Vous generez une paire de clés sur votre machine locale, puis deposez la clé publique sur le serveur. Cette méthode est a la fois plus sure (pas de mot de passe a intercepter) et plus pratique (pas besoin de saisir un mot de passe a chaque connexion).
 
-Pour les transferts de fichiers, `scp` et `rsync` utilisent le protocole SSH. Pour gerer plusieurs connexions frequentes, le fichier `~/.ssh/config` permet de definir des alias et des parametres par serveur, simplifiant considerablement l'administration quotidienne :
+Pour les transferts de fichiers, `scp` et `rsync` utilisent le protocole SSH. Pour gérer plusieurs connexions fréquentes, le fichier `~/.ssh/config` permet de définir des alias et des paramètres par serveur, simplifiant considérablement l'administration quotidienne :
 
 ```bash
 # Connexion SSH simple
 ssh utilisateur@adresse-du-serveur
 
-# Generer une paire de cles SSH (algorithme Ed25519, recommande)
+# Generer une paire de clés SSH (algorithme Ed25519, recommande)
 ssh-keygen -t ed25519 -C "votre@email.com"
 
-# Copier la cle publique sur le serveur
+# Copier la clé publique sur le serveur
 ssh-copy-id utilisateur@adresse-du-serveur
 
-# Connexion sur un port personnalise
+# Connexion sur un port personnalisé
 ssh -p 2222 utilisateur@adresse-du-serveur
 
 # Transferer un fichier vers le serveur
 scp fichier.txt utilisateur@serveur:/chemin/destination/
 
-# Synchroniser un repertoire complet
-rsync -avz /repertoire/local/ utilisateur@serveur:/repertoire/distant/
+# Synchroniser un répertoire complet
+rsync -avz /répertoire/local/ utilisateur@serveur:/répertoire/distant/
 ```
 
 ---
 
 ## 11. Comment trouver de l'aide sur une commande ?
 
-Linux dispose d'un ecosysteme d'aide integre remarquablement complet. La premiere ressource a consulter est le **manuel** (man pages). Presque chaque commande possede sa page de manuel, qui detaille sa syntaxe, ses options, des exemples d'utilisation et les fichiers de configuration associes. Les pages de manuel sont organisees en sections numerotees : section 1 pour les commandes utilisateur, section 5 pour les formats de fichiers, section 8 pour les commandes d'administration.
+Linux dispose d'un écosystème d'aide intégré remarquablement complet. La première ressource a consulter est le **manuel** (man pages). Presque chaque commande possede sa page de manuel, qui détaillé sa syntaxe, ses options, des exemples d'utilisation et les fichiers de configuration associés. Les pages de manuel sont organisées en sections numerotees : section 1 pour les commandes utilisateur, section 5 pour les formats de fichiers, section 8 pour les commandes d'administration.
 
-L'option `--help` est un raccourci rapide qui affiche un resume de la syntaxe et des options principales d'une commande. La commande `info` fournit parfois une documentation plus detaillee que man, organisee sous forme de pages hyperliees. Pour rechercher une commande dont vous ne connaissez pas le nom, `apropos` effectue une recherche dans les descriptions des pages de manuel.
+L'option `--help` est un raccourci rapide qui affiché un resume de la syntaxe et des options principales d'une commande. La commande `info` fournit parfois une documentation plus détaillée que man, organisée sous forme de pages hyperliees. Pour rechercher une commande dont vous ne connaissez pas le nom, `apropos` effectue une recherche dans les descriptions des pages de manuel.
 
-Pour les debutants, la commande `tldr` (a installer separement) offre des exemples concrets et simplifies, beaucoup plus accessibles que les pages de manuel traditionnelles :
+Pour les débutants, la commande `tldr` (a installer séparément) offre des exemples concrets et simplifies, beaucoup plus accessibles que les pages de manuel traditionnelles :
 
 ```bash
 # Consulter le manuel d'une commande
 man ls
 
-# Rechercher dans une section specifique du manuel
+# Rechercher dans une section spécifique du manuel
 man 5 crontab
 
 # Afficher l'aide rapide d'une commande
@@ -267,11 +267,11 @@ tldr tar
 
 ## 12. Qu'est-ce que le fichier /etc/fstab ?
 
-Le fichier `/etc/fstab` (file systems table) est un fichier de configuration essentiel qui definit comment et ou les systemes de fichiers doivent etre montes automatiquement au demarrage du systeme. Chaque ligne du fichier decrit un systeme de fichiers avec six champs : le peripherique source, le point de montage, le type de systeme de fichiers, les options de montage, la frequence de sauvegarde (dump) et l'ordre de verification (fsck).
+Le fichier `/etc/fstab` (file systems table) est un fichier de configuration essentiel qui définit comment et où les systèmes de fichiers doivent être montes automatiquement au démarrage du système. Chaque ligne du fichier décrit un système de fichiers avec six champs : le périphérique source, le point de montage, le type de système de fichiers, les options de montage, la frequence de sauvegarde (dump) et l'ordre de vérification (fsck).
 
-Il est crucial de manipuler ce fichier avec precaution, car une erreur de syntaxe peut empecher le systeme de demarrer correctement. Avant toute modification, creez systematiquement une copie de sauvegarde. Utilisez les UUID (identifiants uniques universels) plutot que les noms de peripheriques comme `/dev/sda1`, car ces derniers peuvent changer si vous ajoutez ou retirez des disques.
+Il est crucial de manipuler ce fichier avec precaution, car une erreur de syntaxe peut empecher le système de démarrer correctement. Avant toute modification, creez systematiquement une copie de sauvegarde. Utilisez les UUID (identifiants uniques universels) plutot que les noms de périphériques comme `/dev/sda1`, car ces derniers peuvent changer si vous ajoutez ou retirez des disques.
 
-Les options de montage les plus courantes incluent `defaults` (raccourci pour rw, suid, dev, exec, auto, nouser, async), `noatime` (ameliore les performances en ne mettant pas a jour la date d'acces), et `nofail` (empeche le blocage du demarrage si le peripherique est absent) :
+Les options de montage les plus courantes incluent `defaults` (raccourci pour rw, suid, dev, exec, auto, nouser, async), `noatime` (ameliore les performances en ne mettant pas a jour la date d'acces), et `nofail` (empeche le blocage du démarrage si le périphérique est absent) :
 
 ```bash
 # Afficher le contenu du fichier fstab
@@ -286,22 +286,22 @@ sudo cp /etc/fstab /etc/fstab.bak
 # Exemple de ligne fstab avec UUID
 # UUID=xxxx-xxxx  /mnt/data  ext4  defaults,noatime  0  2
 
-# Monter toutes les entrees du fstab sans redemarrer
+# Monter toutes les entrées du fstab sans redémarrer
 sudo mount -a
 
-# Verifier les systemes de fichiers montes
+# Verifier les systèmes de fichiers montes
 df -hT
 ```
 
 ---
 
-## 13. Comment gerer les services avec systemd ?
+## 13. Comment gérer les services avec systemd ?
 
-**systemd** est le systeme d'initialisation et le gestionnaire de services utilise par la majorite des distributions Linux modernes (Debian, Ubuntu, Fedora, Arch, etc.). Il remplace l'ancien systeme SysVinit et offre un demarrage parallelise plus rapide, une gestion avancee des dependances entre services, et une journalisation centralisee. L'outil principal pour interagir avec systemd est `systemctl`.
+**systemd** est le système d'initialisation et le gestionnaire de services utilisé par la majorité des distributions Linux modernes (Debian, Ubuntu, Fedora, Arch, etc.). Il remplacé l'ancien système SysVinit et offre un démarrage parallélisé plus rapide, une gestion avancee des dépendances entre services, et une journalisation centralisee. L'outil principal pour interagir avec systemd est `systemctl`.
 
-Un service (ou unit) est un processus gere par systemd, comme un serveur web (Apache, Nginx), une base de donnees (PostgreSQL, MariaDB) ou un service reseau (SSH). Chaque service est defini par un fichier unit, generalement situe dans `/etc/systemd/system/` pour les services personnalises ou `/lib/systemd/system/` pour ceux installes par les paquets.
+Un service (où unit) est un processus géré par systemd, comme un serveur web (Apache, Nginx), une base de données (PostgreSQL, MariaDB) où un service réseau (SSH). Chaque service est defini par un fichier unit, généralement situe dans `/etc/systemd/system/` pour les services personnalisés ou `/lib/systemd/system/` pour ceux installés par les paquets.
 
-La journalisation est assuree par `journalctl`, qui centralise tous les messages du systeme et des services. C'est un outil indispensable pour le diagnostic et le depannage :
+La journalisation est assuree par `journalctl`, qui centralise tous les messages du système et des services. C'est un outil indispensable pour le diagnostic et le depannage :
 
 ```bash
 # Demarrer un service
@@ -310,34 +310,34 @@ sudo systemctl start nginx
 # Arreter un service
 sudo systemctl stop nginx
 
-# Activer un service au demarrage
+# Activer un service au démarrage
 sudo systemctl enable nginx
 
-# Verifier l'etat d'un service
+# Verifier l'état d'un service
 systemctl status nginx
 
-# Voir les logs d'un service specifique
+# Voir les logs d'un service spécifique
 journalctl -u nginx --since "1 hour ago"
 
 # Lister tous les services actifs
 systemctl list-units --type=service --state=running
 
-# Recharger la configuration de systemd apres modification d'un fichier unit
+# Recharger la configuration de systemd après modification d'un fichier unit
 sudo systemctl daemon-reload
 ```
 
 ---
 
-## 14. Comment configurer le reseau en ligne de commande ?
+## 14. Comment configurer le réseau en ligne de commande ?
 
-La configuration reseau en ligne de commande est une competence essentielle pour l'administration de serveurs Linux, qui ne disposent generalement pas d'interface graphique. Les distributions modernes utilisent principalement deux outils : **NetworkManager** (avec la commande `nmcli`) pour les postes de travail, et **systemd-networkd** ou les fichiers de configuration Netplan pour les serveurs. L'ancienne commande `ifconfig` est obsolete et remplacee par `ip`, issue du paquet iproute2.
+La configuration réseau en ligne de commande est une competence essentielle pour l'administration de serveurs Linux, qui ne disposent généralement pas d'interface graphique. Les distributions modernes utilisent principalement deux outils : **NetworkManager** (avec la commande `nmcli`) pour les postes de travail, et **systemd-networkd** où les fichiers de configuration Netplan pour les serveurs. L'ancienne commande `ifconfig` est obsolete et remplacée par `ip`, issue du paquet iproute2.
 
-Pour le diagnostic reseau, Linux propose un ensemble d'outils puissants. `ip` affiche et configure les interfaces, les routes et les adresses. `ss` (qui remplace `netstat`) affiche les connexions reseau actives. `dig` et `nslookup` permettent d'interroger les serveurs DNS. `ping` et `traceroute` servent a tester la connectivite et a tracer les chemins reseau.
+Pour le diagnostic réseau, Linux proposé un ensemble d'outils puissants. `ip` affiché et configuré les interfaces, les routes et les adresses. `ss` (qui remplacé `netstat`) affiché les connexions réseau actives. `dig` et `nslookup` permettent d'interroger les serveurs DNS. `ping` et `traceroute` servent a tester la connectivité et a tracer les chemins réseau.
 
-Sur les serveurs Ubuntu modernes, la configuration reseau se fait via Netplan, qui genere la configuration pour NetworkManager ou systemd-networkd selon le contexte :
+Sur les serveurs Ubuntu modernes, la configuration réseau se fait via Netplan, qui genere la configuration pour NetworkManager ou systemd-networkd selon le contexte :
 
 ```bash
-# Afficher toutes les interfaces reseau et leurs adresses IP
+# Afficher toutes les interfaces réseau et leurs adresses IP
 ip addr show
 
 # Configurer une adresse IP statique temporairement
@@ -346,10 +346,10 @@ sudo ip addr add 192.168.1.100/24 dev eth0
 # Afficher la table de routage
 ip route show
 
-# Tester la connectivite vers un hote
+# Tester la connectivité vers un hote
 ping -c 4 google.com
 
-# Afficher les connexions reseau actives
+# Afficher les connexions réseau actives
 ss -tulnp
 
 # Configurer une connexion avec NetworkManager
@@ -361,80 +361,80 @@ sudo netplan apply
 
 ---
 
-## 15. Comment surveiller les ressources systeme ?
+## 15. Comment surveiller les ressources système ?
 
-La surveillance des ressources systeme est indispensable pour maintenir des performances optimales et anticiper les problemes. Linux offre un large eventail d'outils, des plus simples aux plus avances, pour monitorer l'utilisation du processeur, de la memoire, des disques et du reseau. L'outil de base est `top`, qui affiche en temps reel les processus et leur consommation de ressources.
+La surveillancé des ressources système est indispensable pour maintenir des performances optimales et anticiper les problemes. Linux offre un large eventail d'outils, des plus simples aux plus avances, pour monitorer l'utilisation du processeur, de la mémoire, des disques et du réseau. L'outil de base est `top`, qui affiché en temps reel les processus et leur consommation de ressources.
 
-**htop** est une version amelioree de top, offrant une interface plus lisible avec des graphiques en couleur, le tri par colonne, et la possibilite de tuer un processus directement. Pour une vue d'ensemble rapide, `free` affiche l'utilisation de la memoire, `df` celle des disques, et `uptime` la charge systeme. Pour un diagnostic plus pousse, `vmstat` et `iostat` fournissent des statistiques detaillees sur la memoire virtuelle et les entrees/sorties.
+**htop** est une version amelioree de top, offrant une interface plus lisible avec des graphiques en couleur, le tri par colonne, et la possibilité de tuer un processus directement. Pour une vue d'ensemble rapide, `free` affiché l'utilisation de la mémoire, `df` celle des disques, et `uptime` la charge système. Pour un diagnostic plus pousse, `vmstat` et `iostat` fournissent des statistiques détaillées sur la mémoire virtuelle et les entrées/sorties.
 
-Sur un serveur en production, des outils comme **Prometheus**, **Grafana** ou **Netdata** permettent une surveillance continue avec des alertes et des tableaux de bord graphiques :
+Sur un serveur en production, des outils comme **Prometheus**, **Grafana** ou **Netdata** permettent une surveillancé continue avec des alertes et des tableaux de bord graphiques :
 
 ```bash
-# Surveillance interactive des processus
+# Surveillancé interactive des processus
 htop
 
-# Afficher l'utilisation de la memoire
+# Afficher l'utilisation de la mémoire
 free -h
 
 # Afficher l'espace disque utilise
 df -h
 
-# Statistiques d'entrees/sorties des disques
+# Statistiques d'entrées/sorties des disques
 iostat -xz 1 3
 
 # Afficher les processus les plus consommateurs de CPU
 ps aux --sort=-%cpu | head -10
 
-# Surveiller le trafic reseau en temps reel
+# Surveiller le trafic réseau en temps reel
 sudo iftop
 
-# Charge systeme et temps de fonctionnement
+# Charge système et temps de fonctionnement
 uptime
 ```
 
 ---
 
-## 16. Quelle est la difference entre un fichier et un repertoire ?
+## 16. Quelle est la difference entre un fichier et un répertoire ?
 
-Sous Linux, la philosophie "tout est fichier" est un concept fondamental. Un **fichier** est une unite de donnees stockee sur le disque : il peut contenir du texte, du code, une image, un programme executable, etc. Un **repertoire** (equivalent du "dossier" sous Windows) est en realite un type special de fichier qui contient une liste de references vers d'autres fichiers et repertoires. Cette structure hierarchique forme l'arborescence du systeme de fichiers, qui part de la racine `/`.
+Sous Linux, la philosophie "tout est fichier" est un concept fondamental. Un **fichier** est une unite de données stockée sur le disque : il peut contenir du texte, du code, une image, un programme exécutable, etc. Un **répertoire** (equivalent du "dossier" sous Windows) est en realite un type special de fichier qui contient une liste de références vers d'autres fichiers et répertoires. Cette structure hiérarchique forme l'arborescence du système de fichiers, qui part de la racine `/`.
 
-Linux distingue plusieurs types de fichiers, chacun identifie par un caractere dans la sortie de `ls -l` : `-` pour un fichier ordinaire, `d` pour un repertoire, `l` pour un lien symbolique, `b` pour un peripherique bloc, `c` pour un peripherique caractere, `s` pour un socket, et `p` pour un tube nomme (FIFO). Comprendre ces types est essentiel pour naviguer et administrer le systeme.
+Linux distingue plusieurs types de fichiers, chacun identifié par un caractère dans la sortie de `ls -l` : `-` pour un fichier ordinaire, `d` pour un répertoire, `l` pour un lien symbolique, `b` pour un périphérique bloc, `c` pour un périphérique caractère, `s` pour un socket, et `p` pour un tube nommé (FIFO). Comprendre ces types est essentiel pour naviguer et administrer le système.
 
-L'arborescence Linux est standardisee par le FHS (Filesystem Hierarchy Standard). Les repertoires principaux ont chacun un role precis : `/etc` pour la configuration, `/home` pour les donnees utilisateur, `/var` pour les donnees variables, `/tmp` pour les fichiers temporaires :
+L'arborescence Linux est standardisee par le FHS (Filesystem Hierarchy Standard). Les répertoires principaux ont chacun un rôle precis : `/etc` pour la configuration, `/home` pour les données utilisateur, `/var` pour les données variables, `/tmp` pour les fichiers temporaires :
 
 ```bash
-# Lister le contenu d'un repertoire avec le type de chaque entree
+# Lister le contenu d'un répertoire avec le type de chaque entrée
 ls -la /
 
 # Determiner le type d'un fichier
 file /bin/bash
 
-# Creer un repertoire et ses parents si necessaire
-mkdir -p /chemin/vers/nouveau/repertoire
+# Creer un répertoire et ses parents si nécessaire
+mkdir -p /chemin/vers/nouveau/répertoire
 
 # Creer un fichier vide
 touch nouveau_fichier.txt
 
-# Afficher l'arborescence d'un repertoire
+# Afficher l'arborescence d'un répertoire
 tree -L 2 /etc
 
-# Trouver tous les liens symboliques dans un repertoire
+# Trouver tous les liens symboliques dans un répertoire
 find /etc -type l -maxdepth 1
 ```
 
 ---
 
-## 17. Comment creer et gerer des archives ?
+## 17. Comment créer et gérer des archives ?
 
-La gestion des archives est une operation quotidienne sous Linux, que ce soit pour sauvegarder des donnees, distribuer des logiciels ou transferer des fichiers. L'outil le plus utilise est **tar** (tape archive), qui regroupe plusieurs fichiers en un seul sans compression. Pour reduire la taille, tar est generalement combine avec un algorithme de compression : **gzip** (extension .tar.gz ou .tgz), **bzip2** (extension .tar.bz2) ou **xz** (extension .tar.xz, meilleur taux de compression).
+La gestion des archives est une opération quotidienne sous Linux, que ce soit pour sauvegarder des données, distribuer des logiciels ou transférér des fichiers. L'outil le plus utilisé est **tar** (tape archive), qui regroupe plusieurs fichiers en un seul sans compression. Pour reduire la taille, tar est généralement combiné avec un algorithme de compression : **gzip** (extension .tar.gz ou .tgz), **bzip2** (extension .tar.bz2) ou **xz** (extension .tar.xz, meilleur taux de compression).
 
-L'outil **zip** est egalement disponible pour une compatibilite maximale avec Windows et macOS. Pour les archives de grande taille, `split` permet de decouper un fichier en morceaux de taille definie, utile pour le transfert par email ou sur des supports de stockage limites. La commande `rsync` est quant a elle ideale pour les sauvegardes incrementales.
+L'outil **zip** est également disponible pour une compatibilité maximale avec Windows et macOS. Pour les archives de grande taille, `split` permet de decouper un fichier en morceaux de taille définie, utile pour le transfert par email ou sur des supports de stockage limites. La commande `rsync` est quant a elle ideale pour les sauvegardes incrementales.
 
-Lors de l'extraction, soyez vigilant avec les archives provenant de sources non fiables. Utilisez toujours l'option de listing (`-t`) avant d'extraire pour verifier le contenu et vous assurer qu'il n'y a pas de chemins absolus ou de tentatives d'ecrasement de fichiers systeme :
+Lors de l'extraction, soyez vigilant avec les archives provenant de sources non fiables. Utilisez toujours l'option de listing (`-t`) avant d'extraire pour vérifiér le contenu et vous assurer qu'il n'y a pas de chemins absolus ou de tentatives d'ecrasement de fichiers système :
 
 ```bash
-# Creer une archive compressee avec gzip
-tar -czf archive.tar.gz /chemin/vers/repertoire
+# Creer une archive compressée avec gzip
+tar -czf archive.tar.gz /chemin/vers/répertoire
 
 # Lister le contenu d'une archive sans l'extraire
 tar -tzf archive.tar.gz
@@ -443,10 +443,10 @@ tar -tzf archive.tar.gz
 tar -xzf archive.tar.gz -C /destination/
 
 # Creer une archive avec la meilleure compression (xz)
-tar -cJf archive.tar.xz /chemin/vers/repertoire
+tar -cJf archive.tar.xz /chemin/vers/répertoire
 
 # Creer une archive zip
-zip -r archive.zip /chemin/vers/repertoire
+zip -r archive.zip /chemin/vers/répertoire
 
 # Extraire une archive zip
 unzip archive.zip -d /destination/
@@ -456,11 +456,11 @@ unzip archive.zip -d /destination/
 
 ## 18. Comment automatiser des taches avec cron ?
 
-**cron** est le planificateur de taches historique de Linux. Il permet d'executer des commandes ou des scripts a des intervalles reguliers : toutes les minutes, chaque heure, quotidiennement, hebdomadairement, ou selon un calendrier personnalise. Chaque utilisateur dispose de sa propre crontab (table cron), et il existe aussi une crontab systeme dans `/etc/crontab` pour les taches d'administration.
+**cron** est le planificateur de taches historique de Linux. Il permet d'exécuter des commandes ou des scripts a des intervalles réguliers : toutes les minutes, chaque heure, quotidiennement, hebdomadairement, ou selon un calendrier personnalisé. Chaque utilisateur dispose de sa propre crontab (table cron), et il existe aussi une crontab système dans `/etc/crontab` pour les taches d'administration.
 
-La syntaxe d'une entree cron comporte cinq champs temporels suivis de la commande a executer : minute (0-59), heure (0-23), jour du mois (1-31), mois (1-12), jour de la semaine (0-7, ou 0 et 7 representent dimanche). Le caractere `*` signifie "toutes les valeurs", et des notations comme `*/5` (toutes les 5 unites) ou `1,15` (le 1er et le 15) offrent une grande flexibilite.
+La syntaxe d'une entrée cron comporte cinq champs temporels suivis de la commande a exécuter : minute (0-59), heure (0-23), jour du mois (1-31), mois (1-12), jour de la semaine (0-7, ou 0 et 7 représentent dimanche). Le caractère `*` signifié "toutes les valeurs", et des notations comme `*/5` (toutes les 5 unites) ou `1,15` (le 1er et le 15) offrent une grande flexibilité.
 
-Pour les taches plus complexes ou dependantes d'evenements, **systemd timers** constituent une alternative moderne a cron, offrant une meilleure integration avec le systeme de journalisation et la gestion des dependances :
+Pour les taches plus complexes ou dependantes d'événements, **systemd timers** constituent une alternative moderne a cron, offrant une meilleure intégration avec le système de journalisation et la gestion des dépendances :
 
 ```bash
 # Editer la crontab de l'utilisateur courant
@@ -488,16 +488,16 @@ grep CRON /var/log/syslog
 
 ---
 
-## 19. Comment securiser un serveur Linux ?
+## 19. Comment sécurisér un serveur Linux ?
 
-La securisation d'un serveur Linux est un processus continu qui commence des l'installation. La premiere etape consiste a durcir la configuration SSH : desactivez la connexion root directe (`PermitRootLogin no`), interdisez l'authentification par mot de passe (`PasswordAuthentication no`) au profit des cles SSH, et changez le port par defaut si souhaite. Limitez les utilisateurs autorises a se connecter avec la directive `AllowUsers`.
+La sécurisation d'un serveur Linux est un processus continu qui commence des l'installation. La première étape consiste a durcir la configuration SSH : désactivéz la connexion root directe (`PermitRootLogin no`), interdisez l'authentification par mot de passe (`PasswordAuthentication no`) au profit des clés SSH, et changez le port par défaut si souhaite. Limitez les utilisateurs autorises a se connecter avec la directive `AllowUsers`.
 
-Installez et configurez un pare-feu pour controler le trafic reseau. **UFW** (Uncomplicated Firewall) simplifie la gestion d'iptables sur Ubuntu et Debian. **firewalld** est l'outil standard sur Fedora et Red Hat. N'ouvrez que les ports strictement necessaires. Installez **fail2ban** pour bloquer automatiquement les adresses IP qui tentent des connexions en force brute.
+Installez et configurez un pare-feu pour contrôler le trafic réseau. **UFW** (Uncomplicated Firewall) simplifie la gestion d'iptables sur Ubuntu et Debian. **firewalld** est l'outil standard sur Fedora et Red Hat. N'ouvrez que les ports strictement nécessaires. Installez **fail2ban** pour bloquer automatiquement les adresses IP qui tentent des connexions en force brute.
 
-Maintenez votre systeme a jour, surveillez les journaux avec une attention particuliere aux tentatives de connexion echouees, activez les mises a jour de securite automatiques et appliquez le principe du moindre privilege : chaque utilisateur et chaque service ne doit disposer que des permissions strictement necessaires a son fonctionnement :
+Maintenez votre système a jour, surveillez les journaux avec une attention particuliere aux tentatives de connexion echouees, activez les mises a jour de sécurité automatiques et appliquez le principe du moindre privilege : chaque utilisateur et chaque service ne doit disposer que des permissions strictement nécessaires a son fonctionnement :
 
 ```bash
-# Configurer SSH de maniere securisee
+# Configurer SSH de manière sécurisée
 sudo nano /etc/ssh/sshd_config
 # PermitRootLogin no
 # PasswordAuthentication no
@@ -507,7 +507,7 @@ sudo systemctl restart sshd
 # Configurer le pare-feu avec UFW
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
-sudo ufw allow 2222/tcp    # SSH sur port personnalise
+sudo ufw allow 2222/tcp    # SSH sur port personnalisé
 sudo ufw allow 443/tcp     # HTTPS
 sudo ufw enable
 
@@ -518,7 +518,7 @@ sudo systemctl enable fail2ban
 # Verifier les tentatives de connexion echouees
 journalctl -u sshd | grep "Failed password"
 
-# Lister les ports ouverts sur le systeme
+# Lister les ports ouverts sur le système
 sudo ss -tulnp
 ```
 
@@ -526,16 +526,16 @@ sudo ss -tulnp
 
 ## 20. Ou trouver de la documentation et de l'aide ?
 
-Linux beneficie d'une communaute mondiale particulierement active et genereuse en ressources. La documentation officielle de votre distribution constitue toujours le point de depart le plus fiable : le wiki Ubuntu-fr, le Handbook Debian, la documentation Fedora, ou le wiki Arch Linux (ce dernier etant reconnu comme l'une des meilleures ressources techniques, utile meme pour les utilisateurs d'autres distributions).
+Linux beneficie d'une communaute mondiale particulierement active et genereuse en ressources. La documentation officielle de votre distribution constitue toujours le point de depart le plus fiable : le wiki Ubuntu-fr, le Handbook Debian, la documentation Fedora, où le wiki Arch Linux (ce dernier étant reconnu comme l'une des meilleures ressources techniques, utile meme pour les utilisateurs d'autres distributions).
 
-Les forums et communautes en ligne sont inestimables pour resoudre des problemes specifiques. Le forum Ubuntu-fr, Ask Ubuntu, Stack Overflow (avec le tag "linux"), et Reddit (r/linux, r/linuxquestions) regorgent de discussions et de solutions. Pour des questions pointues sur l'administration systeme, Server Fault est la reference. Les canaux IRC et les serveurs Discord dedies a Linux offrent une aide en temps reel.
+Les forums et communautes en ligne sont inestimables pour résoudre des problemes spécifiques. Le forum Ubuntu-fr, Ask Ubuntu, Stack Overflow (avec le tag "linux"), et Reddit (r/linux, r/linuxquestions) regorgent de discussions et de solutions. Pour des questions pointues sur l'administration système, Server Fault est la référence. Les canaux IRC et les serveurs Discord dédiés a Linux offrent une aide en temps reel.
 
-Pour approfondir vos connaissances, le projet Linux Documentation Project (TLDP) propose des guides et des HOWTOs. Les certifications comme LPIC (Linux Professional Institute) ou RHCSA (Red Hat Certified System Administrator) fournissent un parcours structure. Enfin, n'hesitez pas a lire le code source des outils que vous utilisez : c'est l'un des grands avantages du logiciel libre :
+Pour approfondir vos connaissances, le projet Linux Documentation Project (TLDP) proposé des guides et des HOWTOs. Les certifications comme LPIC (Linux Professional Institute) ou RHCSA (Red Hat Certified System Administrator) fournissent un parcours structure. Enfin, n'hesitez pas a lire le code source des outils que vous utilisez : c'est l'un des grands avantages du logiciel libre :
 
 ```bash
 # Acceder a la documentation locale
-man hier           # comprendre l'arborescence du systeme
-info coreutils     # documentation detaillee des outils de base
+man hier           # comprendre l'arborescence du système
+info coreutils     # documentation détaillée des outils de base
 
 # Rechercher de l'aide sur un sujet precis
 apropos "disk usage"

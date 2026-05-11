@@ -1,17 +1,17 @@
 ---
 title: "Installer et configurer Apache comme serveur web"
-description: "Guide complet pour installer, configurer et securiser Apache HTTP Server sur Linux : virtual hosts, modules, SSL/TLS, PHP et monitoring."
+description: "Guide complet pour installer, configurer et sécurisér Apache HTTP Server sur Linux : virtual hosts, modules, SSL/TLS, PHP et monitoring."
 tags: [apache, serveur-web, httpd, ssl, php]
-difficulty: "intermediaire"
+difficulty: "intermédiaire"
 estimatedTime: "1 heure"
 order: 2
 ---
 
 ## Introduction
 
-Apache HTTP Server (souvent appele simplement Apache ou httpd) est le serveur web le plus repandu dans l'histoire du Web. Developpe depuis 1995 par la fondation Apache, il est reconnu pour sa flexibilite, son systeme de modules extensible et sa documentation abondante. Bien qu'il soit plus ancien que Nginx, Apache reste un choix solide pour de nombreux cas d'usage, notamment grace a sa gestion native des fichiers .htaccess et son integration etroite avec PHP.
+Apache HTTP Server (souvent appelé simplement Apache ou httpd) est le serveur web le plus répandu dans l'histoire du Web. Developpe depuis 1995 par la fondation Apache, il est reconnu pour sa flexibilité, son système de modules extensible et sa documentation abondante. Bien qu'il soit plus ancien que Nginx, Apache reste un choix solide pour de nombreux cas d'usage, notamment grâce à sa gestion native des fichiers .htaccess et son intégration etroite avec PHP.
 
-Ce guide couvre l'installation, la configuration, la securisation et l'optimisation d'Apache sur les distributions Linux les plus courantes.
+Ce guide couvre l'installation, la configuration, la sécurisation et l'optimisation d'Apache sur les distributions Linux les plus courantes.
 
 ## Installation
 
@@ -47,15 +47,15 @@ sudo firewall-cmd --permanent --add-service=https
 sudo firewall-cmd --reload
 ```
 
-Verifiez l'installation en accedant a l'adresse IP du serveur dans un navigateur. La page par defaut d'Apache devrait s'afficher.
+Verifiez l'installation en accedant a l'adresse IP du serveur dans un navigateur. La page par défaut d'Apache devrait s'afficher.
 
 ## Architecture Apache (MPM)
 
-Apache utilise des modules multi-processus (MPM -- Multi-Processing Modules) pour gerer les connexions. Le choix du MPM a un impact direct sur les performances et la consommation de ressources.
+Apache utilisé des modules multi-processus (MPM -- Multi-Processing Modules) pour gérer les connexions. Le choix du MPM a un impact direct sur les performances et la consommation de ressources.
 
 ### MPM prefork
 
-Chaque requete est traitee par un processus fils separe. C'est le mode le plus stable mais aussi le plus gourmand en memoire. Il est requis par mod_php.
+Chaque requête est traitee par un processus fils separe. C'est le mode le plus stable mais aussi le plus gourmand en mémoire. Il est requis par mod_php.
 
 ```bash
 # /etc/apache2/mods-available/mpm_prefork.conf (Debian)
@@ -70,7 +70,7 @@ Chaque requete est traitee par un processus fils separe. C'est le mode le plus s
 
 ### MPM worker
 
-Utilise des threads au sein de plusieurs processus. Plus leger que prefork mais incompatible avec mod_php (utilisez php-fpm a la place).
+Utilise des threads au sein de plusieurs processus. Plus léger que prefork mais incompatible avec mod_php (utilisez php-fpm a la place).
 
 ```bash
 <IfModule mpm_worker_module>
@@ -85,7 +85,7 @@ Utilise des threads au sein de plusieurs processus. Plus leger que prefork mais 
 
 ### MPM event
 
-Evolution du MPM worker, il dedie un thread a la gestion des connexions keep-alive. C'est le MPM recommande pour les serveurs modernes.
+Evolution du MPM worker, il dédié un thread a la gestion des connexions keep-alive. C'est le MPM recommande pour les serveurs modernes.
 
 ```bash
 <IfModule mpm_event_module>
@@ -107,7 +107,7 @@ sudo a2enmod mpm_event
 sudo systemctl restart apache2
 ```
 
-Pour verifier le MPM actif :
+Pour vérifiér le MPM actif :
 
 ```bash
 apachectl -V | grep MPM
@@ -129,12 +129,12 @@ Les chemins different selon la distribution :
 
 ### Directives principales
 
-Voici les directives essentielles a connaitre dans le fichier de configuration principal :
+Voici les directives essentielles a connaître dans le fichier de configuration principal :
 
 ```bash
 # /etc/apache2/apache2.conf (Debian) ou /etc/httpd/conf/httpd.conf (Fedora)
 
-# Utilisateur et groupe sous lesquels Apache s'execute
+# Utilisateur et groupe sous lesquels Apache s'exécute
 User www-data
 Group www-data
 
@@ -144,16 +144,16 @@ ServerAdmin admin@example.com
 # Nom de domaine principal du serveur
 ServerName example.com
 
-# Repertoire racine par defaut
+# Repertoire racine par défaut
 DocumentRoot /var/www/html
 
-# Restreindre l'acces au systeme de fichiers
+# Restreindre l'accès au système de fichiers
 <Directory />
     AllowOverride None
     Require all denied
 </Directory>
 
-# Autoriser le repertoire web
+# Autoriser le répertoire web
 <Directory /var/www/>
     Options -Indexes +FollowSymLinks
     AllowOverride All
@@ -167,7 +167,7 @@ MaxKeepAliveRequests 100
 KeepAliveTimeout 5
 ```
 
-Testez toujours la configuration avant de redemarrer :
+Testez toujours la configuration avant de redémarrer :
 
 ```bash
 # Debian/Ubuntu
@@ -179,7 +179,7 @@ sudo httpd -t
 
 ## Virtual hosts
 
-Les virtual hosts permettent d'heberger plusieurs sites sur un meme serveur Apache.
+Les virtual hosts permettent d'hébergér plusieurs sites sur un meme serveur Apache.
 
 ### Creer un virtual host
 
@@ -216,7 +216,7 @@ sudo a2ensite monsite.example.com.conf
 sudo systemctl reload apache2
 ```
 
-Pour desactiver un site :
+Pour désactiver un site :
 
 ```bash
 sudo a2dissite monsite.example.com.conf
@@ -227,7 +227,7 @@ Sur Fedora/RHEL, placez simplement le fichier dans `/etc/httpd/conf.d/` avec l'e
 
 ## Modules
 
-Apache tire sa puissance de son systeme de modules. Voici les plus utilises.
+Apache tire sa puissance de son système de modules. Voici les plus utilisés.
 
 ### Gestion des modules sur Debian/Ubuntu
 
@@ -244,11 +244,11 @@ sudo a2enmod headers
 # Desactiver un module
 sudo a2dismod autoindex
 
-# Recharger apres modification
+# Recharger après modification
 sudo systemctl restart apache2
 ```
 
-### mod_rewrite -- Reecriture d'URL
+### mod_rewrite -- Reécriture d'URL
 
 Ce module est indispensable pour les applications web modernes (WordPress, Laravel, etc.) :
 
@@ -261,7 +261,7 @@ Ce module est indispensable pour les applications web modernes (WordPress, Larav
         AllowOverride All
         Require all granted
 
-        # Reecrire toutes les requetes vers index.php (front controller)
+        # Reécrire toutes les requêtes vers index.php (front controller)
         RewriteEngine On
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteCond %{REQUEST_FILENAME} !-d
@@ -299,7 +299,7 @@ sudo a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests
 
 ```bash
 <VirtualHost *:443>
-    # En-tetes de securite
+    # En-tetes de sécurité
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set X-Content-Type-Options "nosniff"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
@@ -313,9 +313,9 @@ sudo a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests
 
 ## Fichiers .htaccess
 
-Les fichiers `.htaccess` permettent de modifier la configuration Apache au niveau d'un repertoire sans toucher a la configuration principale. Ils sont pratiques mais ont un impact sur les performances car Apache les relit a chaque requete.
+Les fichiers `.htaccess` permettent de modifier la configuration Apache au niveau d'un répertoire sans toucher a la configuration principale. Ils sont pratiques mais ont un impact sur les performances car Apache les relit a chaque requête.
 
-Pour activer les `.htaccess`, assurez-vous que la directive `AllowOverride` est sur `All` dans la configuration du repertoire concerne.
+Pour activer les `.htaccess`, assurez-vous que la directive `AllowOverride` est sur `All` dans la configuration du répertoire concerne.
 
 Exemples courants de `.htaccess` :
 
@@ -325,7 +325,7 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Bloquer l'acces a certains fichiers
+# Bloquer l'accès a certains fichiers
 <FilesMatch "\.(env|git|htpasswd|log)$">
     Require all denied
 </FilesMatch>
@@ -336,15 +336,15 @@ AuthName "Zone restreinte"
 AuthUserFile /etc/apache2/.htpasswd
 Require valid-user
 
-# Desactiver le listing des repertoires
+# Desactiver le listing des répertoires
 Options -Indexes
 
-# Page d'erreur personnalisee
+# Page d'erreur personnalisée
 ErrorDocument 404 /erreur-404.html
 ErrorDocument 500 /erreur-500.html
 ```
 
-Pour creer un fichier de mots de passe :
+Pour créer un fichier de mots de passe :
 
 ```bash
 sudo htpasswd -c /etc/apache2/.htpasswd utilisateur1
@@ -373,7 +373,7 @@ sudo dnf install -y certbot python3-certbot-apache
 sudo certbot --apache -d monsite.example.com -d www.monsite.example.com
 ```
 
-Certbot cree automatiquement un virtual host SSL. Le resultat ressemble a :
+Certbot créé automatiquement un virtual host SSL. Le résultat ressemble a :
 
 ```bash
 <VirtualHost *:443>
@@ -403,7 +403,7 @@ sudo systemctl status certbot.timer
 
 ### Option 1 : mod_php (avec MPM prefork)
 
-C'est la methode la plus simple mais la moins performante :
+C'est la méthode la plus simple mais la moins performante :
 
 ```bash
 sudo apt install -y libapache2-mod-php php php-mysql php-curl php-xml
@@ -413,7 +413,7 @@ sudo systemctl restart apache2
 
 ### Option 2 : PHP-FPM (recommande)
 
-PHP-FPM fonctionne comme un service independant communiquant avec Apache via un socket. C'est la methode recommandee car elle est compatible avec les MPM event et worker.
+PHP-FPM fonctionne comme un service indépendant communiquant avec Apache via un socket. C'est la méthode recommandee car elle est compatible avec les MPM event et worker.
 
 ```bash
 sudo apt install -y php-fpm php-mysql php-curl php-xml
@@ -446,7 +446,7 @@ Verifiez que PHP fonctionne :
 ```bash
 echo "<?php phpinfo();" | sudo tee /var/www/php-app/public/info.php
 curl http://php.example.com/info.php | head -5
-# Supprimez ce fichier apres le test
+# Supprimez ce fichier après le test
 sudo rm /var/www/php-app/public/info.php
 ```
 
@@ -454,7 +454,7 @@ sudo rm /var/www/php-app/public/info.php
 
 ### Format de logs
 
-Apache propose plusieurs formats de logs. Le format `combined` est le plus courant :
+Apache proposé plusieurs formats de logs. Le format `combined` est le plus courant :
 
 ```bash
 LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
@@ -475,7 +475,7 @@ tail -f /var/log/apache2/access.log
 # Les 10 pages les plus visitees
 awk '{print $7}' /var/log/apache2/access.log | sort | uniq -c | sort -rn | head -10
 
-# Nombre de requetes par code de statut
+# Nombre de requêtes par code de statut
 awk '{print $9}' /var/log/apache2/access.log | sort | uniq -c | sort -rn
 
 # Requetes par heure
@@ -516,7 +516,7 @@ ServerTokens Prod
 ServerSignature Off
 ```
 
-### Desactiver le listing des repertoires
+### Desactiver le listing des répertoires
 
 ```bash
 <Directory /var/www/>
@@ -524,7 +524,7 @@ ServerSignature Off
 </Directory>
 ```
 
-### Limiter les methodes HTTP
+### Limiter les méthodes HTTP
 
 ```bash
 <Directory /var/www/html>
@@ -544,10 +544,10 @@ Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains
 Header always set Content-Security-Policy "default-src 'self'"
 ```
 
-### Limiter la taille des requetes
+### Limiter la taille des requêtes
 
 ```bash
-# Limiter la taille du corps des requetes a 10 Mo
+# Limiter la taille du corps des requêtes a 10 Mo
 LimitRequestBody 10485760
 ```
 
@@ -568,14 +568,14 @@ sudo apachectl configtest
 # Recharger la configuration
 sudo systemctl reload apache2
 
-# Redemarrer completement
+# Redémarrer complètement
 sudo systemctl restart apache2
 
-# Activer/desactiver un site (Debian)
+# Activer/désactiver un site (Debian)
 sudo a2ensite monsite.conf
 sudo a2dissite monsite.conf
 
-# Activer/desactiver un module (Debian)
+# Activer/désactiver un module (Debian)
 sudo a2enmod rewrite
 sudo a2dismod autoindex
 

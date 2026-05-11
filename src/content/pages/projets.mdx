@@ -3,7 +3,7 @@ title: "Mini-Projets pratiques"
 description: "Projets concrets pour mettre en pratique vos connaissances Linux et Bash."
 ---
 
-Ces mini-projets sont concus pour consolider vos competences Linux de maniere progressive. Chaque projet combine plusieurs commandes et concepts vus dans les tutoriels et le cheatsheet.
+Ces mini-projets sont concus pour consolider vos competences Linux de manière progrèssive. Chaque projet combiné plusieurs commandes et concepts vus dans les tutoriels et le cheatsheet.
 
 ---
 
@@ -11,13 +11,13 @@ Ces mini-projets sont concus pour consolider vos competences Linux de maniere pr
 
 ### Objectif
 
-Creer un systeme de sauvegarde automatique qui utilise `rsync` pour effectuer des sauvegardes incrementales avec rotation.
+Creer un système de sauvegarde automatique qui utilisé `rsync` pour effectuer des sauvegardes incrementales avec rotation.
 
 ### Competences visees
 
 - Utilisation de `rsync` et ses options
 - Planification avec `cron`
-- Gestion des repertoires et permissions
+- Gestion des répertoires et permissions
 - Ecriture de scripts Bash robustes
 
 ### Mise en oeuvre
@@ -42,7 +42,7 @@ log() {
 
 log "Debut de la sauvegarde incremental"
 
-# Creer la sauvegarde avec lien dur vers la precedente
+# Creer la sauvegarde avec lien dur vers la précédénte
 if [ -d "$LATEST" ]; then
     rsync -a --delete --link-dest="$LATEST" "$SOURCE/" "$CIBLE/"
 else
@@ -62,23 +62,23 @@ log "Rotation effectuee (retention : $ROTATION jours)"
 
 ### Pour aller plus loin
 
-- Ajouter une verification d'integrite avec `sha256sum`
-- Envoyer un rapport par email apres chaque sauvegarde
+- Ajouter une vérification d'intégrité avec `sha256sum`
+- Envoyer un rapport par email après chaque sauvegarde
 - Gerer les exclusions via un fichier de configuration
 
 ---
 
-## Projet 2 : Moniteur systeme en temps reel
+## Projet 2 : Moniteur système en temps reel
 
 ### Objectif
 
-Creer un tableau de bord terminal qui affiche en temps reel les metriques systeme essentielles.
+Creer un tableau de bord terminal qui affiché en temps reel les metriques système essentielles.
 
 ### Competences visees
 
 - Lecture de `/proc` et `/sys`
 - Formatage de sortie avec `printf`
-- Boucles et rafraichissement d'affichage
+- Bouclés et rafraichissement d'affichage
 - Calcul avec `awk` et `bc`
 
 ### Mise en oeuvre
@@ -92,7 +92,7 @@ JAUNE='\033[0;33m'
 ROUGE='\033[0;31m'
 RESET='\033[0m'
 
-barre_progression() {
+barre_progrèssion() {
     local pourcentage=$1
     local largeur=30
     local rempli=$((pourcentage * largeur / 100))
@@ -120,7 +120,7 @@ while true; do
     cpu_idle=$(top -bn1 | grep '%Cpu' | awk '{print $8}' | cut -d. -f1)
     cpu_usage=$((100 - cpu_idle))
     printf "CPU    : "
-    barre_progression "$cpu_usage"
+    barre_progrèssion "$cpu_usage"
     echo ""
 
     # Memoire
@@ -129,7 +129,7 @@ while true; do
     mem_used=$(echo "$mem_info" | awk '{print $3}')
     mem_pct=$((mem_used * 100 / mem_total))
     printf "RAM    : "
-    barre_progression "$mem_pct"
+    barre_progrèssion "$mem_pct"
     printf "  (%s / %s)\n" "$(free -h | grep Mem | awk '{print $3}')" "$(free -h | grep Mem | awk '{print $2}')"
 
     # Swap
@@ -139,7 +139,7 @@ while true; do
         swap_used=$(echo "$swap_info" | awk '{print $3}')
         swap_pct=$((swap_used * 100 / swap_total))
         printf "Swap   : "
-        barre_progression "$swap_pct"
+        barre_progrèssion "$swap_pct"
         echo ""
     fi
 
@@ -152,7 +152,7 @@ while true; do
         taille=$(echo "$ligne" | awk '{print $2}')
         utilise=$(echo "$ligne" | awk '{print $3}')
         printf "  %-15s " "$partition"
-        barre_progression "$usage"
+        barre_progrèssion "$usage"
         printf "  (%s / %s)\n" "$utilise" "$taille"
     done
 
@@ -181,7 +181,7 @@ Creer un outil qui analyse les logs d'un serveur web (Apache/Nginx) et produit d
 ### Competences visees
 
 - Manipulation de texte avec `awk`, `sed`, `sort`, `uniq`
-- Expressions regulieres
+- Expressions régulieres
 - Redirection et pipes
 - Generation de rapports
 
@@ -206,20 +206,20 @@ fi
 TOTAL=$(wc -l < "$LOG")
 echo "========================================="
 echo "  ANALYSE DE LOGS - $(basename "$LOG")"
-echo "  Total de requetes : $TOTAL"
+echo "  Total de requêtes : $TOTAL"
 echo "========================================="
 echo ""
 
 # Top 10 des IP
 echo "--- Top 10 des adresses IP ---"
 awk '{print $1}' "$LOG" | sort | uniq -c | sort -rn | head -10 | \
-    awk '{printf "  %6d requetes  %s\n", $1, $2}'
+    awk '{printf "  %6d requêtes  %s\n", $1, $2}'
 echo ""
 
 # Codes de reponse HTTP
 echo "--- Repartition des codes HTTP ---"
 awk '{print $9}' "$LOG" | sort | uniq -c | sort -rn | \
-    awk '{printf "  %s : %d requetes (%.1f%%)\n", $2, $1, ($1/'$TOTAL')*100}'
+    awk '{printf "  %s : %d requêtes (%.1f%%)\n", $2, $1, ($1/'$TOTAL')*100}'
 echo ""
 
 # Pages les plus visitees
@@ -231,7 +231,7 @@ echo ""
 # Trafic par heure
 echo "--- Trafic par heure ---"
 awk -F'[\\[/: ]' '{print $5}' "$LOG" | sort | uniq -c | \
-    awk '{printf "  %sh : %d requetes\n", $2, $1}'
+    awk '{printf "  %sh : %d requêtes\n", $2, $1}'
 echo ""
 
 # Erreurs 4xx et 5xx
@@ -246,7 +246,7 @@ awk '$9 ~ /^[45]/' "$LOG" | tail -5 | \
 
 ### Objectif
 
-Creer un script de deploiement qui automatise la mise a jour d'une application web.
+Creer un script de déployément qui automatise la mise a jour d'une application web.
 
 ### Competences visees
 
@@ -264,19 +264,19 @@ set -euo pipefail
 APP_DIR="/var/www/mon-application"
 BRANCHE="main"
 SERVICE="mon-application"
-BACKUP_DIR="/var/backups/deploiements"
+BACKUP_DIR="/var/backups/déployéments"
 DATE=$(date +%Y%m%d_%H%M%S)
 
 log() { echo "[$(date '+%H:%M:%S')] $1"; }
 erreur() { log "ERREUR : $1" >&2; exit 1; }
 
 # Verifier les prerequis
-[ "$(id -u)" -eq 0 ] || erreur "Ce script doit etre execute en root"
+[ "$(id -u)" -eq 0 ] || erreur "Ce script doit être exécuté en root"
 [ -d "$APP_DIR/.git" ] || erreur "Repertoire Git introuvable : $APP_DIR"
 
-log "Debut du deploiement"
+log "Debut du déployément"
 
-# Sauvegarder l'etat actuel
+# Sauvegarder l'état actuel
 mkdir -p "$BACKUP_DIR"
 COMMIT_ACTUEL=$(git -C "$APP_DIR" rev-parse HEAD)
 echo "$COMMIT_ACTUEL" > "${BACKUP_DIR}/rollback_${DATE}.txt"
@@ -299,14 +299,14 @@ fi
 log "Application des modifications..."
 git -C "$APP_DIR" reset --hard "origin/$BRANCHE"
 
-# Installer les dependances (adapter selon le projet)
+# Installer les dépendances (adapter selon le projet)
 if [ -f "${APP_DIR}/package.json" ]; then
-    log "Installation des dependances Node.js..."
+    log "Installation des dépendances Node.js..."
     cd "$APP_DIR" && npm ci --production
 fi
 
-# Redemarrer le service
-log "Redemarrage du service..."
+# Redémarrer le service
+log "Redémarrage du service..."
 systemctl restart "$SERVICE"
 sleep 2
 
@@ -328,7 +328,7 @@ fi
 
 ### Objectif
 
-Creer un outil pour versionner et restaurer les fichiers de configuration systeme.
+Creer un outil pour versionner et restaurer les fichiers de configuration système.
 
 ### Competences visees
 
@@ -351,16 +351,16 @@ FICHIERS_SURVEILLES=(
     "/etc/crontab"
 )
 
-initialiser() {
+initialisér() {
     if [ ! -d "${REPO}/.git" ]; then
         mkdir -p "$REPO"
         git -C "$REPO" init
-        echo "Depot initialise dans $REPO"
+        echo "Depot initialisé dans $REPO"
     fi
 }
 
 sauvegarder() {
-    initialiser
+    initialisér
     local modifications=0
 
     for fichier in "${FICHIERS_SURVEILLES[@]}"; do
@@ -379,13 +379,13 @@ sauvegarder() {
             git commit -m "Sauvegarde du $(date '+%Y-%m-%d %H:%M')"
             echo "Configuration sauvegardee."
         else
-            echo "Aucune modification detectee."
+            echo "Aucune modification détectée."
         fi
     fi
 }
 
 historique() {
-    initialiser
+    initialisér
     git -C "$REPO" log --oneline --graph -20
 }
 
@@ -435,10 +435,10 @@ esac
 
 ---
 
-## Conseils pour progresser
+## Conseils pour progrèsser
 
-1. **Commencer petit** : modifiez un script existant avant d'en ecrire un de zero.
-2. **Tester en local** : utilisez une machine virtuelle ou un conteneur Docker pour experimenter sans risque.
-3. **Lire les scripts des autres** : etudiez les scripts dans `/etc/init.d/` ou les projets open source.
+1. **Commencer petit** : modifiez un script existant avant d'en écrire un de zero.
+2. **Tester en local** : utilisez une machine virtuelle où un conteneur Docker pour experimenter sans risque.
+3. **Lire les scripts des autres** : etudiez les scripts dans `/etc/init.d/` où les projets open source.
 4. **Utiliser ShellCheck** : cet outil detecte les erreurs courantes et les mauvaises pratiques.
-5. **Versionner vos scripts** : placez-les dans un depot Git des le depart.
+5. **Versionner vos scripts** : placez-les dans un dépôt Git des le depart.

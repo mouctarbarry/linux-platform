@@ -1,8 +1,8 @@
 ---
 title: lsusb
 category: systeme
-description: Lister les peripheriques USB
-tags: [systeme, usb, peripheriques, materiel]
+description: Lister les périphériques USB
+tags: [système, usb, périphériques, matériel]
 ---
 
 ## Syntaxe
@@ -15,15 +15,15 @@ lsusb [OPTIONS]
 
 | Option | Description                                       |
 | ------ | ------------------------------------------------- |
-| `-v`   | Afficher des informations detaillees              |
-| `-t`   | Afficher la hierarchie en arbre                   |
-| `-s`   | Filtrer par bus et numero de peripherique          |
+| `-v`   | Afficher des informations détaillées              |
+| `-t`   | Afficher la hiérarchie en arbre                   |
+| `-s`   | Filtrer par bus et numero de périphérique          |
 | `-d`   | Filtrer par identifiant vendeur:produit           |
-| `-D`   | Afficher les details d'un fichier de peripherique |
+| `-D`   | Afficher les details d'un fichier de périphérique |
 
 ## Exemples
 
-### Lister tous les peripheriques USB
+### Lister tous les périphériques USB
 
 ```bash
 $ lsusb
@@ -34,7 +34,7 @@ Bus 001 Device 002: ID 0bda:5634 Realtek Semiconductor Corp. USB Camera
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ```
 
-### Afficher la hierarchie USB en arbre
+### Afficher la hiérarchie USB en arbre
 
 ```bash
 $ lsusb -t
@@ -45,7 +45,7 @@ $ lsusb -t
     |__ Port 8: Dev 4, If 0, Class=Human Interface Device, Driver=usbhid, 12M
 ```
 
-### Afficher les details d'un peripherique specifique
+### Afficher les details d'un périphérique spécifique
 
 ```bash
 $ lsusb -v -d 046d:c52b
@@ -63,7 +63,7 @@ Device Descriptor:
   iProduct                2 USB Receiver
 ```
 
-### Filtrer par bus et peripherique
+### Filtrer par bus et périphérique
 
 ```bash
 $ lsusb -s 001:004
